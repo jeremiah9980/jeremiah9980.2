@@ -7,28 +7,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 
 :root {
-  /* Paper & ink */
-  --paper: #FAF7F2;
-  --paper-deep: #F2EDE4;
-  --paper-edge: #E8E0D2;
-  --ink: #1A1614;
-  --ink-soft: #3E3A36;
-  --ink-muted: #7A7066;
-  --rule: #D6CCBC;
-  --rule-soft: #E8DFCE;
+  /* Surfaces & ink — classic enterprise: dark navy on white */
+  --paper: #FFFFFF;
+  --paper-deep: #F2F5FA;
+  --paper-edge: #E5EBF2;
+  --ink: #0A2540;           /* deep navy — primary text & dark surfaces */
+  --ink-soft: #334E68;      /* body copy */
+  --ink-muted: #7A8CA0;     /* labels, meta, captions */
+  --rule: #D4DCE5;
+  --rule-soft: #E5EBF2;
 
-  /* Accents */
-  --terracotta: #B8491F;
-  --terracotta-deep: #8A3414;
-  --terracotta-wash: #F0D9C9;
-  --drafting: #1E3A4C;
-  --drafting-wash: #D6DEE3;
-  --vellum: #E8DFCE;
+  /* Accent — enterprise blue.
+     Kept old --terracotta* variable names so no downstream rules need editing. */
+  --terracotta: #1B5FB8;
+  --terracotta-deep: #0F4382;
+  --terracotta-wash: #DCE8F7;
+  --drafting: #1E4976;      /* mid navy, used as secondary accent */
+  --drafting-wash: #D8E3F0;
+  --vellum: #E5EBF2;
 
   /* Signals */
-  --ok: #4A6B3D;
+  --ok: #1F7A4D;
   --warn: #B38A2A;
-  --danger: #8A2E1F;
+  --danger: #B3261E;
 
   /* Type */
   --display: 'Fraunces', 'Playfair Display', Georgia, serif;
@@ -51,7 +52,7 @@ html {
 body {
   margin: 0;
   background: var(--paper);
-  color: var(--ink);
+  color: var(--ink-soft);
   font-family: var(--body);
   font-weight: 400;
   font-size: 16.5px;
@@ -59,23 +60,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* Subtle paper grain */
+  /* Subtle cool tints — trace of depth without muddying white */
   background-image:
-    radial-gradient(at 20% 15%, rgba(184, 73, 31, 0.025) 0%, transparent 50%),
-    radial-gradient(at 80% 85%, rgba(30, 58, 76, 0.03) 0%, transparent 55%);
+    radial-gradient(at 20% 15%, rgba(27, 95, 184, 0.018) 0%, transparent 50%),
+    radial-gradient(at 80% 85%, rgba(10, 37, 64, 0.022) 0%, transparent 55%);
   background-attachment: fixed;
 }
 
-/* Paper grain overlay — very subtle */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.35;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
+/* Overlay intentionally disabled — paper-grain reads as dirt on white. */
+body::before { content: none; }
 
 main, header, footer, section, nav { position: relative; z-index: 1; }
 
@@ -257,7 +250,7 @@ section.tight { padding: clamp(2rem, 4vw, 3.5rem) 0; }
   top: 0;
   z-index: 50;
   backdrop-filter: blur(6px);
-  background: rgba(250, 247, 242, 0.92);
+  background: rgba(255, 255, 255, 0.92);
 }
 
 .site-nav-inner {

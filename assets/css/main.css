@@ -13,16 +13,25 @@
    * updated.
    */
 
-  /* Surfaces & ink — keep white/light paper for readability */
-  --paper: #FFFFFF;
-  --paper-deep: #F7F9FC;
-  --paper-edge: #EAF0F8;
-  /* Text colours: ink becomes a dark navy for contrast on white */
-  --ink: #0A2540;
-  --ink-soft: #42526E;
-  --ink-muted: #7A8CA0;
-  --rule: #D4DCE5;
-  --rule-soft: #EAF0F8;
+  /*
+   * Surfaces & ink — updated for a dark mode palette.  The page
+   * background (paper) now uses a deep navy shade.  Text (ink) is
+   * white for maximum contrast.  Softer text uses off‑white tints,
+   * and rules use darker tones to subtly delineate sections without
+   * overwhelming the dark backdrop.
+   */
+  --paper: #0A1F3D;        /* primary background: rich dark blue */
+  --paper-deep: #081B33;    /* slightly darker variant for panels */
+  --paper-edge: #051627;    /* darkest shade for subtle edges */
+
+  /* Text colours on dark surfaces */
+  --ink: #FFFFFF;          /* primary copy in bright white */
+  --ink-soft: #CBD5E1;     /* secondary copy in a soft light grey */
+  --ink-muted: #7A8CA0;    /* tertiary copy in muted blue‑grey */
+
+  /* Rules and separators on dark surfaces */
+  --rule: #173459;         /* dark royal blue for section borders */
+  --rule-soft: #0F2A49;    /* softer version for subtle dividers */
 
   /* Primary accent — enterprise blue (from first UI scheme) */
   --terracotta: #1B5FB8;

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Infrastructure Projects · Jeremiah Cargill</title>
+<meta name="description" content="Infrastructure Projects — Jeremiah Cargill, Enterprise Architect.">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="../../" class="brand">
+      Cargill<span class="amp">&amp;</span>Co
+      <span class="brand-sub">Enterprise · SMB · Lab</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">Menu</button>
+    <ul class="nav-links">
+      <li><a href="../../index.html">Index</a></li>
+      <li><a href="../../professional/">Professional</a></li>
+      <li><a href="../../professional/cargill-consulting/">Cargill Consulting</a></li>
+      <li><a href="../../professional/next-gen-it/">Next-Gen-IT</a></li>
+      <li><a href="../../projects/" class="active">Projects</a></li>
+      <li><a href="../../professional/about/">About</a></li>
+    </ul>
+  </div>
+</nav>
+<main>
+
+<div class="container"><div class="breadcrumbs"><a href="../../">Home</a><span class="sep">/</span><a href="../../projects/">Projects</a><span class="sep">/</span><span>Infrastructure</span></div></div>
+<section class="hero">
+  <div class="container narrow">
+    <span class="eyebrow eyebrow-rule reveal">2.a · Lab</span>
+    <h1 class="reveal">Infrastructure work — <em>the real ones.</em></h1>
+    <p class="lede reveal">Diagrams, topology views, migration artifacts, and audit outputs from actual environments. Some are client deliverables (redacted where necessary); some are lab work that later became reusable templates.</p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="container">
+    <div class="stats">
+      <div class="stat"><span class="stat-num">838</span><span class="stat-label">VMs · AUS prod cluster</span></div>
+      <div class="stat"><span class="stat-num">92</span><span class="stat-label">VMs · DR cluster</span></div>
+      <div class="stat"><span class="stat-num">68</span><span class="stat-label">UCS blades audited</span></div>
+      <div class="stat"><span class="stat-num">36mo</span><span class="stat-label">OpenShift horizon</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <span class="eyebrow eyebrow-rule">Active / Recent</span>
+    <h2>OpenShift migration program.</h2>
+    <p>Production and DR vCenter analysis (RVTools), UCS health audit across 68 blades, Jira-import CSV for modernization backlog, POC runbook targeting the C2-WebSphere-Cluster for Single Node OpenShift, OpenShift working session with Red Hat engineering. Findings surfaced expiring SSL certificates, multipath storage failures, dead boot LUNs, and a critically unhealthy UCS node — all of which shaped the migration wave plan.</p>
+
+    <div class="grid grid-2 mt-3">
+      <div class="card"><span class="card-eyebrow">Artifact</span><h3>Infrastructure health reports</h3><p>RVTools-derived reports covering both vCenter environments, host-level drill, storage paths, certificate expiries, boot-LUN status.</p></div>
+      <div class="card"><span class="card-eyebrow">Artifact</span><h3>Jira-import CSV</h3><p>Structured backlog for the modernization program — every finding becomes a ticket with priority, workstream, and owner hints.</p></div>
+      <div class="card"><span class="card-eyebrow">Artifact</span><h3>POC runbook (SNO)</h3><p>Single Node OpenShift POC on the C2-WebSphere-Cluster target — prerequisites, sequence, rollback posture.</p></div>
+      <div class="card"><span class="card-eyebrow">Artifact</span><h3>Migration wave plan</h3><p>24–36 month horizon, workload-class banding, dependency sequencing.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <span class="eyebrow eyebrow-rule">Prior environments</span>
+    <h2>Representative work, documented.</h2>
+    <div class="grid grid-2 mt-3">
+      <div class="card"><span class="card-eyebrow">Datacenter / Virtualization</span><h3>TX Datacenter &amp; Virtual Environment</h3><p>Core-stack, managed router, firewall, VoIP, HP Indigo systems, virtual infra — documented in a single reference.</p></div>
+      <div class="card"><span class="card-eyebrow">Multi-Site Enterprise</span><h3>TX / CA / LAX Site Architecture</h3><p>Regional sites, datacenters, branch presence, cross-site workflow dependencies.</p></div>
+      <div class="card"><span class="card-eyebrow">Healthcare</span><h3>Harbor Health Multi-Clinic Footprint</h3><p>Standardized site topology — clinics, call center, HQ, mobile units.</p></div>
+      <div class="card"><span class="card-eyebrow">Hybrid / Migration</span><h3>Support &amp; Migration Reference</h3><p>On-prem to virtual to cloud gateway, backup flows, migration-readiness mapping.</p></div>
+      <div class="card"><span class="card-eyebrow">Workflow Automation</span><h3>MFA Print &amp; Onyx VPS Pipeline</h3><p>Downloaders, RIP stations, forwarding, packing slips, Zund cut-queue integration.</p></div>
+      <div class="card"><span class="card-eyebrow">Physical Security</span><h3>Facility Access Control</h3><p>Entry points, control-board hubs, readers, locking mechanisms for secure ops handoff.</p></div>
+    </div>
+    <div class="scaffold mt-4">
+      <div class="scaffold-label">Asset migration</div>
+      <p>Copy infrastructure diagrams from the existing site's <code>/assets/infra/</code> folder into <code>/assets/images/infra/</code> in this repo, then replace placeholders with <code>&lt;img&gt;</code> tags. All diagrams are preserved in the v1 repo under <code>jeremiah9980.github.io/jeremiah9980/assets/infra/</code>.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Cargill<span>&amp;</span>Co</div>
+        <p class="footer-tag">Two practices, one architect. Enterprise-grade thinking applied across the size spectrum, plus an active project lab.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Professional</h5>
+        <ul>
+          <li><a href="../../professional/cargill-consulting/">Cargill Consulting</a></li>
+          <li><a href="../../professional/next-gen-it/">Next-Gen-IT</a></li>
+          <li><a href="../../professional/about/">About</a></li>
+          <li><a href="../../professional/about/resumes/">Resumes</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Projects</h5>
+        <ul>
+          <li><a href="../../projects/infrastructure/">Infrastructure</a></li>
+          <li><a href="../../projects/conflict-collection/">Conflict Collection</a></li>
+          <li><a href="../../projects/ai/">AI</a></li>
+          <li><a href="../../projects/clients/">Clients</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="https://github.com/jeremiah9980">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/jeremiahcargill/">LinkedIn</a></li>
+          <li><span class="muted">Austin, TX</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-meta">
+      <span>© 2026 Jeremiah Cargill</span>
+      <span>Built in production · Portfolio &amp; practice</span>
+    </div>
+  </div>
+</footer>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

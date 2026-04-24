@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Conflict Collection &amp; Neutral Analysis Platform · Jeremiah Cargill</title>
+<meta name="description" content="A platform for ingesting, normalizing, and neutrally analyzing conflict documentation across multiple AI models. For co-parents, family-law attorneys, and mediators.">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="../../" class="brand">
+      Cargill<span class="amp">&amp;</span>Co
+      <span class="brand-sub">Enterprise · SMB · Lab</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">Menu</button>
+    <ul class="nav-links">
+      <li><a href="../../index.html">Index</a></li>
+      <li><a href="../../professional/">Professional</a></li>
+      <li><a href="../../professional/cargill-consulting/">Cargill Consulting</a></li>
+      <li><a href="../../professional/next-gen-it/">Next-Gen-IT</a></li>
+      <li><a href="../../projects/" class="active">Projects</a></li>
+      <li><a href="../../professional/about/">About</a></li>
+    </ul>
+  </div>
+</nav>
+<main>
+
+<div class="container"><div class="breadcrumbs"><a href="../../">Home</a><span class="sep">/</span><a href="../../projects/">Projects</a><span class="sep">/</span><span>Conflict Collection</span></div></div>
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow eyebrow-rule reveal">2.e · Flagship Project</span>
+        <h1 class="reveal">Conflict Collection &amp; <em>Neutral Analysis Platform.</em></h1>
+        <p class="lede reveal">Ingest text threads, emails, screenshots, and notes. Normalize into conflict events. Run each event through multiple AI models. Surface the consensus and the disagreement. Build court-ready exhibits with a documented provenance chain. Targeted at co-parents, family-law attorneys, and mediators.</p>
+      </div>
+      <div class="dossier reveal">
+        <dl>
+          <dt>Stage</dt><dd>In development</dd>
+          <dt>Users</dt><dd>Co-parents · Attorneys · Mediators</dd>
+          <dt>Differentiator</dt><dd>Multi-model consensus = neutral</dd>
+          <dt>Output</dt><dd>Timeline · Dashboard · Exhibit packet</dd>
+          <dt>Eventual home</dt><dd>Dedicated subdomain / product</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="container">
+    <div class="callout">
+      <div class="callout-label">Why this exists</div>
+      <p>Conflict documentation in family-law contexts is fragmented across text threads, email, screenshots, voicemail transcripts, calendar entries, and people's memories. Legal exhibit work requires clean timelines, neutral framing, and verifiable provenance. Doing that manually is expensive — and lawyers bill for it. Doing it with a single AI model invites accusations of bias. Doing it with <em>multiple</em> models and surfacing their agreement gives the neutrality a structural basis rather than a vendor claim.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <span class="eyebrow eyebrow-rule">Workflow</span>
+    <h2>Six stages, one through-line.</h2>
+    <ol class="process">
+      <li>
+        <h4>Ingest</h4>
+        <p>Accept iMessage/SMS exports, Gmail thread exports, screenshot OCR, manual notes, calendar entries, voicemail transcripts. Each source gets tagged with its provenance — where it came from, when it was collected, whether it's verifiable against the original.</p>
+      </li>
+      <li>
+        <h4>Normalize into conflict events</h4>
+        <p>Every piece of ingested content becomes one or more event records: timestamp, parties, channel, content, attachments, tags. This is the canonical object the rest of the system operates on.</p>
+      </li>
+      <li>
+        <h4>Multi-model neutral analysis</h4>
+        <p>Each event is run through multiple AI platforms (Claude, GPT, Gemini). Outputs are structured and compared. Where models agree on a characterization — tone, behavior pattern, escalation marker — that's surfaced as consensus. Where they diverge, the divergence itself is shown. Neutral is emergent from the consensus, not asserted by the system.</p>
+      </li>
+      <li>
+        <h4>Dashboard</h4>
+        <p>Timeline view, party/relationship view, pattern detection — escalation, stonewalling, frequency shifts, response-time drift. The dashboard is built for a human reviewer (user or attorney) to scan quickly and drill down selectively.</p>
+      </li>
+      <li>
+        <h4>Exhibit builder</h4>
+        <p>Export court-ready exhibit packets — numbered, timestamped, redacted where needed, with a documented provenance chain for every item. This is the piece attorneys care about most: exhibits that don't get challenged on foundation.</p>
+      </li>
+      <li>
+        <h4>Case continuity</h4>
+        <p>Ongoing ingestion as the conflict continues, with pattern drift reporting over time and re-export of updated exhibit packets.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <span class="eyebrow eyebrow-rule">Data model</span>
+    <h2>The conflict event record.</h2>
+    <p>Everything the system does operates on a normalized event. Rough shape:</p>
+    <pre><code>ConflictEvent {
+  id: uuid
+  timestamp: iso8601
+  parties: [PartyRef]
+  channel: enum { sms, imessage, email, screenshot, note, voicemail, calendar }
+  source: SourceRef { raw_filename, ingest_timestamp, provenance_chain[] }
+  content: {
+    raw_text: string
+    attachments: [AttachmentRef]
+  }
+  tags: [string]
+  analyses: [
+    { model: enum, prompt_version: string, output: structured_json, timestamp: iso8601 }
+  ]
+  consensus: ConsensusSummary | null
+  exhibit_refs: [ExhibitId]
+}</code></pre>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="split">
+      <div>
+        <span class="eyebrow eyebrow-rule">Target users</span>
+        <h2>Who's actually using this.</h2>
+      </div>
+      <div>
+        <h3>Co-parents</h3>
+        <p>Documenting an ongoing conflict for their own sanity and for future legal readiness. The timeline view and exhibit packets are the primary value.</p>
+        <h3 class="mt-3">Family-law attorneys</h3>
+        <p>Receiving a clean, neutral-framed conflict record from their client instead of a chaotic drop of screenshots. Court-ready exhibits straight out of the platform.</p>
+        <h3 class="mt-3">Mediators</h3>
+        <p>Understanding conflict patterns before the session — escalation markers, stonewalling frequency, response-time drift. Structural context without the advocate framing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <span class="eyebrow eyebrow-rule">Status</span>
+    <h2>Where the platform is today.</h2>
+    <div class="grid grid-3">
+      <div class="card"><span class="card-eyebrow">Done</span><h3>Ingest prototype</h3><p>Working prototype for iMessage/SMS and Gmail thread ingestion with provenance capture. Proven against a real case corpus.</p></div>
+      <div class="card"><span class="card-eyebrow">Done</span><h3>Multi-model consensus prototype</h3><p>Claude + additional model runs against normalized events. Structured output comparison working.</p></div>
+      <div class="card"><span class="card-eyebrow">In progress</span><h3>Dashboard &amp; exhibit builder</h3><p>Web UI for timeline, dashboard, exhibit packet export. Design and data-layer scoping.</p></div>
+      <div class="card"><span class="card-eyebrow">Next</span><h3>Attorney pilot</h3><p>Identify 1–3 family-law attorneys willing to run a live case through the platform. Priority: Austin/Central Texas.</p></div>
+      <div class="card"><span class="card-eyebrow">Eventually</span><h3>Productization</h3><p>Own subdomain, SaaS pricing, HIPAA-adjacent data handling posture, expanded channel support.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container narrow tc">
+    <h2>Interested in the attorney pilot?</h2>
+    <p>If you practice family law in Central Texas and would consider running one case through the platform as a pilot, I'd like to hear from you.</p>
+    <div class="btn-cluster" style="justify-content:center">
+      <a class="btn" href="mailto:jeremiah@cargillco.example">Contact about pilot</a>
+      <a class="btn btn-ghost" href="../">Back to projects</a>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Cargill<span>&amp;</span>Co</div>
+        <p class="footer-tag">Two practices, one architect. Enterprise-grade thinking applied across the size spectrum, plus an active project lab.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Professional</h5>
+        <ul>
+          <li><a href="../../professional/cargill-consulting/">Cargill Consulting</a></li>
+          <li><a href="../../professional/next-gen-it/">Next-Gen-IT</a></li>
+          <li><a href="../../professional/about/">About</a></li>
+          <li><a href="../../professional/about/resumes/">Resumes</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Projects</h5>
+        <ul>
+          <li><a href="../../projects/infrastructure/">Infrastructure</a></li>
+          <li><a href="../../projects/conflict-collection/">Conflict Collection</a></li>
+          <li><a href="../../projects/ai/">AI</a></li>
+          <li><a href="../../projects/clients/">Clients</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="https://github.com/jeremiah9980">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/jeremiahcargill/">LinkedIn</a></li>
+          <li><span class="muted">Austin, TX</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-meta">
+      <span>© 2026 Jeremiah Cargill</span>
+      <span>Built in production · Portfolio &amp; practice</span>
+    </div>
+  </div>
+</footer>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

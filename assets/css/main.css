@@ -1,49 +1,58 @@
-/* Modified main.css with blended color scheme (blue + coral) */
+/* Main stylesheet for the Jeremiah Cargill portfolio.  
+ *
+ * This file defines a dark colour palette drawn from the
+ * enterprise/Next‑Gen blend discussed with the client and then
+ * layers in the structural rules needed to lay out the site.  The
+ * intent is to provide a fully self‑contained stylesheet so the
+ * page renders correctly without relying on an upstream template.
+ *
+ * The palette variables at the top reflect the blue and coral
+ * scheme requested by the user: deep navy backgrounds, white ink,
+ * a cool blue highlight and a warm coral secondary highlight.  If
+ * you wish to adjust the mood in the future you can change these
+ * values and the rest of the layout will respond accordingly.
+ */
 
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 
 :root {
   /*
-   * Palette override: blend of enterprise blue and terracotta (coral).
-   * - Blue accents come from the original enterprise palette
-   * - Coral accents introduce warmth from the secondary scheme
+   * Colour palette
    *
-   * These variables mirror the names in the upstream template so downstream
-   * rules continue to work without changes. Only the color values have been
-   * updated.
+   * Surfaces & backgrounds use deep blues to create a calm dark
+   * backdrop.  Text is white or soft grey for legibility.  Two
+   * accent colours are used: a primary cool blue and a secondary
+   * coral.  Additional tints and shades are defined for subtle
+   * borders and hover states.  Signals (ok/warn/danger) are
+   * untouched from the original template.
    */
-
-  /*
-   * Surfaces & ink — updated for a dark mode palette.  The page
-   * background (paper) now uses a deep navy shade.  Text (ink) is
-   * white for maximum contrast.  Softer text uses off‑white tints,
-   * and rules use darker tones to subtly delineate sections without
-   * overwhelming the dark backdrop.
-   */
-  --paper: #0A1F3D;        /* primary background: rich dark blue */
-  --paper-deep: #081B33;    /* slightly darker variant for panels */
-  --paper-edge: #051627;    /* darkest shade for subtle edges */
+  --paper: #0A1F3D;          /* primary background: rich dark blue */
+  --paper-deep: #081B33;      /* deeper shade for panels and nav */
+  --paper-edge: #051627;      /* darkest shade for edges and fine lines */
 
   /* Text colours on dark surfaces */
-  --ink: #FFFFFF;          /* primary copy in bright white */
-  --ink-soft: #CBD5E1;     /* secondary copy in a soft light grey */
-  --ink-muted: #7A8CA0;    /* tertiary copy in muted blue‑grey */
+  --ink: #FFFFFF;            /* primary text: pure white */
+  --ink-soft: #CBD5E1;       /* secondary text: soft light grey */
+  --ink-muted: #7A8CA0;      /* tertiary text: muted blue‑grey */
 
-  /* Rules and separators on dark surfaces */
-  --rule: #173459;         /* dark royal blue for section borders */
-  --rule-soft: #0F2A49;    /* softer version for subtle dividers */
+  /* Rules and separators */
+  --rule: #173459;           /* dark royal blue for strong borders */
+  --rule-soft: #0F2A49;      /* softer divider */
 
-  /* Primary accent — enterprise blue (from first UI scheme) */
+  /* Primary accent — enterprise blue */
   --terracotta: #1B5FB8;
   --terracotta-deep: #0F4382;
   --terracotta-wash: #DCE8F7;
 
-  /* Secondary accent — coral/terracotta (from second UI scheme) */
+  /* Secondary accent — coral */
   --drafting: #E4473A;
+  --drafting-deep: #B53029;
   --drafting-wash: #F5E3E1;
+
+  /* Background wash for panels */
   --vellum: #F0F4FA;
 
-  /* Signals (unchanged) */
+  /* Signals */
   --ok: #1F7A4D;
   --warn: #B38A2A;
   --danger: #B3261E;
@@ -53,52 +62,378 @@
   --body: 'IBM Plex Sans', -apple-system, Helvetica, Arial, sans-serif;
   --mono: 'IBM Plex Mono', 'SF Mono', Menlo, monospace;
 
-  /* Rhythm */
-  --gutter: clamp(1.25rem, 3vw, 2.5rem);
+  /* Layout rhythm */
+  --gutter: clamp(1rem, 3vw, 2rem);
   --page-max: 1240px;
   --narrow-max: 780px;
 }
 
-/*
- * Hero image layout
- *
- * The hero section now includes a photograph alongside the headline.  This
- * layout uses flexbox to stack content on small screens and align items
- * horizontally on larger viewports.  The image is given a max width and
- * rounded corners to fit aesthetically with the rest of the design.
- */
-.hero .hero-flex {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
+/* Global reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--body);
+  background-color: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--terracotta);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+a:hover,
+a:focus {
+  color: var(--drafting);
+  text-decoration: underline;
+}
+
+/* Container */
+.container {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+/* Navigation */
+.site-nav {
+  background-color: var(--paper-deep);
+  border-bottom: 1px solid var(--rule);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+}
+.site-nav-inner {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 1rem var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.brand {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+.brand .amp {
+  font-family: var(--display);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+.brand-sub {
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  margin-left: 0.5rem;
+}
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--ink);
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+.nav-links li a {
+  color: var(--ink-soft);
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+.nav-links li a.active,
+.nav-links li a:hover,
+.nav-links li a:focus {
+  color: var(--terracotta);
+  border-color: var(--terracotta);
+}
+
+/* Hero Section */
+.hero {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  background-color: var(--paper-deep);
+  border-bottom: 1px solid var(--rule-soft);
+}
+.hero-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
 @media (min-width: 768px) {
-  .hero .hero-flex {
+  .hero-flex {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+.hero-text {
+  flex: 1 1 50%;
+}
+.hero-image {
+  /* Allow the image column to size itself based on its content.  The
+   * image size is controlled via max‑width on the img tag. */
+  flex: 0 0 auto;
+  text-align: center;
+}
+.hero-image img {
+  /* Limit the displayed width so the portrait doesn’t dominate the layout.
+   * On larger screens the image will max at 280px; on smaller screens it
+   * scales down proportionally.  Height remains automatic to preserve
+   * the aspect ratio.  Adjust this value if you change the photo.
+   */
+  max-width: 280px;
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.25);
+}
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.eyebrow-rule {
+  color: var(--drafting);
+  border-bottom: 1px solid var(--rule-soft);
+  padding-bottom: 0.5rem;
+}
+.hero h1 {
+  font-family: var(--display);
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--terracotta);
+}
+.lede {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  margin-bottom: 1rem;
+}
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+}
+
+/* Grid and cards */
+.tight {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.grid {
+  display: grid;
+  gap: 2rem;
+}
+.grid-2 {
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) {
+  .grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.lane-card {
+  display: block;
+  background-color: var(--paper-deep);
+  border: 1px solid var(--rule-soft);
+  border-radius: 0.5rem;
+  padding: 2rem;
+  text-decoration: none;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.lane-card:hover,
+.lane-card:focus {
+  border-color: var(--terracotta);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+.lane-card .lane-num {
+  font-size: 0.8rem;
+  color: var(--drafting);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.lane-card h2 {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+}
+.lane-card p {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  margin-bottom: 1rem;
+}
+.lane-card ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1rem;
+  color: var(--ink-soft);
+}
+.lane-card ul li {
+  margin-bottom: 0.25rem;
+}
+.card-arrow {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--terracotta);
+}
+
+/* Split section */
+.split {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  border-top: 1px solid var(--rule-soft);
+}
+@media (min-width: 768px) {
+  .split {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+.split > div {
+  flex: 1;
+}
+.split h2 {
+  font-family: var(--display);
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+.split p {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  margin-bottom: 1.5rem;
+}
+.btn-cluster {
+  display: flex;
+  gap: 1rem;
+}
+.btn {
+  display: inline-block;
+  font-size: 0.9rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.3rem;
+  border: none;
+  background-color: var(--terracotta);
+  color: var(--paper);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+.btn:hover,
+.btn:focus {
+  background-color: var(--terracotta-deep);
+}
+.btn-ghost {
+  background-color: transparent;
+  border: 1px solid var(--terracotta);
+  color: var(--terracotta);
+}
+.btn-ghost:hover,
+.btn-ghost:focus {
+  background-color: var(--terracotta);
+  color: var(--paper);
+}
+
+/* Footer */
+.site-footer {
+  background-color: var(--paper-deep);
+  border-top: 1px solid var(--rule-soft);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+.footer-grid {
+  display: grid;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+  }
+}
+.footer-brand {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+.footer-tag {
+  color: var(--ink-soft);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+.footer-col h5 {
+  font-size: 1rem;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+.footer-col ul {
+  list-style: none;
+  padding-left: 0;
+}
+.footer-col ul li {
+  margin-bottom: 0.4rem;
+}
+.footer-col a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+.footer-col a:hover,
+.footer-col a:focus {
+  color: var(--terracotta);
+}
+.footer-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--ink-muted);
+  font-size: 0.75rem;
+  border-top: 1px solid var(--rule-soft);
+  padding-top: 1rem;
+}
+@media (min-width: 768px) {
+  .footer-meta {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
   }
 }
 
-.hero .hero-text {
-  flex: 1 1 50%;
+/* Muted text helper */
+.muted {
+  color: var(--ink-muted);
 }
-
-.hero .hero-image {
-  flex: 1 1 40%;
-  text-align: center;
-}
-
-.hero .hero-image img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.25);
-}
-
-/* Import the rest of the original stylesheet.  In production, include the
- * unmodified rules from the upstream main.css below this line.  Only the
- * :root variables above need to be changed to apply the new colour scheme.
- */

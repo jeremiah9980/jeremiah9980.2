@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Next-Gen-IT · Shonna King Domain Health Audit</title>
+    <meta name="description" content="Example Next-Gen-IT domain health audit report for shonnaking.com." />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+  </head>
+  <body>
+    <nav class="site-nav">
+      <div class="site-nav-inner">
+        <a href="../../index.html" class="brand">
+          Cargill<span class="amp">&amp;</span>Co
+          <span class="brand-sub">Enterprise · SMB · Lab</span>
+        </a>
+        <button class="nav-toggle" aria-label="Toggle menu">Menu</button>
+        <ul class="nav-links">
+          <li><a href="../../index.html">Index</a></li>
+          <li><a href="../">Professional</a></li>
+          <li><a href="../cargill-consulting/">Cargill Consulting</a></li>
+          <li><a href="./" class="active">Next-Gen-IT</a></li>
+          <li><a href="../../projects/">Projects</a></li>
+          <li><a href="../about/">About</a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="report-shell">
+      <section class="report-hero">
+        <span class="report-kicker">Next-Gen-IT Example Deliverable</span>
+        <h1>Shonna King <em>domain health</em> audit report.</h1>
+        <p class="report-sub">
+          A domain health, email authentication, and web availability assessment for
+          <span class="report-code">shonnaking.com</span>. The report turns public DNS and mail-health findings
+          into a clear remediation plan.
+        </p>
+        <div class="report-meta-grid">
+          <div class="report-meta-cell"><div class="k">Client</div><div class="v">Shonna King</div></div>
+          <div class="report-meta-cell"><div class="k">Primary domain</div><div class="v mono">shonnaking.com</div></div>
+          <div class="report-meta-cell"><div class="k">Prepared by</div><div class="v">Next-Gen-IT</div></div>
+          <div class="report-meta-cell"><div class="k">Source report date</div><div class="v">April 24, 2026</div></div>
+        </div>
+        <div class="report-page-actions">
+          <a class="btn" href="./">Back to Next-Gen-IT</a>
+          <a class="btn btn-ghost" href="./starsky-owen-audit-report.html">View Starsky Owen example</a>
+        </div>
+      </section>
+
+      <div class="report-grid">
+        <section class="report-card">
+          <h2>Executive Summary</h2>
+          <p>
+            The sample domain health scan returned <strong>13 problems</strong>: 6 errors and 7 warnings,
+            against 416 passing checks. On review, those items collapse into three root causes:
+            a public website availability failure, missing DMARC, and several Google MX warning items that
+            are best documented as known noise.
+          </p>
+          <p>
+            Reputation is clean, DNS fundamentals are mostly sound, and inbound mail is delegated to Google Workspace.
+            The fastest remediation path is to restore the website, publish SPF/DMARC, verify DKIM signing, and then
+            move DMARC from monitoring to enforcement.
+          </p>
+          <div class="report-stat-row">
+            <div class="report-stat"><b>13</b>Total reported problems</div>
+            <div class="report-stat"><b>2</b>Critical remediation tracks</div>
+            <div class="report-stat"><b>358/358</b>Blacklist checks clean</div>
+          </div>
+          <div class="report-note">
+            This is an example deliverable based on the supplied Shonna King domain-health report content.
+            No private systems are implied or accessed.
+          </div>
+        </section>
+
+        <aside class="report-card">
+          <h2>Risk Snapshot</h2>
+          <div class="report-score">58</div>
+          <p>
+            Fair posture: the foundation is usable, but web availability and email authentication materially
+            reduce trust and continuity.
+          </p>
+          <div class="report-status-list">
+            <div class="report-status"><span>Blacklist reputation</span><div class="report-bar"><span style="width:100%"></span></div></div>
+            <div class="report-status"><span>DNS configuration</span><div class="report-bar"><span style="width:88%"></span></div></div>
+            <div class="report-status"><span>Mail delivery</span><div class="report-bar"><span style="width:76%"></span></div></div>
+            <div class="report-status"><span>Email authentication</span><div class="report-bar"><span style="width:30%"></span></div></div>
+            <div class="report-status"><span>Web availability</span><div class="report-bar"><span style="width:10%"></span></div></div>
+          </div>
+        </aside>
+      </div>
+
+      <section class="report-card">
+        <h2>Current-State Flow</h2>
+        <p>
+          The public-facing paths separate into three lanes: inbound mail, outbound authentication, and web traffic.
+          Inbound delivery routes to Google Workspace; outbound trust is weakened by missing DMARC; web visitors hit
+          an active availability failure.
+        </p>
+        <div class="report-diagram">
+          <svg viewBox="0 0 1160 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Current-state flow diagram for shonnaking.com">
+            <defs>
+              <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                <path d="M0,0 L10,5 L0,10 z" fill="#8FD7FF"/>
+              </marker>
+              <linearGradient id="cardGrad" x1="0" x2="1" y1="0" y2="1">
+                <stop stop-color="rgba(255,107,95,.16)" offset="0"/>
+                <stop stop-color="rgba(143,215,255,.10)" offset="1"/>
+              </linearGradient>
+            </defs>
+            <rect width="1160" height="420" fill="#081B33"/>
+            <g font-family="IBM Plex Mono, monospace" font-size="13" fill="#FF6B5F" letter-spacing="2">
+              <text x="36" y="58">INBOUND MAIL</text>
+              <text x="36" y="190">OUTBOUND AUTH</text>
+              <text x="36" y="322">WEB TRAFFIC</text>
+            </g>
+
+            <g font-family="IBM Plex Sans, sans-serif" font-size="15" fill="#D7E2F0">
+              <rect x="190" y="24" width="180" height="76" rx="14" fill="url(#cardGrad)" stroke="rgba(145,166,195,.28)"/>
+              <text x="280" y="55" text-anchor="middle" font-weight="700" fill="#fff">External sender</text>
+              <text x="280" y="78" text-anchor="middle">messages domain</text>
+
+              <rect x="430" y="24" width="190" height="76" rx="14" fill="url(#cardGrad)" stroke="rgba(34,197,94,.6)"/>
+              <text x="525" y="55" text-anchor="middle" font-weight="700" fill="#fff">Google Workspace</text>
+              <text x="525" y="78" text-anchor="middle" fill="#22C55E">MX delivery works</text>
+
+              <rect x="680" y="24" width="190" height="76" rx="14" fill="rgba(245,158,11,.15)" stroke="rgba(245,158,11,.55)"/>
+              <text x="775" y="55" text-anchor="middle" font-weight="700" fill="#fff">SMTP warnings</text>
+              <text x="775" y="78" text-anchor="middle" fill="#F59E0B">Google MX noise</text>
+
+              <line x1="370" y1="62" x2="426" y2="62" stroke="#8FD7FF" stroke-width="2" marker-end="url(#arr)"/>
+              <line x1="620" y1="62" x2="676" y2="62" stroke="#8FD7FF" stroke-width="2" marker-end="url(#arr)"/>
+
+              <rect x="190" y="156" width="180" height="76" rx="14" fill="url(#cardGrad)" stroke="rgba(145,166,195,.28)"/>
+              <text x="280" y="187" text-anchor="middle" font-weight="700" fill="#fff">Google sends</text>
+              <text x="280" y="210" text-anchor="middle">on domain behalf</text>
+
+              <rect x="430" y="156" width="190" height="76" rx="14" fill="rgba(239,68,68,.18)" stroke="rgba(239,68,68,.62)"/>
+              <text x="525" y="187" text-anchor="middle" font-weight="700" fill="#fff">DMARC missing</text>
+              <text x="525" y="210" text-anchor="middle" fill="#FF6B5F">spoofing exposure</text>
+
+              <rect x="680" y="156" width="190" height="76" rx="14" fill="rgba(245,158,11,.15)" stroke="rgba(245,158,11,.55)"/>
+              <text x="775" y="187" text-anchor="middle" font-weight="700" fill="#fff">Recipient inbox</text>
+              <text x="775" y="210" text-anchor="middle" fill="#F59E0B">may throttle/spam</text>
+
+              <line x1="370" y1="194" x2="426" y2="194" stroke="#8FD7FF" stroke-width="2" marker-end="url(#arr)"/>
+              <line x1="620" y1="194" x2="676" y2="194" stroke="#FF6B5F" stroke-width="2" marker-end="url(#arr)"/>
+
+              <rect x="190" y="288" width="180" height="76" rx="14" fill="url(#cardGrad)" stroke="rgba(34,197,94,.6)"/>
+              <text x="280" y="319" text-anchor="middle" font-weight="700" fill="#fff">DNS resolves</text>
+              <text x="280" y="342" text-anchor="middle" fill="#22C55E">domain found</text>
+
+              <rect x="430" y="288" width="190" height="76" rx="14" fill="rgba(239,68,68,.18)" stroke="rgba(239,68,68,.62)"/>
+              <text x="525" y="319" text-anchor="middle" font-weight="700" fill="#fff">HTTP 530</text>
+              <text x="525" y="342" text-anchor="middle" fill="#FF6B5F">origin unreachable</text>
+
+              <rect x="680" y="288" width="190" height="76" rx="14" fill="rgba(239,68,68,.18)" stroke="rgba(239,68,68,.62)" stroke-dasharray="7 5"/>
+              <text x="775" y="319" text-anchor="middle" font-weight="700" fill="#fff">Visitor sees error</text>
+              <text x="775" y="342" text-anchor="middle" fill="#FF6B5F">site is dark</text>
+
+              <line x1="370" y1="326" x2="426" y2="326" stroke="#8FD7FF" stroke-width="2" marker-end="url(#arr)"/>
+              <line x1="620" y1="326" x2="676" y2="326" stroke="#FF6B5F" stroke-width="2" marker-end="url(#arr)"/>
+            </g>
+          </svg>
+        </div>
+        <p class="report-caption">Figure 1 — Simplified current-state flow for shonnaking.com.</p>
+      </section>
+
+      <section class="report-card">
+        <h2>Findings & Recommended Actions</h2>
+        <div class="report-findings">
+          <div class="report-finding">
+            <div><span class="report-badge critical">Critical</span></div>
+            <div>
+              <h3>Public website returns HTTP 530</h3>
+              <p>The domain is reachable at the DNS layer, but the origin web server is not serving the public site. Visitors see an error instead of the business presence.</p>
+            </div>
+          </div>
+          <div class="report-finding">
+            <div><span class="report-badge critical">Critical</span></div>
+            <div>
+              <h3>No DMARC record is published</h3>
+              <p>Without DMARC, the domain is easier to spoof and mailbox providers have less trust in outbound messages.</p>
+              <pre class="report-dns">Host:  _dmarc.shonnaking.com
+Type:  TXT
+Value: v=DMARC1; p=none; rua=mailto:dmarc-reports@shonnaking.com; fo=1</pre>
+            </div>
+          </div>
+          <div class="report-finding">
+            <div><span class="report-badge med">High</span></div>
+            <div>
+              <h3>Confirm SPF is published and complete</h3>
+              <p>Because mail is delegated to Google Workspace, root TXT records should authorize Google to send.</p>
+              <pre class="report-dns">Host:  shonnaking.com
+Type:  TXT
+Value: v=spf1 include:_spf.google.com ~all</pre>
+            </div>
+          </div>
+          <div class="report-finding">
+            <div><span class="report-badge med">High</span></div>
+            <div>
+              <h3>Verify DKIM signing in Google Workspace</h3>
+              <p>Before moving DMARC to enforcement, generate the Google DKIM key, publish the TXT record, and enable signing.</p>
+            </div>
+          </div>
+          <div class="report-finding">
+            <div><span class="report-badge low">Low</span></div>
+            <div>
+              <h3>SOA expire value is cosmetic</h3>
+              <p>Adjust the DNS SOA expire value during routine DNS cleanup; this is not the priority compared to website and email authentication.</p>
+            </div>
+          </div>
+          <div class="report-finding">
+            <div><span class="report-badge info">Ignore</span></div>
+            <div>
+              <h3>Google MX rDNS/banner warnings are known noise</h3>
+              <p>These warnings reference Google inbound mail servers, not client-controlled hosts. Document them so they are not treated as repeat remediation items.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="report-card">
+        <h2>Sequenced Remediation Roadmap</h2>
+        <div class="report-roadmap">
+          <div class="report-roadmap-row"><div class="report-step">01</div><div class="report-when">Day 1</div><div><strong>Restore website availability.</strong> Diagnose the HTTP 530 at the DNS/origin layer and point the domain to a live site or holding page.</div></div>
+          <div class="report-roadmap-row"><div class="report-step">02</div><div class="report-when">Day 1</div><div><strong>Publish or confirm SPF and enable DKIM.</strong> Make sure legitimate Google Workspace mail aligns before enforcement.</div></div>
+          <div class="report-roadmap-row"><div class="report-step">03</div><div class="report-when">Day 1</div><div><strong>Publish DMARC at p=none.</strong> Start collecting aggregate reports without risking legitimate mail delivery.</div></div>
+          <div class="report-roadmap-row"><div class="report-step">04</div><div class="report-when">Weeks 2–4</div><div><strong>Move to quarantine after clean reports.</strong> Fix any legitimate sender alignment problems first.</div></div>
+          <div class="report-roadmap-row"><div class="report-step">05</div><div class="report-when">Week 6+</div><div><strong>Move DMARC to reject.</strong> Optionally publish BIMI once enforcement and logo requirements are ready.</div></div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="footer-brand">Cargill<span>&amp;</span>Co</div>
+            <p class="footer-tag">
+              Two practices, one architect. Enterprise-grade thinking applied
+              across the size spectrum, plus an active project lab.
+            </p>
+          </div>
+          <div class="footer-col">
+            <h5>Professional</h5>
+            <ul>
+              <li><a href="../cargill-consulting/">Cargill Consulting</a></li>
+              <li><a href="./">Next-Gen-IT</a></li>
+              <li><a href="../about/">About</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5>Example Reports</h5>
+            <ul>
+              <li><a href="./starsky-owen-audit-report.html">Starsky Owen Realty</a></li>
+              <li><a href="./shonna-king-domain-health-audit.html">Shonna King</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5>Contact</h5>
+            <ul>
+              <li><a href="https://github.com/jeremiah9980">GitHub</a></li>
+              <li><a href="https://www.linkedin.com/in/jeremiahcargill/">LinkedIn</a></li>
+              <li><span class="muted">Austin, TX</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-meta">
+          <span>© 2026 Jeremiah Cargill</span>
+          <span>Built in production · Portfolio &amp; practice</span>
+        </div>
+      </div>
+    </footer>
+    <script src="../../assets/js/main.js"></script>
+  </body>
+</html>

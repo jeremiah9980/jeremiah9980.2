@@ -92,3 +92,8 @@ The two example deliverable reports under `/professional/next-gen-it/` use addit
 ## License
 
 All content © Jeremiah Cargill. Code structure available for personal reference.
+
+
+## Infrastructure diagram assets
+
+The infrastructure project page now includes local SVG diagram assets under `assets/img/infra/` and references them from `projects/infrastructure/index.html`. These restore visual diagram cards for the OpenShift migration program, datacenter, multi-site, healthcare, migration, print pipeline, and facility access examples.

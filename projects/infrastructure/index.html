@@ -57,6 +57,11 @@
     <h2>OpenShift migration program.</h2>
     <p>Production and DR vCenter analysis (RVTools), UCS health audit across 68 blades, Jira-import CSV for modernization backlog, POC runbook targeting the C2-WebSphere-Cluster for Single Node OpenShift, OpenShift working session with Red Hat engineering. Findings surfaced expiring SSL certificates, multipath storage failures, dead boot LUNs, and a critically unhealthy UCS node — all of which shaped the migration wave plan.</p>
 
+    <figure class="infra-figure mt-3">
+      <img src="../../assets/img/infra/openshift-migration-program.svg" alt="OpenShift migration program diagram showing RVTools, UCS health audit, Jira backlog and OpenShift POC flow">
+      <figcaption>OpenShift modernization artifact map: inventory, health findings, backlog, proof of concept, and migration wave planning.</figcaption>
+    </figure>
+
     <div class="grid grid-2 mt-3">
       <div class="card"><span class="card-eyebrow">Artifact</span><h3>Infrastructure health reports</h3><p>RVTools-derived reports covering both vCenter environments, host-level drill, storage paths, certificate expiries, boot-LUN status.</p></div>
       <div class="card"><span class="card-eyebrow">Artifact</span><h3>Jira-import CSV</h3><p>Structured backlog for the modernization program — every finding becomes a ticket with priority, workstream, and owner hints.</p></div>
@@ -70,17 +75,31 @@
   <div class="container">
     <span class="eyebrow eyebrow-rule">Prior environments</span>
     <h2>Representative work, documented.</h2>
-    <div class="grid grid-2 mt-3">
-      <div class="card"><span class="card-eyebrow">Datacenter / Virtualization</span><h3>TX Datacenter &amp; Virtual Environment</h3><p>Core-stack, managed router, firewall, VoIP, HP Indigo systems, virtual infra — documented in a single reference.</p></div>
-      <div class="card"><span class="card-eyebrow">Multi-Site Enterprise</span><h3>TX / CA / LAX Site Architecture</h3><p>Regional sites, datacenters, branch presence, cross-site workflow dependencies.</p></div>
-      <div class="card"><span class="card-eyebrow">Healthcare</span><h3>Harbor Health Multi-Clinic Footprint</h3><p>Standardized site topology — clinics, call center, HQ, mobile units.</p></div>
-      <div class="card"><span class="card-eyebrow">Hybrid / Migration</span><h3>Support &amp; Migration Reference</h3><p>On-prem to virtual to cloud gateway, backup flows, migration-readiness mapping.</p></div>
-      <div class="card"><span class="card-eyebrow">Workflow Automation</span><h3>MFA Print &amp; Onyx VPS Pipeline</h3><p>Downloaders, RIP stations, forwarding, packing slips, Zund cut-queue integration.</p></div>
-      <div class="card"><span class="card-eyebrow">Physical Security</span><h3>Facility Access Control</h3><p>Entry points, control-board hubs, readers, locking mechanisms for secure ops handoff.</p></div>
-    </div>
-    <div class="scaffold mt-4">
-      <div class="scaffold-label">Asset migration</div>
-      <p>Copy infrastructure diagrams from the existing site's <code>/assets/infra/</code> folder into <code>/assets/images/infra/</code> in this repo, then replace placeholders with <code>&lt;img&gt;</code> tags. All diagrams are preserved in the v1 repo under <code>jeremiah9980.github.io/jeremiah9980/assets/infra/</code>.</p>
+    <div class="grid grid-2 mt-3 infra-gallery">
+      <article class="media-card">
+        <div class="media-frame"><img src="../../assets/img/infra/tx-datacenter-virtual-environment.svg" alt="TX datacenter and virtual environment infrastructure diagram"></div>
+        <div class="media-body"><span class="card-eyebrow">Datacenter / Virtualization</span><h3>TX Datacenter &amp; Virtual Environment</h3><p>Core-stack, managed router, firewall, VoIP, HP Indigo systems, virtual infra — documented in a single reference.</p></div>
+      </article>
+      <article class="media-card">
+        <div class="media-frame"><img src="../../assets/img/infra/tx-ca-lax-site-architecture.svg" alt="TX CA LAX multi-site enterprise architecture diagram"></div>
+        <div class="media-body"><span class="card-eyebrow">Multi-Site Enterprise</span><h3>TX / CA / LAX Site Architecture</h3><p>Regional sites, datacenters, branch presence, cross-site workflow dependencies.</p></div>
+      </article>
+      <article class="media-card">
+        <div class="media-frame"><img src="../../assets/img/infra/harbor-health-multiclinic-footprint.svg" alt="Harbor Health multi-clinic site footprint diagram"></div>
+        <div class="media-body"><span class="card-eyebrow">Healthcare</span><h3>Harbor Health Multi-Clinic Footprint</h3><p>Standardized site topology — clinics, call center, HQ, mobile units.</p></div>
+      </article>
+      <article class="media-card">
+        <div class="media-frame"><img src="../../assets/img/infra/support-migration-reference.svg" alt="Support and migration reference diagram for on-prem virtual and cloud migration"></div>
+        <div class="media-body"><span class="card-eyebrow">Hybrid / Migration</span><h3>Support &amp; Migration Reference</h3><p>On-prem to virtual to cloud gateway, backup flows, migration-readiness mapping.</p></div>
+      </article>
+      <article class="media-card">
+        <div class="media-frame"><img src="../../assets/img/infra/mfa-print-onyx-vps-pipeline.svg" alt="MFA print and Onyx VPS production pipeline diagram"></div>
+        <div class="media-body"><span class="card-eyebrow">Workflow Automation</span><h3>MFA Print &amp; Onyx VPS Pipeline</h3><p>Downloaders, RIP stations, forwarding, packing slips, Zund cut-queue integration.</p></div>
+      </article>
+      <article class="media-card">
+        <div class="media-frame"><img src="../../assets/img/infra/facility-access-control.svg" alt="Facility access control infrastructure diagram"></div>
+        <div class="media-body"><span class="card-eyebrow">Physical Security</span><h3>Facility Access Control</h3><p>Entry points, control-board hubs, readers, locking mechanisms for secure ops handoff.</p></div>
+      </article>
     </div>
   </div>
 </section>

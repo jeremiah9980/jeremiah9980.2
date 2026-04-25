@@ -10,7 +10,7 @@ Second-generation portfolio and practice site for Jeremiah Cargill.
 A static HTML site organized around two top-level lanes:
 
 - **Professional** — two parallel practices: Cargill Consulting for enterprise work, Next-Gen-IT for small-business audits and security. About hub with resumes and practice origin stories.
-- **Projects** — independent lab featuring the Conflict Collection flagship product, redacted client case studies, infrastructure architecture, and infrastructure work.
+- **Projects** — independent lab featuring the Conflict Collection flagship product, redacted client case studies, and infrastructure work.
 
 No build step. No framework. Just HTML, CSS, a tiny JS file, and GitHub Pages.
 
@@ -29,8 +29,7 @@ Dark coral UI on deep navy. IBM Plex Sans / Plex Mono with Fraunces variable ser
 │   ├── next-gen-it/
 │   │   ├── index.html                            [SMB practice — example-deliverable framing]
 │   │   ├── starsky-owen-audit-report.html        [Example: realty audit with workflow diagram]
-│   │   ├── shonna-king-domain-health-audit.html  [Example: primary-domain/email-auth health report]
-│   │   └── soldbyshonna-domain-forwarding-audit.html [Example: forwarding-domain anti-spoofing report]
+│   │   └── shonna-king-domain-health-audit.html  [Example: domain/email-auth health report]
 │   └── about/
 │       ├── index.html                            [About hub — 3 cards + bio split]
 │       ├── resumes/                              [Three targeted resume versions]
@@ -44,7 +43,7 @@ Dark coral UI on deep navy. IBM Plex Sans / Plex Mono with Fraunces variable ser
     │   ├── teleotitle/                           [Title company — DMARC + wire-fraud hardening]
     │   ├── abode-labs/                           [Brand domain — DNS + email auth]
     │   ├── starsky-owen/                         [Realty data tooling]
-    │   └── cosmicgen/                            [Colocation + infrastructure architecture framework]
+    │   └── cosmicgen/                            [Engagement in scoping]
     ├── infrastructure/                           [VMware/UCS/NetApp/OpenShift work]
     ├── ai/                                       [AI integration work]
     └── devops-cloud/                             [DevOps and cloud work]
@@ -65,21 +64,10 @@ python3 -m http.server 8000
 
 GitHub Pages serves the raw HTML directly. No `.nojekyll` file required since there's nothing Jekyll would mangle, but if Pages ever trips on a leading-underscore filename, drop an empty `.nojekyll` at the root.
 
-
-## Analytics
-
-Google Analytics is installed site-wide through a shared bootstrap file:
-
-- Measurement ID: `G-0H9QRFPRQF`
-- Script: `assets/js/analytics.js`
-
-Every HTML page includes this file with the correct relative path. To change or remove analytics later, edit `assets/js/analytics.js` once instead of touching every page.
-
 ## Asset locations
 
 - `assets/css/main.css` — full stylesheet, design tokens at top
-- `assets/js/main.js` — mobile nav toggle
-- `assets/js/analytics.js` — Google tag / Analytics bootstrap
+- `assets/js/main.js` — mobile nav toggle (only)
 - `assets/img/hero.png` — homepage hero
 - `assets/img/starsky-workflow.png` — referenced from the Starsky Owen example report
 
@@ -92,8 +80,3 @@ The two example deliverable reports under `/professional/next-gen-it/` use addit
 ## License
 
 All content © Jeremiah Cargill. Code structure available for personal reference.
-
-
-## Infrastructure diagram assets
-
-The infrastructure project page now includes local SVG diagram assets under `assets/img/infra/` and references them from `projects/infrastructure/index.html`. These restore visual diagram cards for the OpenShift migration program, datacenter, multi-site, healthcare, migration, print pipeline, and facility access examples.

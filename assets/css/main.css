@@ -189,11 +189,19 @@ a:focus {
   flex: 1 1 50%;
 }
 .hero-image {
-  flex: 1 1 40%;
+  /* Allow the image column to size itself based on its content.  The
+   * image size is controlled via max‑width on the img tag. */
+  flex: 0 0 auto;
   text-align: center;
 }
 .hero-image img {
-  max-width: 100%;
+  /* Limit the displayed width so the portrait doesn’t dominate the layout.
+   * On larger screens the image will max at 280px; on smaller screens it
+   * scales down proportionally.  Height remains automatic to preserve
+   * the aspect ratio.  Adjust this value if you change the photo.
+   */
+  max-width: 280px;
+  width: 100%;
   height: auto;
   border-radius: 0.5rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.25);

@@ -564,3 +564,108 @@ a:focus {
     align-items: stretch;
   }
 }
+
+
+
+/* --------------------------------------------------------------------------
+   Annotated coral change requests
+   --------------------------------------------------------------------------
+   1) Brand ampersand is coral across header/footer.
+   2) Primary highlights/buttons are coral instead of blue.
+   3) Light blue remains available as a secondary accent only.
+--------------------------------------------------------------------------- */
+
+:root {
+  --coral: #FF6B5F;
+  --coral-deep: #E4473A;
+  --coral-soft: rgba(255, 107, 95, 0.14);
+  --coral-glow: rgba(255, 107, 95, 0.38);
+  --sky: #8FD7FF;
+  --sky-deep: #1B8BD6;
+  --sky-soft: rgba(143, 215, 255, 0.14);
+
+  /* Legacy aliases used by older pages. */
+  --terracotta: var(--coral);
+  --terracotta-deep: var(--coral-deep);
+  --terracotta-wash: var(--coral-soft);
+}
+
+/* Header logo: make the & coral. */
+.brand .amp,
+.footer-brand span,
+.logo .amp,
+.site-logo .amp,
+.brand-mark .amp {
+  color: var(--coral) !important;
+}
+
+/* Coral navigation highlights. */
+.nav-links a.active,
+.nav-links a:hover,
+.nav-links a:focus,
+.breadcrumb a:hover,
+.breadcrumbs a:hover,
+.breadcrumb a.active,
+.breadcrumbs a.active {
+  color: var(--coral) !important;
+  border-color: var(--coral) !important;
+}
+
+/* Coral primary buttons / resume action buttons. */
+.btn,
+.button,
+.button-primary,
+.primary-button,
+a.btn,
+a.button,
+.resume-card .btn,
+.resume-card a.btn,
+.resume-actions a,
+.resume-actions .btn,
+.card .btn,
+.card-arrow,
+button.primary,
+input[type="submit"] {
+  background: linear-gradient(135deg, var(--coral), var(--coral-deep)) !important;
+  border-color: var(--coral) !important;
+  color: #FFFFFF !important;
+}
+
+/* Coral outline buttons. */
+.btn-ghost,
+.button-ghost,
+.secondary-button,
+a.btn-ghost,
+a.button-ghost {
+  background: transparent !important;
+  border-color: rgba(255, 107, 95, 0.66) !important;
+  color: var(--coral) !important;
+}
+
+.btn-ghost:hover,
+.btn-ghost:focus,
+.button-ghost:hover,
+.button-ghost:focus,
+.secondary-button:hover,
+.secondary-button:focus {
+  background: var(--coral-soft) !important;
+  color: #FFFFFF !important;
+}
+
+/* Coral small labels / section markers. */
+.eyebrow,
+.eyebrow-rule,
+.lane-num,
+.section-kicker,
+.kicker,
+.overline {
+  color: var(--coral) !important;
+}
+
+/* Coral link focus rings and accessibility outlines. */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--coral) !important;
+  outline-offset: 3px;
+}

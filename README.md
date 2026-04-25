@@ -10,7 +10,7 @@ Second-generation portfolio and practice site for Jeremiah Cargill.
 A static HTML site organized around two top-level lanes:
 
 - **Professional** — two parallel practices: Cargill Consulting for enterprise work, Next-Gen-IT for small-business audits and security. About hub with resumes and practice origin stories.
-- **Projects** — independent lab featuring the Conflict Collection flagship product, redacted client case studies, and infrastructure work.
+- **Projects** — independent lab featuring the Conflict Collection flagship product, redacted client case studies, infrastructure architecture, and infrastructure work.
 
 No build step. No framework. Just HTML, CSS, a tiny JS file, and GitHub Pages.
 
@@ -44,7 +44,7 @@ Dark coral UI on deep navy. IBM Plex Sans / Plex Mono with Fraunces variable ser
     │   ├── teleotitle/                           [Title company — DMARC + wire-fraud hardening]
     │   ├── abode-labs/                           [Brand domain — DNS + email auth]
     │   ├── starsky-owen/                         [Realty data tooling]
-    │   └── cosmicgen/                            [Engagement in scoping]
+    │   └── cosmicgen/                            [Colocation + infrastructure architecture framework]
     ├── infrastructure/                           [VMware/UCS/NetApp/OpenShift work]
     ├── ai/                                       [AI integration work]
     └── devops-cloud/                             [DevOps and cloud work]

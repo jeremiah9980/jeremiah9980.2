@@ -9,111 +9,85 @@ Second-generation portfolio and practice site for Jeremiah Cargill.
 
 A static HTML site organized around two top-level lanes:
 
-- **Professional** — two parallel practices (Cargill Consulting for enterprise, Next-Gen-IT for SMB), an About hub, and a resume center.
-- **Projects** — an independent lab containing infrastructure, DevOps/cloud, AI, GPS, the Conflict Collection platform, and a client case-study portfolio.
+- **Professional** — two parallel practices: Cargill Consulting for enterprise work, Next-Gen-IT for small-business audits and security. About hub with resumes and practice origin stories.
+- **Projects** — independent lab featuring the Conflict Collection flagship product, redacted client case studies, and infrastructure work.
 
 No build step. No framework. Just HTML, CSS, a tiny JS file, and GitHub Pages.
+
+## Design
+
+Dark coral UI on deep navy. IBM Plex Sans / Plex Mono with Fraunces variable serif for display. Glass panels, gradient top borders on lane-cards. All design tokens are CSS custom properties at the top of `assets/css/main.css` — adjust palette in one place, propagates everywhere.
 
 ## Information architecture
 
 ```
-/
-├── index.html                                  [root · two-lane router]
-│
+/                                                [home — two-lane router with hero]
 ├── professional/
-│   ├── index.html                              [1 · Professional router]
+│   ├── index.html                                [Professional router]
 │   ├── cargill-consulting/
-│   │   ├── index.html                          [1.a · Enterprise practice]
-│   │   ├── identity/                           [1.a.1 · Okta / Identity]
-│   │   ├── infrastructure/                     [1.a.2 · Enterprise Infra]
-│   │   ├── cloud/                              [1.a.3 · Cloud Architecture]
-│   │   └── devops/                             [1.a.4 · DevOps / Platform]
+│   │   └── index.html                            [Enterprise practice — 6 services + 6 packaged engagements]
 │   ├── next-gen-it/
-│   │   ├── index.html                          [1.b · SMB practice]
-│   │   ├── audit/                              [1.b.1 · Next-Gen-Audit]
-│   │   ├── operations/                         [1.b.2 · Next-Gen-Operations]
-│   │   └── security/                           [1.b.3 · Next-Gen-Security]
+│   │   ├── index.html                            [SMB practice — example-deliverable framing]
+│   │   ├── starsky-owen-audit-report.html        [Example: realty audit with workflow diagram]
+│   │   ├── shonna-king-domain-health-audit.html  [Example: primary-domain/email-auth health report]
+│   │   └── soldbyshonna-domain-forwarding-audit.html [Example: forwarding-domain anti-spoofing report]
 │   └── about/
-│       ├── index.html                          [1.c · About hub]
-│       ├── resumes/                            [1.c.1 · Three resume versions]
-│       ├── cargill-consulting/                 [1.c.2 · Practice origin story]
-│       └── next-gen-it/                        [1.c.3 · Practice origin story]
-│
+│       ├── index.html                            [About hub — 3 cards + bio split]
+│       ├── resumes/                              [Three targeted resume versions]
+│       ├── cargill-consulting/                   [Practice origin: enterprise narrative]
+│       └── next-gen-it/                          [Practice origin: SMB narrative]
 └── projects/
-    ├── index.html                              [2 · Project lab router]
-    ├── infrastructure/                         [2.a]
-    ├── devops-cloud/                           [2.b]
-    ├── ai/                                     [2.c]
-    ├── gamechanger/                            [2.d · scaffold]
-    ├── conflict-collection/                    [2.e · flagship]
-    ├── gps/
-    │   ├── index.html                          [2.f]
-    │   ├── timeline/                           [2.f.1]
-    │   └── live/                               [2.f.2]
-    ├── flywheel/                               [2.g · scaffold]
-    └── clients/
-        ├── index.html                          [2.h · case-study hub]
-        ├── cosmicgen/                          [2.h.1 · scaffold]
-        ├── teleotitle/                         [2.h.2]
-        ├── abode-labs/                         [2.h.3]
-        └── starsky-owen/                       [2.h.4]
+    ├── index.html                                [Lab router — flagship-led, 3 cards]
+    ├── conflict-collection/                      [FLAGSHIP — multi-model neutral analysis platform]
+    ├── clients/
+    │   ├── index.html                            [Client work hub — 4 cases]
+    │   ├── teleotitle/                           [Title company — DMARC + wire-fraud hardening]
+    │   ├── abode-labs/                           [Brand domain — DNS + email auth]
+    │   ├── starsky-owen/                         [Realty data tooling]
+    │   └── cosmicgen/                            [Engagement in scoping]
+    ├── infrastructure/                           [VMware/UCS/NetApp/OpenShift work]
+    ├── ai/                                       [AI integration work]
+    └── devops-cloud/                             [DevOps and cloud work]
 ```
-
-**Scaffold pages** (marked with a yellow dashed callout in-page) need a short brief before they become real content:
-
-- `projects/gamechanger/` — What is GameChanger? Stage? Assets?
-- `projects/flywheel/` — What is Flywheel? Scope?
-- `projects/clients/cosmicgen/` — Industry, engagement, outcome, artifacts
-- `projects/gps/live/` — Platform and deployment model decision
-
-## Design
-
-Editorial/architectural aesthetic — warm off-white paper, deep ink, terracotta accent, deep-navy secondary. The visual language references architectural drafting (hatched dividers, mono labels, opsz-variable serif headlines).
-
-- **Display:** Fraunces (variable, opsz + SOFT axes)
-- **Body / UI:** IBM Plex Sans
-- **Technical labels / mono:** IBM Plex Mono
-- **Paper:** `#FAF7F2` · **Ink:** `#1A1614` · **Accent:** `#B8491F` · **Drafting:** `#1E3A4C`
-
-All styling lives in `assets/css/main.css`. No CSS framework, no utility classes beyond a few conveniences. Custom properties drive the palette — override them in a page-specific stylesheet if a subsection needs a different tone.
 
 ## Local preview
 
 ```bash
-# Any static server works. Simplest:
 python3 -m http.server 8000
-# then open http://localhost:8000/
+# open http://localhost:8000/
 ```
 
 ## Deploying to GitHub Pages
 
-1. Create a repo named `jeremiah9980.2` under the `jeremiah9980` account
-2. Push this directory to the `main` branch
-3. In repo settings, enable Pages with source = `main` / root
-4. The site will be live at `https://jeremiah9980.github.io/jeremiah9980.2/`
+1. Push to the `main` branch of the `jeremiah9980.2` repo
+2. Repo settings → Pages → Source: `main` / root
+3. Live at `https://jeremiah9980.github.io/jeremiah9980.2/`
 
-The `.nojekyll` file in the repo root disables Jekyll processing, so GitHub Pages serves the raw HTML as-is.
+GitHub Pages serves the raw HTML directly. No `.nojekyll` file required since there's nothing Jekyll would mangle, but if Pages ever trips on a leading-underscore filename, drop an empty `.nojekyll` at the root.
 
-## Regenerating pages
 
-Page bodies are generated by `_generate.py`. To re-run:
+## Analytics
 
-```bash
-python3 _generate.py
-```
+Google Analytics is installed site-wide through a shared bootstrap file:
 
-The generator is idempotent — it rewrites every page from the content blocks in the script. Edit the script to change shared content, or edit the generated HTML files directly for one-off changes.
+- Measurement ID: `G-0H9QRFPRQF`
+- Script: `assets/js/analytics.js`
 
-Keep the generator in the repo as a reference, or delete it once you're done making structural changes and edit HTML directly.
+Every HTML page includes this file with the correct relative path. To change or remove analytics later, edit `assets/js/analytics.js` once instead of touching every page.
 
-## What's missing from v1
+## Asset locations
 
-This repo replaces the v1 site (`jeremiah9980.github.io/jeremiah9980`). A few assets are referenced but not yet copied over:
+- `assets/css/main.css` — full stylesheet, design tokens at top
+- `assets/js/main.js` — mobile nav toggle
+- `assets/js/analytics.js` — Google tag / Analytics bootstrap
+- `assets/img/hero.png` — homepage hero
+- `assets/img/starsky-workflow.png` — referenced from the Starsky Owen example report
 
-- **Infrastructure diagram images** — copy from v1 `/assets/infra/` into `/assets/images/infra/` and replace the placeholder card content on `projects/infrastructure/` with `<img>` tags
-- **Headshot** — v1 uses `assets/jeremiah-headshot-home.png`; copy into `/assets/images/` and reference where appropriate
-- **Resume clean pages** — v1 has three standalone resume HTMLs under `/resumes/`; copy into `/professional/about/resumes/` and update the links in `professional/about/resumes/index.html`
-- **AI platform assistant demo** — v1 has a live-demo page; copy or link to it from `projects/ai/`
+## Editing notes
+
+Pages share repeated nav, footer, and component markup (`.hero`, `.lane-card`, `.split`, `.btn`, `.eyebrow`). When editing a single page, the safe move is to copy the structure from a sibling page rather than reinvent it — that preserves the shared visual rhythm.
+
+The two example deliverable reports under `/professional/next-gen-it/` use additional `.report-*` classes (defined in `main.css`) for their report-shell layout. Reuse those for any new client-deliverable examples.
 
 ## License
 

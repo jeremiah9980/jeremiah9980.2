@@ -1,25 +1,160 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Projects · Cargill&Co</title>
-  <link rel="stylesheet" href="../assets/css/main.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Projects · Cargill&amp;Co</title>
+<meta name="description" content="Project lab — flagship Conflict Collection &amp; Neutral Analysis Platform, redacted client case studies, and enterprise infrastructure work.">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Google tag / Analytics -->
+  <script src="../assets/js/analytics.js" defer></script>
 </head>
 <body>
-  <nav class="site-nav"><div class="site-nav-inner">
-    <a href="../index.html" class="brand">Cargill<span class="amp">&amp;</span>Co<span class="brand-sub">Enterprise · SMB · Lab</span></a>
+
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="../" class="brand">
+      Cargill<span class="amp">&amp;</span>Co
+      <span class="brand-sub">Enterprise · SMB · Lab</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">Menu</button>
     <ul class="nav-links">
       <li><a href="../index.html">Index</a></li>
+      <li><a href="../professional/">Professional</a></li>
+      <li><a href="../professional/cargill-consulting/">Cargill Consulting</a></li>
       <li><a href="../professional/next-gen-it/">Next-Gen-IT</a></li>
+      <li><a href="./" class="active">Projects</a></li>
+      <li><a href="../professional/about/">About</a></li>
     </ul>
-  </div></nav>
-  <main>
-    <section class="hero"><div class="container">
-      <span class="eyebrow eyebrow-rule">Projects</span>
-      <h1>Projects</h1>
-      <p class="lede">Independent project lab, client work, infrastructure, DevOps, and AI projects.</p>
-    </div></section>
-  </main>
+  </div>
+</nav>
+
+<main>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-text">
+      <span class="eyebrow eyebrow-rule">02 · Project Lab</span>
+      <h1>Independent work, <em>built in production.</em></h1>
+      <p class="lede">An in-development product, a redacted client portfolio, and the infrastructure work that keeps both lanes of the practice grounded in real environments. The lab is where ideas earn their place by shipping.</p>
+      <div class="hero-meta">
+        <span>Flagship product in development</span>
+        <span>Four client cases</span>
+        <span>Real environments, redacted</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="container">
+
+    <a href="conflict-collection/" class="lane-card" style="margin-bottom: 1.25rem;">
+      <span class="lane-num">2.e · Flagship</span>
+      <h2>Conflict Collection &amp; Neutral Analysis Platform.</h2>
+      <p>Ingest text threads, emails, screenshots, and notes. Normalize into conflict events. Run each event through multiple AI models and surface the consensus. Build court-ready exhibits with a documented provenance chain. Targeted at co-parents, family-law attorneys, and mediators.</p>
+      <ul>
+        <li>Multi-model neutral analysis &mdash; consensus is structural, not asserted</li>
+        <li>Six-stage workflow from ingest to exhibit packet</li>
+        <li>Pilot conversations open with Central Texas family-law attorneys</li>
+      </ul>
+      <span class="card-arrow">Open the flagship &rarr;</span>
+    </a>
+
+    <div class="grid grid-2">
+      <a href="clients/" class="lane-card">
+        <span class="lane-num">2.h · Case studies</span>
+        <h2>Client work.</h2>
+        <p>Four redacted engagements covering the spectrum the practice serves: title-company wire-fraud hardening, brand-domain authentication, realty data tooling, and a scoping case in flight.</p>
+        <ul>
+          <li>TeleoTitle &mdash; flagship Next-Gen-Security case</li>
+          <li>Abode Labs &mdash; DNS &amp; email authentication</li>
+          <li>Starsky Owen Realty &mdash; transaction tracker dashboard</li>
+          <li>CosmicGen &mdash; engagement in scoping</li>
+        </ul>
+        <span class="card-arrow">Open case studies &rarr;</span>
+      </a>
+
+      <a href="infrastructure/" class="lane-card">
+        <span class="lane-num">2.a · Lab</span>
+        <h2>Infrastructure work.</h2>
+        <p>Diagrams, topology views, audit outputs, and migration artifacts from real production environments. Some are client deliverables, redacted. Some became reusable templates for the consulting practice.</p>
+        <ul>
+          <li>Active OpenShift migration program (~930 VMs, 56 hosts)</li>
+          <li>UCS health audit &mdash; 68 blades</li>
+          <li>RVTools reports, Jira-import CSV, SNO POC runbook</li>
+          <li>Multi-site environments documented</li>
+        </ul>
+        <span class="card-arrow">Open infrastructure work &rarr;</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="split">
+      <div>
+        <span class="eyebrow eyebrow-rule">How the lab feeds the practice</span>
+        <h2>Real systems, not portfolio pieces.</h2>
+      </div>
+      <div>
+        <p>Most of what surfaces here started as a client engagement, an internal problem at work, or a tool the practice needed. Conflict Collection is the exception &mdash; that one is being built deliberately as its own product, with its own pilot users and its own eventual home outside this site.</p>
+        <p>The discipline is the same across all of it: documented architecture, real artifacts, honest about what's working and what isn't.</p>
+        <div class="btn-cluster">
+          <a class="btn" href="conflict-collection/">Read the flagship</a>
+          <a class="btn btn-ghost" href="clients/">Browse client cases</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Cargill<span>&amp;</span>Co</div>
+        <p class="footer-tag">Two practices, one architect. Enterprise-grade thinking applied across the size spectrum, plus an active project lab.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Professional</h5>
+        <ul>
+          <li><a href="../professional/cargill-consulting/">Cargill Consulting</a></li>
+          <li><a href="../professional/next-gen-it/">Next-Gen-IT</a></li>
+          <li><a href="../professional/about/">About</a></li>
+          <li><a href="../professional/about/resumes/">Resumes</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Projects</h5>
+        <ul>
+          <li><a href="conflict-collection/">Conflict Collection</a></li>
+          <li><a href="clients/">Client Work</a></li>
+          <li><a href="infrastructure/">Infrastructure</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="https://github.com/jeremiah9980">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/jeremiahcargill/">LinkedIn</a></li>
+          <li><span class="muted">Austin, TX</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-meta">
+      <span>© 2026 Jeremiah Cargill</span>
+      <span>Built in production · Portfolio &amp; practice</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
 </body>
 </html>

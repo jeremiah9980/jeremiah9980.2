@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Next-Gen-IT · Sold By Shonna Domain Forwarding Audit</title>
+    <meta name="description" content="Example Next-Gen-IT domain forwarding and anti-spoofing audit report for soldbyshonna.com." />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+  </head>
+  <body>
+    <nav class="site-nav">
+      <div class="site-nav-inner">
+        <a href="../../index.html" class="brand">
+          Cargill<span class="amp">&amp;</span>Co
+          <span class="brand-sub">Enterprise · SMB · Lab</span>
+        </a>
+        <button class="nav-toggle" aria-label="Toggle menu">Menu</button>
+        <ul class="nav-links">
+          <li><a href="../../index.html">Index</a></li>
+          <li><a href="../">Professional</a></li>
+          <li><a href="../cargill-consulting/">Cargill Consulting</a></li>
+          <li><a href="./" class="active">Next-Gen-IT</a></li>
+          <li><a href="../../projects/">Projects</a></li>
+          <li><a href="../about/">About</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="report-shell">
+      <section class="report-hero">
+        <span class="report-kicker">Next-Gen-IT Example Deliverable · Companion Report</span>
+        <h1>Sold By Shonna <em>forwarding domain</em> audit report.</h1>
+        <p class="report-sub">
+          A focused domain-health example for <span class="report-code">soldbyshonna.com</span>, a marketing
+          URL that forwards to <span class="report-code">shonnaking.exprealty.com</span>. The report separates
+          scanner noise from the real risk: an unmonitored domain with no anti-spoofing controls.
+        </p>
+        <div class="report-meta-grid">
+          <div class="report-meta-cell"><div class="k">Client</div><div class="v">Shonna King</div></div>
+          <div class="report-meta-cell"><div class="k">Domain</div><div class="v mono">soldbyshonna.com</div></div>
+          <div class="report-meta-cell"><div class="k">Registrar / DNS</div><div class="v">GoDaddy</div></div>
+          <div class="report-meta-cell"><div class="k">Source report date</div><div class="v">April 25, 2026</div></div>
+        </div>
+        <div class="report-page-actions">
+          <a class="btn" href="./">Back to Next-Gen-IT</a>
+          <a class="btn btn-ghost" href="./shonna-king-domain-health-audit.html">View Shonna King primary domain</a>
+          <a class="btn btn-ghost" href="./starsky-owen-audit-report.html">View Starsky Owen example</a>
+        </div>
+      </section>
+
+      <div class="report-grid">
+        <section class="report-card">
+          <h2>Executive Summary</h2>
+          <p>
+            The sample MXToolbox-style scan returned <strong>10 problems</strong> against
+            <span class="report-code">soldbyshonna.com</span>: 8 errors and 2 warnings, against 24 passing checks.
+            That looks noisy, but the report identifies only <strong>one real critical risk</strong>.
+          </p>
+          <p>
+            This domain is intentionally forwarding-only. It does not host a mailbox or a production website. The
+            real issue is that no SPF, DKIM, or DMARC records are published, which means attackers can forge email
+            from a domain that no one is actively monitoring.
+          </p>
+          <div class="report-stat-row">
+            <div class="report-stat"><b>1</b>Real critical risk</div>
+            <div class="report-stat"><b>~30 min</b>Estimated hardening effort</div>
+            <div class="report-stat"><b>9/9</b>Blacklist checks clean</div>
+          </div>
+          <div class="report-note">
+            The audit treats “missing mail infrastructure” differently for a forwarding-only domain. No MX is not
+            necessarily wrong; no anti-spoofing policy is the material exposure.
+          </div>
+        </section>
+
+        <aside class="report-card">
+          <h2>Risk Snapshot</h2>
+          <div class="report-score" style="background: radial-gradient(closest-side, var(--paper-deep) 72%, transparent 73%), conic-gradient(var(--coral) 0 52%, rgba(255,255,255,.11) 52% 100%);">52</div>
+          <p>
+            Fair posture: forwarding works, reputation is clean, but anti-spoofing protection is effectively absent.
+          </p>
+          <div class="report-status-list">
+            <div class="report-status"><span>Blacklist reputation</span><div class="report-bar"><span style="width:100%"></span></div></div>
+            <div class="report-status"><span>DNS configuration</span><div class="report-bar"><span style="width:88%"></span></div></div>
+            <div class="report-status"><span>Domain forwarding</span><div class="report-bar"><span style="width:70%"></span></div></div>
+            <div class="report-status"><span>Mail configuration</span><div class="report-bar"><span style="width:60%"></span></div></div>
+            <div class="report-status"><span>Anti-spoofing</span><div class="report-bar"><span style="width:5%"></span></div></div>
+          </div>
+        </aside>
+      </div>
+
+      <section class="report-card">
+        <h2>Infrastructure Identification</h2>
+        <p>
+          The report identifies a forwarding-only architecture: GoDaddy controls registration and DNS, while
+          A records resolve to AWS Global Accelerator endpoints used by GoDaddy’s forwarding service.
+        </p>
+        <div class="report-infra-list">
+          <div class="report-infra-row"><div class="k">Registrar</div><div class="v">GoDaddy</div></div>
+          <div class="report-infra-row"><div class="k">DNS host</div><div class="v">GoDaddy, via <code>ns07.domaincontrol.com</code> and <code>ns08.domaincontrol.com</code></div></div>
+          <div class="report-infra-row"><div class="k">A records</div><div class="v"><code>3.33.251.168</code> and <code>15.197.225.128</code>, reverse-resolving to an AWS Global Accelerator endpoint</div></div>
+          <div class="report-infra-row"><div class="k">Web behavior</div><div class="v">Forwarding to <code>https://shonnaking.exprealty.com/</code></div></div>
+          <div class="report-infra-row"><div class="k">Mail</div><div class="v">No MX records by design. SPF / DKIM / DMARC absent and should be hardened as a parked-mail domain.</div></div>
+        </div>
+      </section>
+
+      <section class="report-card">
+        <h2>Current-State Architecture</h2>
+        <p>
+          The diagram shows three public interactions: real visitor traffic, spoofed outbound email, and inbound mail.
+          Visitor forwarding works; spoofed email is unblocked; inbound mail is intentionally black-holed.
+        </p>
+        <div class="report-diagram">
+          <svg viewBox="0 0 1160 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Current-state architecture diagram for soldbyshonna.com">
+            <defs>
+              <marker id="arrSold" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                <path d="M0,0 L10,5 L0,10 z" fill="#8FD7FF"/>
+              </marker>
+              <linearGradient id="soldCard" x1="0" x2="1" y1="0" y2="1">
+                <stop stop-color="rgba(255,107,95,.16)" offset="0"/>
+                <stop stop-color="rgba(143,215,255,.10)" offset="1"/>
+              </linearGradient>
+            </defs>
+            <rect width="1160" height="460" fill="#081B33"/>
+            <g font-family="IBM Plex Mono, monospace" font-size="13" letter-spacing="2">
+              <text x="34" y="66" fill="#22C55E">WEB VISITOR · WORKING AS DESIGNED</text>
+              <text x="34" y="222" fill="#FF6B5F">ATTACKER SPOOFING THIS DOMAIN · UNBLOCKED</text>
+              <text x="34" y="378" fill="#91A6C3">INBOUND MAIL · BLACK-HOLED BY DESIGN</text>
+            </g>
+
+            <g font-family="IBM Plex Sans, sans-serif" font-size="15" fill="#D7E2F0">
+              <rect x="210" y="34" width="180" height="82" rx="14" fill="url(#soldCard)" stroke="rgba(145,166,195,.28)"/>
+              <text x="300" y="67" text-anchor="middle" font-weight="700" fill="#fff">Visitor browser</text>
+              <text x="300" y="91" text-anchor="middle">opens domain</text>
+
+              <rect x="450" y="34" width="190" height="82" rx="14" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.6)"/>
+              <text x="545" y="67" text-anchor="middle" font-weight="700" fill="#fff">GoDaddy DNS</text>
+              <text x="545" y="91" text-anchor="middle" fill="#22C55E">domaincontrol.com</text>
+
+              <rect x="700" y="34" width="220" height="82" rx="14" fill="rgba(34,197,94,.14)" stroke="rgba(34,197,94,.6)"/>
+              <text x="810" y="67" text-anchor="middle" font-weight="700" fill="#fff">GoDaddy Forwarder</text>
+              <text x="810" y="91" text-anchor="middle" fill="#22C55E">to shonnaking.exprealty.com</text>
+
+              <line x1="390" y1="75" x2="446" y2="75" stroke="#8FD7FF" stroke-width="2" marker-end="url(#arrSold)"/>
+              <line x1="640" y1="75" x2="696" y2="75" stroke="#8FD7FF" stroke-width="2" marker-end="url(#arrSold)"/>
+
+              <rect x="210" y="190" width="180" height="82" rx="14" fill="url(#soldCard)" stroke="rgba(145,166,195,.28)"/>
+              <text x="300" y="223" text-anchor="middle" font-weight="700" fill="#fff">Attacker</text>
+              <text x="300" y="247" text-anchor="middle">spoofs domain</text>
+
+              <rect x="450" y="190" width="190" height="82" rx="14" fill="rgba(239,68,68,.18)" stroke="rgba(239,68,68,.62)"/>
+              <text x="545" y="223" text-anchor="middle" font-weight="700" fill="#fff">No SPF / DMARC</text>
+              <text x="545" y="247" text-anchor="middle" fill="#FF6B5F">not blocked</text>
+
+              <rect x="700" y="190" width="220" height="82" rx="14" fill="rgba(239,68,68,.18)" stroke="rgba(239,68,68,.62)" stroke-dasharray="7 5"/>
+              <text x="810" y="223" text-anchor="middle" font-weight="700" fill="#fff">Recipient inbox</text>
+              <text x="810" y="247" text-anchor="middle" fill="#FF6B5F">may accept forged mail</text>
+
+              <line x1="390" y1="231" x2="446" y2="231" stroke="#FF6B5F" stroke-width="2" marker-end="url(#arrSold)"/>
+              <line x1="640" y1="231" x2="696" y2="231" stroke="#FF6B5F" stroke-width="2" marker-end="url(#arrSold)"/>
+
+              <rect x="210" y="346" width="180" height="82" rx="14" fill="url(#soldCard)" stroke="rgba(145,166,195,.28)"/>
+              <text x="300" y="379" text-anchor="middle" font-weight="700" fill="#fff">Sender</text>
+              <text x="300" y="403" text-anchor="middle">emails domain</text>
+
+              <rect x="450" y="346" width="190" height="82" rx="14" fill="rgba(145,166,195,.12)" stroke="rgba(145,166,195,.36)"/>
+              <text x="545" y="379" text-anchor="middle" font-weight="700" fill="#fff">No MX</text>
+              <text x="545" y="403" text-anchor="middle" fill="#91A6C3">expected for parked mail</text>
+
+              <rect x="700" y="346" width="220" height="82" rx="14" fill="rgba(145,166,195,.12)" stroke="rgba(145,166,195,.36)"/>
+              <text x="810" y="379" text-anchor="middle" font-weight="700" fill="#fff">No inbox exists</text>
+              <text x="810" y="403" text-anchor="middle" fill="#91A6C3">mail is black-holed</text>
+
+              <line x1="390" y1="387" x2="446" y2="387" stroke="#91A6C3" stroke-width="2" marker-end="url(#arrSold)"/>
+              <line x1="640" y1="387" x2="696" y2="387" stroke="#91A6C3" stroke-width="2" marker-end="url(#arrSold)"/>
+            </g>
+          </svg>
+        </div>
+        <p class="report-caption">Figure 1 — Forwarding-domain architecture for soldbyshonna.com.</p>
+      </section>
+
+      <section class="report-card">
+        <h2>Findings & Recommended Actions</h2>
+        <div class="report-findings">
+          <div class="report-finding">
+            <span class="report-badge critical">Critical</span>
+            <div>
+              <h3>No anti-spoofing records on a parked-mail domain</h3>
+              <p>
+                A forwarding-only domain should explicitly declare that it sends no mail. Publish a null SPF record
+                and reject DMARC so forged messages fail authentication.
+              </p>
+              <pre class="report-dns">soldbyshonna.com TXT "v=spf1 -all"
+_dmarc.soldbyshonna.com TXT "v=DMARC1; p=reject; rua=mailto:dmarc-reports@shonnaking.com; fo=1"</pre>
+            </div>
+          </div>
+          <div class="report-finding">
+            <span class="report-badge med">Medium</span>
+            <div>
+              <h3>HTTP 403 on direct scanner hit should be verified in a browser</h3>
+              <p>
+                The audit treats this as likely scanner noise caused by GoDaddy forwarding behavior, but the redirect
+                should still be tested manually from a clean browser and mobile device.
+              </p>
+            </div>
+          </div>
+          <div class="report-finding">
+            <span class="report-badge low">Low</span>
+            <div>
+              <h3>SOA Expire value outside recommended range</h3>
+              <p>
+                This is cosmetic for this use case. Adjust at the DNS host during a routine cleanup window if desired.
+              </p>
+            </div>
+          </div>
+          <div class="report-finding">
+            <span class="report-badge info">Ignore</span>
+            <div>
+              <h3>Missing MX / DKIM / BIMI findings are mostly scanner noise</h3>
+              <p>
+                Because this domain is intentionally not used for mailbox hosting, the important remediation is not to
+                add mailboxes; it is to publish policy records that prevent abuse.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="report-card">
+        <h2>Sequenced Roadmap</h2>
+        <div class="report-roadmap">
+          <div class="report-roadmap-row"><div class="report-step">01</div><div class="report-when">Day 1</div><div>Confirm GoDaddy forwarding works in Chrome, Safari, mobile, and an incognito browser session.</div></div>
+          <div class="report-roadmap-row"><div class="report-step">02</div><div class="report-when">Day 1</div><div>Publish null SPF: <code>v=spf1 -all</code>.</div></div>
+          <div class="report-roadmap-row"><div class="report-step">03</div><div class="report-when">Day 1</div><div>Publish DMARC reject policy for the forwarding domain.</div></div>
+          <div class="report-roadmap-row"><div class="report-step">04</div><div class="report-when">Week 1</div><div>Re-run the scan and document expected residual scanner noise.</div></div>
+          <div class="report-roadmap-row"><div class="report-step">05</div><div class="report-when">Anytime</div><div>Optionally clean up SOA timing values at GoDaddy.</div></div>
+        </div>
+        <div class="report-crossref">
+          <strong>Companion report:</strong> use this alongside the <a href="./shonna-king-domain-health-audit.html">shonnaking.com primary-domain report</a>. The primary domain needs mailbox authentication hardening; the forwarding domain needs anti-spoofing lockout.
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-meta">
+          <span>© 2026 Jeremiah Cargill · Next-Gen-IT</span>
+          <span>Example client deliverable · soldbyshonna.com</span>
+        </div>
+      </div>
+    </footer>
+    <script src="../../assets/js/main.js"></script>
+  </body>
+</html>

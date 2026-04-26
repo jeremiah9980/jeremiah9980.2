@@ -10,13 +10,13 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --ink: #0e0e0e;
-  --paper: #f4f1eb;
-  --paper2: #ede9e0;
-  --accent: #c84b2f;
-  --accent2: #1a3a5c;
-  --gold: #b08a3e;
-  --rule: rgba(14,14,14,0.12);
+  --ink: #f4f1eb;   /* primary text colour on dark backgrounds */
+  --paper: #0a2342; /* primary background */
+  --paper2: #102d4f;/* secondary panel background */
+  --accent: #e4473a;/* coral highlight for calls to action */
+  --accent2: #2b7cbf;/* light blue secondary accent */
+  --gold: #b08a3e;  /* muted gold used for hub arrows */
+  --rule: rgba(244,241,235,0.15); /* subtle dividing lines on dark backgrounds */
   --mono: 'IBM Plex Mono', monospace;
   --head: 'Syne', sans-serif;
   --body: 'Lora', Georgia, serif;
@@ -365,6 +365,99 @@ h2 {
   margin: 0 auto;
 }
 
+/* ─── portal preview ─── */
+.portal-preview-section {
+  padding: 80px 48px;
+  background: var(--paper2);
+  text-align: center;
+}
+.portal-preview-section .section-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.portal-preview-section .section-label::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1.5px;
+  background: var(--accent);
+}
+.portal-preview-section .preview-title {
+  font-family: var(--head);
+  font-weight: 700;
+  font-size: clamp(24px,4vw,36px);
+  margin-bottom: 28px;
+}
+.portal-preview-img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  margin-bottom: 16px;
+}
+.portal-preview-section .preview-caption {
+  font-size: 14px;
+  opacity: 0.7;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* ─── report examples ─── */
+.report-examples-section {
+  padding: 80px 48px;
+  background: var(--paper);
+}
+.report-examples-section .section-header {
+  margin-bottom: 40px;
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 20px;
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+}
+.report-examples-section .section-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  flex-shrink: 0;
+}
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2px;
+}
+.report-card {
+  background: var(--paper2);
+  padding: 32px;
+  color: var(--ink);
+  text-decoration: none;
+  border-top: 3px solid var(--accent);
+  transition: background 0.25s, transform 0.2s;
+}
+.report-card:hover {
+  background: #143460;
+  transform: translateY(-2px);
+}
+.report-card h4 {
+  font-family: var(--head);
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+.report-card p {
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0.75;
+}
 .move-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -404,8 +497,9 @@ h2 {
 
 /* ─── portal CTA ─── */
 .cta-strip {
-  background: var(--ink);
-  color: var(--paper);
+  /* Invert the colour scheme on the call‑to‑action strip for dark mode */
+  background: var(--paper2);
+  color: var(--ink);
   padding: 56px 48px;
   display: flex;
   align-items: center;
@@ -754,6 +848,39 @@ footer p {
         Let her carry it internally. A warm intro beats a cold deck every time.
       </p>
     </div>
+  </div>
+</section>
+
+<!-- PORTAL PREVIEW -->
+<section class="portal-preview-section">
+  <div class="preview-inner">
+    <p class="section-label">Audit portal preview</p>
+    <h2 class="preview-title">See it in action</h2>
+    <!-- Use the audit GIF as a visual teaser. This file is packaged with the site. -->
+    <img src="../../assets/img/next-gen-it-audit.gif" alt="Preview of the domain audit portal" class="portal-preview-img">
+    <p class="preview-caption">This animation shows how the portal scans a domain, surfaces email‑auth issues and duplicate spend, and generates a bespoke report in seconds.</p>
+  </div>
+</section>
+
+<!-- REPORT EXAMPLES -->
+<section class="report-examples-section">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2>Example deliverables</h2>
+  </div>
+  <div class="report-grid">
+    <a class="report-card" href="starsky-owen-audit-report.html">
+      <h4>Starsky Owen Realty</h4>
+      <p>Comprehensive domain health audit for a seven‑person real estate team.</p>
+    </a>
+    <a class="report-card" href="shonna-king-domain-health-audit.html">
+      <h4>Shonna King</h4>
+      <p>Domain health review uncovering impersonation and forwarding risks.</p>
+    </a>
+    <a class="report-card" href="soldbyshonna-domain-forwarding-audit.html">
+      <h4>Sold By Shonna</h4>
+      <p>Companion audit addressing forwarding hygiene and anti‑spoofing posture.</p>
+    </a>
   </div>
 </section>
 

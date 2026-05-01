@@ -9,6 +9,55 @@
       content="Next-Gen-IT brings enterprise-grade audit, workflow, and security consulting to small business teams."
     />
     <link rel="stylesheet" href="../../assets/css/main.css" />
+    <style>
+      .pilot-feature-card {
+        position: relative;
+        border: 1px solid rgba(228, 71, 58, 0.45);
+        box-shadow: 0 0 0 rgba(228, 71, 58, 0);
+        animation: pilotSoftGlow 4.5s ease-in-out infinite;
+      }
+
+      .pilot-feature-card::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        pointer-events: none;
+        background: linear-gradient(135deg, rgba(228, 71, 58, 0.22), transparent 34%, rgba(228, 71, 58, 0.16));
+        opacity: 0.55;
+      }
+
+      .pilot-badge {
+        display: inline-flex;
+        align-items: center;
+        width: fit-content;
+        margin-bottom: 0.85rem;
+        padding: 0.28rem 0.65rem;
+        border: 1px solid rgba(228, 71, 58, 0.55);
+        border-radius: 999px;
+        background: rgba(228, 71, 58, 0.12);
+        color: var(--accent);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      @keyframes pilotSoftGlow {
+        0%, 100% {
+          box-shadow: 0 0 0 rgba(228, 71, 58, 0), 0 16px 55px rgba(0, 0, 0, 0.08);
+          transform: translateY(0);
+        }
+        50% {
+          box-shadow: 0 0 34px rgba(228, 71, 58, 0.18), 0 18px 60px rgba(0, 0, 0, 0.14);
+          transform: translateY(-2px);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .pilot-feature-card { animation: none; }
+      }
+    </style>
   </head>
   <body>
     <nav class="site-nav">
@@ -117,7 +166,8 @@
               <span class="card-arrow">Open partnership strategy →</span>
             </a>
 
-            <a href="./email-security-pilot-campaign.html" class="lane-card reveal">
+            <a href="./email-security-pilot-campaign.html" class="lane-card reveal pilot-feature-card">
+              <span class="pilot-badge">NEW · Pilot Program</span>
               <span class="lane-num">Example 04 · Pilot Campaign</span>
               <h2>Email Security Pilot</h2>
               <p>

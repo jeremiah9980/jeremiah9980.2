@@ -65,7 +65,14 @@ HOW TO DIRECT LEADS
 • Want to connect directly → LinkedIn: https://www.linkedin.com/in/jeremiahcargill/
 
 TONE
-Be direct, concise, and professional — no filler, no hype. Match the voice of the site. If you don't know something specific, say so clearly and offer to route the visitor to Jeremiah via LinkedIn. Do not invent pricing, timelines, or credentials you don't have in context.`;
+Be direct, concise, and professional — no filler, no hype. Match the voice of the site. If you don't know something specific, say so clearly and offer to route the visitor to Jeremiah via LinkedIn. Do not invent pricing, timelines, or credentials you don't have in context.
+
+DATE CONTEXT
+Today's date is injected at runtime. Do not make assumptions about future events or time-sensitive details not provided in your context.`;
+
+  // Append current date so the model has temporal grounding
+  const SYSTEM_PROMPT_WITH_DATE =
+    SYSTEM_PROMPT + `\n\nToday's date: ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}.`;
 
   // ── State ─────────────────────────────────────────────────────────────────
   let isOpen = false;
@@ -333,15 +340,21 @@ Be direct, concise, and professional — no filler, no hype. Match the voice of 
         model: MODEL,
         stream: true,
         messages: [
-          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'system', content: SYSTEM_PROMPT_WITH_DATE },
           ...history.slice(-MAX_HISTORY),
         ],
       };
 
       const headers = { 'Content-Type': 'application/json' };
-      // Only set Authorization if calling OpenAI directly (not a proxy that handles it)
-      if (ENDPOINT.includes('api.openai.com')) {
-        headers['Authorization'] = `Bearer ${apiKey}`;
+      // Only set Authorization when calling OpenAI directly (not a proxy that handles auth).
+      // Use URL hostname comparison to avoid substring-match false positives.
+      try {
+        const endpointHost = new URL(ENDPOINT).hostname;
+        if (endpointHost === 'api.openai.com') {
+          headers['Authorization'] = `Bearer ${apiKey}`;
+        }
+      } catch (_) {
+        // Relative or malformed URL — assume it's a local proxy; omit auth header.
       }
 
       const res = await fetch(ENDPOINT, {

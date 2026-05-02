@@ -2,8 +2,8 @@
 
 Second-generation portfolio and practice site for Jeremiah Cargill.
 
-**Live:** https://jeremiah9980.github.io/jeremiah9980.2/
-**V1 archive:** https://jeremiah9980.github.io/jeremiah9980/
+**Live:** <https://jeremiah9980.github.io/jeremiah9980.2/>
+**V1 archive:** <https://jeremiah9980.github.io/jeremiah9980/>
 
 ## What this is
 
@@ -20,7 +20,7 @@ Dark coral UI on deep navy. IBM Plex Sans / Plex Mono with Fraunces variable ser
 
 ## Information architecture
 
-```
+```text
 /                                                [home — two-lane router with hero]
 ├── professional/
 │   ├── index.html                                [Professional router]

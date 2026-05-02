@@ -9,7 +9,56 @@
       content="Next-Gen-IT brings enterprise-grade audit, workflow, and security consulting to small business teams."
     />
     <link rel="stylesheet" href="../../assets/css/main.css" />
-  <link rel="stylesheet" href="../../assets/css/agent.css">
+    <link rel="stylesheet" href="../../assets/css/agent.css">
+    <style>
+      .pilot-feature-card {
+        position: relative;
+        border: 1px solid rgba(228, 71, 58, 0.45);
+        box-shadow: 0 0 0 rgba(228, 71, 58, 0);
+        animation: pilotSoftGlow 4.5s ease-in-out infinite;
+      }
+
+      .pilot-feature-card::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        pointer-events: none;
+        background: linear-gradient(135deg, rgba(228, 71, 58, 0.22), transparent 34%, rgba(228, 71, 58, 0.16));
+        opacity: 0.55;
+      }
+
+      .pilot-badge {
+        display: inline-flex;
+        align-items: center;
+        width: fit-content;
+        margin-bottom: 0.85rem;
+        padding: 0.28rem 0.65rem;
+        border: 1px solid rgba(228, 71, 58, 0.55);
+        border-radius: 999px;
+        background: rgba(228, 71, 58, 0.12);
+        color: var(--accent);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      @keyframes pilotSoftGlow {
+        0%, 100% {
+          box-shadow: 0 0 0 rgba(228, 71, 58, 0), 0 16px 55px rgba(0, 0, 0, 0.08);
+          transform: translateY(0);
+        }
+        50% {
+          box-shadow: 0 0 34px rgba(228, 71, 58, 0.18), 0 18px 60px rgba(0, 0, 0, 0.14);
+          transform: translateY(-2px);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .pilot-feature-card { animation: none; }
+      }
+    </style>
   </head>
   <body>
     <nav class="site-nav">
@@ -36,11 +85,13 @@
             <span class="eyebrow eyebrow-rule">Next-Gen-IT · Small Business Practice</span>
           </div>
           <h1 class="reveal">
-            Enterprise-grade audits for <em>small teams</em> that need clarity.
+            Enterprise‑grade audits &amp; strategy for <em>small teams</em> that need clarity.
           </h1>
           <p class="lede reveal">
-            Next-Gen-IT helps owners and operators map the tools that run their business, identify
-            mission-critical technical debt, reduce duplicate spend, and harden workflows for continuity.
+            Next‑Gen‑IT helps owners and operators map the tools that run their business, identify
+            mission‑critical technical debt, reduce duplicate spend, and harden workflows for continuity.
+            Beyond the initial assessment, we turn one‑off findings into a living strategy for security
+            and operational excellence.
           </p>
           <div class="hero-meta reveal">
             <span>Tech ecosystem audits</span>
@@ -55,7 +106,7 @@
           <div class="split">
             <div>
               <span class="eyebrow eyebrow-rule">Example deliverables</span>
-              <h2>Two sample reports, one consistent client experience.</h2>
+              <h2>Sample deliverables, one consistent client experience.</h2>
             </div>
             <div>
               <p>
@@ -98,6 +149,57 @@
               </ul>
               <span class="card-arrow">Open Shonna King example →</span>
             </a>
+
+            <a href="./partnership-strategy.html" class="lane-card reveal">
+              <span class="lane-num">Example 03 · Partnership Strategy</span>
+              <h2>Partnership Strategy</h2>
+              <p>
+                This guide outlines how Next-Gen-IT collaborates with partner agencies and vendors.
+                It covers strategic alignment, co-branded approaches, real outreach moves,
+                and how the portal and audits fit into a joint go‑to‑market motion.
+              </p>
+              <ul>
+                <li>Partner &amp; vendor alignment</li>
+                <li>Co‑branded offerings</li>
+                <li>Outreach &amp; proposal moves</li>
+                <li>Portal &amp; audit integration</li>
+              </ul>
+              <span class="card-arrow">Open partnership strategy →</span>
+            </a>
+
+            <a href="./email-security-pilot-campaign.html" class="lane-card reveal pilot-feature-card">
+              <span class="pilot-badge">NEW · Pilot Program</span>
+              <span class="lane-num">Example 04 · Pilot Campaign</span>
+              <h2>Email Security Pilot</h2>
+              <p>
+                A 90-day go-to-market campaign positioning email authentication as the entry point
+                into real estate and title companies across Austin and Central Texas.
+              </p>
+              <ul>
+                <li>Next-Gen-IT + Abode Labs pilot</li>
+                <li>Wire fraud risk narrative</li>
+                <li>SPF, DKIM, DMARC remediation path</li>
+                <li>Partner revenue and scale model</li>
+              </ul>
+              <span class="card-arrow">Open email security pilot →</span>
+            </a>
+
+            <a href="./soldbyshonna-domain-forwarding-audit.html" class="lane-card reveal">
+              <span class="lane-num">Example 05 · Domain Forwarding Audit</span>
+              <h2>Sold By Shonna — Forwarding Domain</h2>
+              <p>
+                A companion audit for soldbyshonna.com, a forwarding-only real estate marketing
+                domain. Shows how even a redirect-only domain carries DMARC exposure and
+                maintenance obligations.
+              </p>
+              <ul>
+                <li>HTTP 301 forwarding chain analysis</li>
+                <li>DMARC exposure on non-sending domain</li>
+                <li>DNS hygiene &amp; ownership notes</li>
+                <li>Companion to the Shonna King audit</li>
+              </ul>
+              <span class="card-arrow">Open Sold By Shonna example →</span>
+            </a>
           </div>
         </div>
       </section>
@@ -107,14 +209,15 @@
           <div class="split">
             <div>
               <span class="eyebrow eyebrow-rule">Engagement model</span>
-              <h2>Built for smaller teams that still need real architecture.</h2>
+              <h2>Built for smaller teams that still need real architecture &amp; a plan.</h2>
             </div>
             <div>
-              <p>
-                A five-person real estate, title, agency, or local service team may not need a full
+                <p>
+                A five‑person real estate, title, agency, or local service team may not need a full
                 enterprise transformation program, but they still depend on domains, email, shared files,
-                CRMs, contract tools, accounting systems, and vendor accounts. Next-Gen-IT packages
-                enterprise thinking into a smaller, practical engagement.
+                CRMs, contract tools, accounting systems, and vendor accounts. Next‑Gen‑IT packages
+                enterprise thinking into a smaller, practical engagement and adds an ongoing strategy
+                layer to keep systems aligned and risks under control.
               </p>
               <div class="btn-cluster">
                 <a class="btn" href="./starsky-owen-audit-report.html">View ecosystem example</a>
@@ -124,6 +227,109 @@
           </div>
         </div>
       </section>
+
+      <!-- Packaged service offers -->
+      <section class="tight">
+        <div class="container">
+          <div class="split">
+            <div>
+              <span class="eyebrow eyebrow-rule">Packaged offers</span>
+              <h2>Three services. Fixed scope. Real deliverables.</h2>
+            </div>
+            <div>
+              <p>
+                Each Next‑Gen‑IT engagement is scoped and priced before we start.
+                No hourly guesswork, no scope creep. Pick the offer that matches where your
+                firm is right now.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-3 mt-3">
+            <a href="./audit/" class="lane-card reveal">
+              <span class="lane-num">1.b.1 · Packaged Offer</span>
+              <h2>Next‑Gen‑Audit</h2>
+              <p>
+                Fixed-scope IT &amp; security audit. Two weeks. A findings PDF and a
+                copy‑pasteable remediation runbook — so you leave knowing exactly what
+                you have and what to fix first.
+              </p>
+              <ul>
+                <li>Email auth posture (SPF/DKIM/DMARC)</li>
+                <li>Endpoint inventory &amp; patch state</li>
+                <li>MFA coverage &amp; admin hygiene</li>
+                <li>External attack‑surface sweep</li>
+              </ul>
+              <span class="card-arrow">View Next‑Gen‑Audit →</span>
+            </a>
+
+            <a href="./operations/" class="lane-card reveal">
+              <span class="lane-num">1.b.2 · Packaged Offer</span>
+              <h2>Next‑Gen‑Operations</h2>
+              <p>
+                Ongoing IT operations on retainer, with outcomes written into the
+                agreement. Monthly reporting, quarterly strategy call, SLAs that
+                mean something.
+              </p>
+              <ul>
+                <li>Endpoint patch &amp; hygiene</li>
+                <li>Backup verification + restore test</li>
+                <li>DNS &amp; email auth drift monitoring</li>
+                <li>Admin account &amp; user lifecycle</li>
+              </ul>
+              <span class="card-arrow">View Next‑Gen‑Operations →</span>
+            </a>
+
+            <a href="./security/" class="lane-card reveal">
+              <span class="lane-num">1.b.3 · Packaged Offer</span>
+              <h2>Next‑Gen‑Security</h2>
+              <p>
+                The wire‑fraud and email‑impersonation posture your firm needs
+                before the next attempt lands. DMARC enforcement, MFA rollout,
+                phishing simulation — packaged by firm type.
+              </p>
+              <ul>
+                <li>DMARC enforcement across all domains</li>
+                <li>Phishing‑resistant MFA rollout</li>
+                <li>Wire‑fraud protocol + signed playbook</li>
+                <li>Quarterly phishing simulation</li>
+              </ul>
+              <span class="card-arrow">View Next‑Gen‑Security →</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Begin embedded audit portal -->
+      <section>
+        <div class="container">
+          <span class="eyebrow eyebrow-rule">Try the audit portal</span>
+          <h2>Run your own audit</h2>
+          <p class="lede">Experience the Next-Gen-IT client audit portal directly on this page. The embedded interface lets you enter a domain and start a small‑business tech ecosystem scan immediately. All processing happens in your browser; no information is saved or transmitted to this site.</p>
+
+          <!-- Portal preview GIF -->
+          <div class="portal-preview" style="margin-top: 1.5rem; margin-bottom: 1rem;">
+            <img
+              src="../../assets/img/next-gen-it-audit.gif"
+              alt="Animated preview of the Next‑Gen‑IT audit portal"
+              style="width: 100%; max-width: 640px; border-radius: var(--radius); border: 1px solid var(--rule); display: block; margin: 0 auto; box-shadow: 0 16px 55px rgba(0,0,0,.18);"
+            />
+          </div>
+          <div class="portal-frame-wrapper" style="margin-top:2rem;">
+            <iframe
+              title="Next-Gen-IT Audit Portal"
+              src="https://jeremiah9980.github.io/Next-Gen-IT/portal/"
+              loading="lazy"
+              style="width: 100%; height: 900px; border: 1px solid var(--rule); border-radius: var(--radius); background-color: var(--paper-edge);"
+            ></iframe>
+            <p style="margin-top: 1rem; text-align: center; font-size: 0.9rem; color: var(--ink-muted);">
+              <em>If the portal does not load properly in the embedded frame, you can
+              <a href="https://jeremiah9980.github.io/Next-Gen-IT/portal/" target="_blank" rel="noopener">open it in a new tab</a>.</em>
+            </p>
+          </div>
+        </div>
+      </section>
+      <!-- End embedded audit portal -->
     </main>
 
     <footer class="site-footer">
@@ -145,10 +351,21 @@
             </ul>
           </div>
           <div class="footer-col">
+            <h5>Services</h5>
+            <ul>
+              <li><a href="./audit/">Next-Gen-Audit</a></li>
+              <li><a href="./operations/">Next-Gen-Operations</a></li>
+              <li><a href="./security/">Next-Gen-Security</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
             <h5>Example Reports</h5>
             <ul>
               <li><a href="./starsky-owen-audit-report.html">Starsky Owen Realty</a></li>
               <li><a href="./shonna-king-domain-health-audit.html">Shonna King</a></li>
+              <li><a href="./soldbyshonna-domain-forwarding-audit.html">Sold By Shonna</a></li>
+              <li><a href="./partnership-strategy.html">Partnership strategy</a></li>
+              <li><a href="./email-security-pilot-campaign.html">Email security pilot</a></li>
             </ul>
           </div>
           <div class="footer-col">

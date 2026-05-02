@@ -350,7 +350,7 @@ Today's date is injected at runtime. Do not make assumptions about future events
       // Use URL hostname comparison to avoid substring-match false positives.
       try {
         const endpointHost = new URL(ENDPOINT).hostname;
-        if (endpointHost === 'api.openai.com') {
+        if (endpointHost === 'api.openai.com' || endpointHost.endsWith('.openai.com')) {
           headers['Authorization'] = `Bearer ${apiKey}`;
         }
       } catch (_) {

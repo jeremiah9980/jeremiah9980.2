@@ -1,0 +1,448 @@
+/* AI Agent Chat Widget
+ * Matches the site's dark navy / coral palette and glass-panel aesthetic.
+ * All tokens inherit from :root in main.css.
+ */
+
+/* ── Floating trigger button ──────────────────────────────────────────────── */
+#agent-toggle {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9000;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: var(--coral, #FF6B5F);
+  color: #fff;
+  box-shadow: 0 6px 28px rgba(255, 107, 95, 0.46);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  outline-offset: 3px;
+}
+
+#agent-toggle:hover {
+  background: var(--coral-deep, #E4473A);
+  box-shadow: 0 8px 34px rgba(255, 107, 95, 0.62);
+  transform: scale(1.06);
+}
+
+#agent-toggle:focus-visible {
+  outline: 2px solid var(--sky, #8FD7FF);
+}
+
+#agent-toggle svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+
+/* hide/show icons based on state */
+#agent-toggle .icon-chat { display: block; }
+#agent-toggle .icon-close { display: none; }
+#agent-toggle.open .icon-chat { display: none; }
+#agent-toggle.open .icon-close { display: block; }
+
+/* ── Panel ────────────────────────────────────────────────────────────────── */
+#agent-panel {
+  position: fixed;
+  bottom: 5.5rem;
+  right: 1.5rem;
+  z-index: 8999;
+  width: min(420px, calc(100vw - 2rem));
+  height: min(560px, calc(100vh - 7rem));
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius, 22px);
+  background: var(--panel-strong, rgba(13, 43, 79, 0.94));
+  border: 1px solid rgba(145, 166, 195, 0.22);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.52), 0 0 0 1px rgba(255,107,95,0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  overflow: hidden;
+  transform-origin: bottom right;
+  transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#agent-panel[hidden] {
+  display: none;
+}
+
+#agent-panel.entering {
+  opacity: 0;
+  transform: scale(0.88) translateY(12px);
+}
+
+/* ── Panel header ─────────────────────────────────────────────────────────── */
+#agent-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--rule, rgba(145, 166, 195, 0.22));
+  background: linear-gradient(135deg, rgba(255,107,95,0.12) 0%, transparent 60%);
+  flex-shrink: 0;
+}
+
+#agent-header .agent-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--coral, #FF6B5F);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+#agent-header .agent-title {
+  flex: 1;
+  min-width: 0;
+}
+
+#agent-header .agent-title strong {
+  display: block;
+  font-family: var(--body, sans-serif);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink, #fff);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#agent-header .agent-title span {
+  font-size: 0.72rem;
+  color: var(--ink-muted, #91A6C3);
+}
+
+.agent-status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--ok, #22C55E);
+  box-shadow: 0 0 6px var(--ok, #22C55E);
+  margin-left: auto;
+}
+
+.agent-status-dot.thinking {
+  background: var(--warn, #F59E0B);
+  box-shadow: 0 0 6px var(--warn, #F59E0B);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+/* ── Message thread ───────────────────────────────────────────────────────── */
+#agent-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  scroll-behavior: smooth;
+}
+
+#agent-messages::-webkit-scrollbar {
+  width: 4px;
+}
+#agent-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+#agent-messages::-webkit-scrollbar-thumb {
+  background: var(--rule, rgba(145, 166, 195, 0.22));
+  border-radius: 2px;
+}
+
+.agent-msg {
+  max-width: 86%;
+  padding: 0.65rem 0.9rem;
+  border-radius: 14px;
+  font-size: 0.845rem;
+  line-height: 1.55;
+  word-break: break-word;
+  animation: msg-in 0.18s ease;
+}
+
+@keyframes msg-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.agent-msg.assistant {
+  align-self: flex-start;
+  background: rgba(10, 35, 66, 0.72);
+  border: 1px solid var(--rule, rgba(145, 166, 195, 0.22));
+  color: var(--ink-soft, #D7E2F0);
+  border-bottom-left-radius: 4px;
+}
+
+.agent-msg.user {
+  align-self: flex-end;
+  background: var(--coral, #FF6B5F);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.agent-msg.assistant a {
+  color: var(--sky, #8FD7FF);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.agent-msg.error {
+  align-self: stretch;
+  background: rgba(239, 68, 68, 0.14);
+  border: 1px solid rgba(239, 68, 68, 0.32);
+  color: #fca5a5;
+  font-size: 0.8rem;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* Typing indicator */
+.agent-typing {
+  align-self: flex-start;
+  display: flex;
+  gap: 0.3rem;
+  padding: 0.65rem 0.9rem;
+  background: rgba(10, 35, 66, 0.72);
+  border: 1px solid var(--rule, rgba(145, 166, 195, 0.22));
+  border-radius: 14px;
+  border-bottom-left-radius: 4px;
+}
+
+.agent-typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink-muted, #91A6C3);
+  animation: bounce 1.2s ease infinite;
+}
+
+.agent-typing span:nth-child(2) { animation-delay: 0.18s; }
+.agent-typing span:nth-child(3) { animation-delay: 0.36s; }
+
+@keyframes bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30%           { transform: translateY(-5px); }
+}
+
+/* ── Key input screen ─────────────────────────────────────────────────────── */
+#agent-key-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  gap: 1rem;
+  text-align: center;
+}
+
+#agent-key-screen p {
+  font-size: 0.82rem;
+  color: var(--ink-muted, #91A6C3);
+  line-height: 1.5;
+}
+
+#agent-key-screen strong {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--ink-soft, #D7E2F0);
+  margin-bottom: 0.25rem;
+}
+
+.agent-key-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+}
+
+.agent-key-input {
+  width: 100%;
+  padding: 0.6rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid var(--rule, rgba(145, 166, 195, 0.22));
+  background: rgba(10, 35, 66, 0.6);
+  color: var(--ink, #fff);
+  font-family: var(--mono, monospace);
+  font-size: 0.78rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.agent-key-input:focus {
+  border-color: var(--coral, #FF6B5F);
+}
+
+.agent-key-input::placeholder {
+  color: var(--ink-muted, #91A6C3);
+  opacity: 0.7;
+}
+
+.agent-key-note {
+  font-size: 0.72rem !important;
+  color: var(--ink-muted, #91A6C3) !important;
+}
+
+/* ── Footer / input bar ───────────────────────────────────────────────────── */
+#agent-footer {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--rule, rgba(145, 166, 195, 0.22));
+  flex-shrink: 0;
+}
+
+#agent-input {
+  flex: 1;
+  min-height: 2.4rem;
+  max-height: 7rem;
+  padding: 0.55rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid var(--rule, rgba(145, 166, 195, 0.22));
+  background: rgba(10, 35, 66, 0.6);
+  color: var(--ink, #fff);
+  font-family: var(--body, sans-serif);
+  font-size: 0.855rem;
+  line-height: 1.45;
+  resize: none;
+  outline: none;
+  overflow-y: auto;
+  transition: border-color 0.15s;
+}
+
+#agent-input:focus {
+  border-color: var(--coral, #FF6B5F);
+}
+
+#agent-input::placeholder {
+  color: var(--ink-muted, #91A6C3);
+  opacity: 0.7;
+}
+
+#agent-send {
+  flex-shrink: 0;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: var(--coral, #FF6B5F);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, transform 0.1s;
+}
+
+#agent-send:hover:not(:disabled) {
+  background: var(--coral-deep, #E4473A);
+}
+
+#agent-send:active:not(:disabled) {
+  transform: scale(0.93);
+}
+
+#agent-send:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+#agent-send svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  pointer-events: none;
+}
+
+/* ── Key management link ──────────────────────────────────────────────────── */
+.agent-footer-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 1rem 0.3rem;
+  border-top: 1px solid var(--rule-soft, rgba(145, 166, 195, 0.12));
+  flex-shrink: 0;
+}
+
+.agent-footer-meta button {
+  background: none;
+  border: none;
+  color: var(--ink-muted, #91A6C3);
+  font-size: 0.7rem;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.agent-footer-meta button:hover {
+  color: var(--coral, #FF6B5F);
+}
+
+.agent-footer-meta span {
+  font-size: 0.7rem;
+  color: var(--ink-muted, #91A6C3);
+  opacity: 0.6;
+}
+
+/* ── Shared button styles ─────────────────────────────────────────────────── */
+.agent-btn {
+  padding: 0.55rem 1.1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--body, sans-serif);
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.agent-btn-primary {
+  background: var(--coral, #FF6B5F);
+  color: #fff;
+}
+
+.agent-btn-primary:hover {
+  background: var(--coral-deep, #E4473A);
+}
+
+.agent-btn-ghost {
+  background: transparent;
+  color: var(--ink-muted, #91A6C3);
+  border: 1px solid var(--rule, rgba(145, 166, 195, 0.22));
+}
+
+.agent-btn-ghost:hover {
+  color: var(--ink-soft, #D7E2F0);
+  border-color: var(--ink-muted, #91A6C3);
+}
+
+/* ── Mobile tweaks ────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  #agent-panel {
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    height: 70vh;
+    border-radius: var(--radius, 22px) var(--radius, 22px) 0 0;
+  }
+
+  #agent-toggle {
+    bottom: 1rem;
+    right: 1rem;
+  }
+}

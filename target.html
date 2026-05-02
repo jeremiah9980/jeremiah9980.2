@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Teleo / Next-Gen IT - Central Texas Real Estate Target Intelligence</title>
+  <meta name="description" content="Central Texas real estate team target intelligence, contact sheet, and domain-health runbook links." />
+  <style>
+    :root {
+      --navy: #07172e;
+      --navy-2: #0a2140;
+      --navy-3: #0e2c54;
+      --white: #f8fbff;
+      --muted: #b8c6dc;
+      --muted-2: #8798b5;
+      --sky: #65d6ff;
+      --sky-2: #b9efff;
+      --coral: #ff6b5f;
+      --coral-2: #ff9a8f;
+      --green: #53e2a4;
+      --amber: #ffd166;
+      --red: #ff4d5e;
+      --line: rgba(255,255,255,.12);
+      --card: rgba(13,38,72,.82);
+      --shadow: 0 30px 90px rgba(0,0,0,.35);
+      --radius: 26px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(101,214,255,.20), transparent 30%),
+        radial-gradient(circle at 88% 20%, rgba(255,107,95,.17), transparent 28%),
+        linear-gradient(135deg, #061225 0%, #07172e 46%, #0a2140 100%);
+      min-height: 100vh;
+    }
+    a { color: inherit; }
+    .site-shell { max-width: 1240px; margin: 0 auto; padding: 28px 22px 70px; }
+    .topbar {
+      display:flex; align-items:center; justify-content:space-between; gap:18px;
+      padding: 14px 0 28px;
+    }
+    .brand { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .logo {
+      width:42px; height:42px; border-radius:14px;
+      background: linear-gradient(135deg, var(--coral), var(--sky));
+      display:grid; place-items:center; color:var(--navy); font-weight: 950;
+      box-shadow: 0 12px 40px rgba(101,214,255,.18);
+    }
+    .brand strong { display:block; letter-spacing:.02em; }
+    .brand span { display:block; color:var(--muted); font-size:12px; margin-top:2px; }
+    .nav-actions { display:flex; flex-wrap:wrap; gap:10px; }
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding: 11px 15px; border-radius:999px; border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06); color:var(--white); text-decoration:none;
+      font-size:14px; font-weight:750; transition:.18s ease; cursor:pointer;
+    }
+    .btn:hover { transform: translateY(-1px); border-color: rgba(101,214,255,.5); background: rgba(101,214,255,.10); }
+    .btn.primary { background: var(--coral); color: var(--navy); border-color: var(--coral); box-shadow: 0 16px 44px rgba(255,107,95,.25); }
+    .btn.sky { background: rgba(101,214,255,.14); border-color: rgba(101,214,255,.4); color: var(--sky-2); }
+    .hero {
+      position:relative; overflow:hidden; border:1px solid rgba(255,255,255,.13); border-radius: 34px;
+      background: linear-gradient(145deg, rgba(13,38,72,.92), rgba(7,23,46,.70));
+      box-shadow: var(--shadow); padding: 42px;
+    }
+    .hero::after {
+      content:""; position:absolute; inset:auto -160px -260px auto; width:520px; height:520px;
+      border-radius:50%; background: radial-gradient(circle, rgba(101,214,255,.16), transparent 62%);
+      pointer-events:none;
+    }
+    .eyebrow { color: var(--sky); text-transform: uppercase; letter-spacing: .17em; font-weight: 900; font-size: 12px; margin-bottom: 12px; }
+    h1 { font-size: clamp(38px, 7vw, 84px); line-height:.93; letter-spacing: -.06em; margin:0; max-width: 1000px; }
+    .hero p { color: var(--muted); max-width: 840px; line-height:1.65; font-size:18px; margin:22px 0 0; }
+    .hero-grid { display:grid; grid-template-columns: 1.35fr .65fr; gap:28px; align-items:end; }
+    .kpis { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:12px; }
+    .kpi { border:1px solid rgba(255,255,255,.11); background:rgba(255,255,255,.06); border-radius:22px; padding:18px; }
+    .kpi .num { font-size:34px; line-height:1; font-weight:950; letter-spacing:-.04em; }
+    .kpi .label { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.1em; margin-top:8px; }
+    .controls { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; margin: 28px 0 20px; }
+    .search { flex:1 1 330px; display:flex; align-items:center; gap:10px; padding: 13px 16px; border:1px solid rgba(255,255,255,.14); border-radius:999px; background:rgba(255,255,255,.07); }
+    .search input { width:100%; background:transparent; color:var(--white); border:0; outline:0; font-size:15px; }
+    .search input::placeholder { color: var(--muted-2); }
+    .chips { display:flex; flex-wrap:wrap; gap:9px; }
+    .chip { padding:10px 13px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06); color:var(--muted); cursor:pointer; font-weight:800; font-size:13px; }
+    .chip.active { background:rgba(101,214,255,.14); color:var(--sky-2); border-color:rgba(101,214,255,.45); }
+    .section-title { display:flex; justify-content:space-between; align-items:end; gap:18px; margin: 34px 0 16px; }
+    .section-title h2 { font-size: clamp(26px, 4vw, 42px); margin:0; letter-spacing:-.04em; }
+    .section-title p { margin: 0; color: var(--muted); max-width: 600px; line-height:1.6; }
+    .timeline {
+      display:grid; grid-template-columns: repeat(10, minmax(150px,1fr)); gap:12px; overflow-x:auto; padding-bottom:6px;
+      scrollbar-width: thin;
+    }
+    .step { min-height:140px; border:1px solid rgba(255,255,255,.12); border-radius:22px; background: rgba(255,255,255,.055); padding:16px; }
+    .step .rank { width:32px; height:32px; border-radius:11px; display:grid; place-items:center; background:var(--coral); color:var(--navy); font-weight:950; margin-bottom:12px; }
+    .step strong { display:block; font-size:14px; line-height:1.25; }
+    .step span { display:block; color:var(--muted); font-size:12px; margin-top:8px; line-height:1.35; }
+    .grid { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:18px; }
+    .card { border:1px solid rgba(255,255,255,.12); border-radius:var(--radius); background:var(--card); box-shadow: 0 18px 55px rgba(0,0,0,.19); padding:22px; position:relative; overflow:hidden; }
+    .card::before { content:""; position:absolute; inset:0 0 auto 0; height:4px; background:linear-gradient(90deg, var(--coral), var(--sky)); opacity:.9; }
+    .card-head { display:flex; justify-content:space-between; gap:16px; align-items:flex-start; }
+    .target-title { display:flex; gap:14px; align-items:flex-start; }
+    .badge-rank { flex:0 0 auto; width:42px; height:42px; border-radius:15px; display:grid; place-items:center; font-weight:950; background:rgba(101,214,255,.14); border:1px solid rgba(101,214,255,.35); color:var(--sky-2); }
+    h3 { margin:0; font-size:22px; letter-spacing:-.03em; }
+    .sub { color:var(--muted); margin-top:6px; font-size:14px; line-height:1.45; }
+    .score { flex:0 0 auto; text-align:center; min-width:78px; padding: 12px 10px; border-radius:18px; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); }
+    .score strong { display:block; font-size:28px; line-height:1; }
+    .score span { display:block; color:var(--muted); font-size:11px; margin-top:5px; }
+    .score.critical strong, .sev-critical { color: var(--red); }
+    .score.high strong, .sev-high { color: var(--coral); }
+    .score.moderate strong, .sev-moderate { color: var(--amber); }
+    .score.pending strong, .sev-pending { color: var(--sky); }
+    .meta-grid { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:10px; margin:18px 0; }
+    .meta { background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.10); border-radius:18px; padding:13px; min-height:72px; }
+    .meta label { display:block; color:var(--sky); font-size:11px; text-transform:uppercase; letter-spacing:.12em; font-weight:900; margin-bottom:6px; }
+    .meta div { color:var(--white); font-size:14px; line-height:1.45; word-break: break-word; }
+    .risk { border-left:4px solid var(--coral); padding:13px 14px; background:rgba(255,107,95,.08); border-radius:0 18px 18px 0; color:#ffe9e6; line-height:1.55; }
+    .fixes { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0; }
+    .fix { background:rgba(101,214,255,.10); border:1px solid rgba(101,214,255,.22); color:var(--sky-2); border-radius:999px; padding:8px 10px; font-size:12px; font-weight:800; }
+    .card-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+    .table-wrap { overflow:auto; border:1px solid rgba(255,255,255,.12); border-radius: var(--radius); background:rgba(255,255,255,.04); }
+    table { width:100%; border-collapse: collapse; min-width: 1100px; }
+    th, td { padding:14px 13px; border-bottom:1px solid rgba(255,255,255,.10); text-align:left; vertical-align:top; }
+    th { color:var(--sky); font-size:12px; text-transform:uppercase; letter-spacing:.11em; background:rgba(7,23,46,.85); position:sticky; top:0; }
+    td { color:var(--muted); font-size:14px; line-height:1.45; }
+    td strong { color:var(--white); }
+    .status-pill { display:inline-flex; align-items:center; gap:6px; padding:6px 9px; border-radius:999px; font-size:12px; font-weight:900; border:1px solid rgba(255,255,255,.14); white-space:nowrap; }
+    .status-pill.ready { color:var(--green); background:rgba(83,226,164,.09); border-color:rgba(83,226,164,.24); }
+    .status-pill.pending { color:var(--sky); background:rgba(101,214,255,.09); border-color:rgba(101,214,255,.24); }
+    .script-card { border:1px solid rgba(101,214,255,.24); background:linear-gradient(145deg, rgba(101,214,255,.10), rgba(255,107,95,.07)); border-radius:var(--radius); padding:26px; margin-top:18px; }
+    .script-card blockquote { margin: 0; color: var(--white); font-size:18px; line-height:1.65; }
+    .script-card small { display:block; color:var(--muted); margin-top:14px; }
+    footer { color: var(--muted-2); font-size:13px; line-height:1.7; margin-top:38px; padding-top:24px; border-top:1px solid rgba(255,255,255,.10); }
+    .hide { display:none !important; }
+    @media (max-width: 920px) { .hero-grid, .grid { grid-template-columns:1fr; } .hero { padding:28px; } .kpis { grid-template-columns: repeat(2, minmax(0,1fr)); } .topbar { align-items:flex-start; flex-direction:column; } }
+    @media (max-width: 580px) { .meta-grid, .kpis { grid-template-columns:1fr; } .site-shell { padding:18px 14px 50px; } .card { padding:18px; } .hero { border-radius:24px; } }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Teleo target intelligence home">
+        <span class="logo">T</span>
+        <span><strong>Teleo Target Intelligence</strong><span>Next-Gen IT + title partner opportunity map</span></span>
+      </a>
+      <nav class="nav-actions" aria-label="Page navigation">
+        <a class="btn sky" href="#targets">Targets</a>
+        <a class="btn sky" href="#table">Contact Sheet</a>
+        <a class="btn primary" href="data/targets.json" download>Download JSON</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-grid">
+          <div>
+            <div class="eyebrow">Central Texas Real Estate Teams</div>
+            <h1>A-list first-contact target site.</h1>
+            <p>This static site packages the priority contact order, decision-maker data, outreach angles, and domain-health runbook links for Teleo / Next-Gen IT business development.</p>
+          </div>
+          <div class="kpis" aria-label="Summary metrics">
+            <div class="kpi"><div class="num">10</div><div class="label">Priority targets</div></div>
+            <div class="kpi"><div class="num">9</div><div class="label">Reports ready</div></div>
+            <div class="kpi"><div class="num">4</div><div class="label">DMARC missing</div></div>
+            <div class="kpi"><div class="num">0</div><div class="label">Enforced DMARC</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="order-title">
+        <div class="section-title">
+          <div><div class="eyebrow">Best first-contact order</div><h2 id="order-title">Start warm, useful, and specific.</h2></div>
+          <p>Each card gives you a clean first touch: website, email, phone, runbook/report, and the angle that turns the conversation into value instead of a generic title-company pitch.</p>
+        </div>
+        <div class="timeline" id="timeline"></div>
+      </section>
+
+      <section id="targets" aria-labelledby="target-title">
+        <div class="section-title">
+          <div><div class="eyebrow">Target cards</div><h2 id="target-title">Lead list with runbook links</h2></div>
+        </div>
+        <div class="controls">
+          <label class="search" for="searchInput">🔎 <input id="searchInput" type="search" placeholder="Search target, city, domain, contact, risk, or niche..." /></label>
+          <div class="chips" role="group" aria-label="Filter targets">
+            <button class="chip active" data-filter="all">All</button>
+            <button class="chip" data-filter="ready">Reports ready</button>
+            <button class="chip" data-filter="high">High/Critical risk</button>
+            <button class="chip" data-filter="pending">Pending report</button>
+            <button class="chip" data-filter="first5">First 5</button>
+          </div>
+        </div>
+        <div class="grid" id="cards"></div>
+      </section>
+
+      <section id="table" aria-labelledby="table-title">
+        <div class="section-title">
+          <div><div class="eyebrow">Contact sheet</div><h2 id="table-title">Domains, executives, contact info, reports</h2></div>
+          <p>Use this table as the working call sheet. It is mobile-scrollable and ready to host on GitHub Pages.</p>
+        </div>
+        <div class="table-wrap"><table id="targetTable"><thead><tr><th>#</th><th>Target</th><th>Domain</th><th>Executive / Decision Contact</th><th>Email</th><th>Phone</th><th>Score</th><th>Status</th><th>Runbook / Report</th></tr></thead><tbody></tbody></table></div>
+      </section>
+
+      <section aria-labelledby="script-title">
+        <div class="section-title">
+          <div><div class="eyebrow">Opening script</div><h2 id="script-title">Value-first outreach</h2></div>
+        </div>
+        <div class="script-card">
+          <blockquote>“We’re building a Central Texas closing-intelligence kit for agents working Georgetown, Leander, Hutto, Jarrell, Round Rock, and Liberty Hill — covering MUD/PID issues, new construction timelines, HOA document delays, survey expectations, wire-fraud exposure, and closing-day surprises. Based on the areas your team is active in, I thought this would actually be useful.”</blockquote>
+          <small>Use the individual card angle to customize the last sentence before sending.</small>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Built as a static GitHub Pages-ready site. Report links are relative, so keep <strong>index.html</strong>, <strong>data/targets.json</strong>, and the <strong>reports/</strong> folder together when publishing. Hippo Realty has a placeholder report page because no <code>hippore.com</code> PDF was included in the uploaded files.
+    </footer>
+  </div>
+
+  <script>
+    const targets = [{"rank": 1, "target": "T. Kerr Property Group", "primary_contact": "Tanya Kerr", "role": "Founder, Broker Associate, REALTOR®", "domain": "tkerrrealestate.com", "website": "https://tkerrrealestate.com", "email": "tanya@tkerrrealestate.com", "phone": "Office 512-851-8350 / Cell 512-748-5343", "area": "Georgetown / Round Rock", "niche": "Boutique growth, community brand, move-up buyers", "score": 21, "email_score": 6, "web_score": 7, "tech_score": 8, "risk": "DMARC monitoring only; DKIM not detected; sitemap missing; CRM/IDX not detected", "top_fixes": ["Advance DMARC from p=none to quarantine/reject", "Generate XML sitemap", "Add or expose CRM/IDX lead capture"], "outreach": "Lead with buyer-facing closing education and a Georgetown growth-corridor title/security checklist.", "report": "reports/Domain-Health-Runbook_tkerrrealestate.com_2026-05-02.pdf", "status": "Report ready", "severity": "moderate"}, {"rank": 2, "target": "Mallach & Company", "primary_contact": "Tina Mallach", "role": "Broker/Owner", "domain": "mallachandcompany.com", "website": "https://mallachandcompany.com", "email": "MallachandCompany@gmail.com", "phone": "512-587-9127", "area": "Leander / Liberty Hill / Cedar Park", "niche": "Boutique brokerage, relocation, luxury/growth corridor", "score": 14, "email_score": 2, "web_score": 7, "tech_score": 5, "risk": "SPF not found; DMARC monitoring only; DKIM not detected; analytics/CRM not detected", "top_fixes": ["Publish SPF record", "Advance DMARC enforcement", "Install analytics and CRM/lead capture"], "outreach": "Position as a boutique-to-boutique partnership with immediate email security and lead-capture wins.", "report": "reports/Domain-Health-Runbook_mallachandcompany.com_2026-05-02.pdf", "extra_report": "reports/Domain-Health-Runbook_mallachandcompany@gmail.com_2026-05-02.pdf", "status": "Report ready", "severity": "high"}, {"rank": 3, "target": "Hoyden Homes & The Summers Group", "primary_contact": "Jennifer Summers", "role": "Broker/Owner / Founder", "domain": "hoydenhomes.com", "website": "https://hoydenhomes.com", "email": "jennifer@hoydenhomes.com", "phone": "512-799-1999", "area": "Round Rock / Hutto / North Austin", "niche": "New-home sales, new construction, relocation", "score": 14, "email_score": 2, "web_score": 7, "tech_score": 5, "risk": "SPF soft fail; DMARC not found; DKIM not detected; no sitemap/analytics/CRM detected", "top_fixes": ["Harden SPF to -all", "Publish DMARC record", "Install analytics and CRM/IDX lead capture"], "outreach": "Lead with a new-construction buyer closing guide plus wire-fraud hardening for agents and clients.", "report": "reports/Domain-Health-Runbook_hoydenhomes.com_2026-05-02.pdf", "status": "Report ready", "severity": "high"}, {"rank": 4, "target": "Hippo Realty / Brooke Daniel", "primary_contact": "Brooke Daniel / Russell Daniel", "role": "Broker/Owner", "domain": "hippore.com", "website": "https://hippore.com", "email": "admin@hippore.com", "phone": "Office 512-222-9008 / Brooke mobile 214-232-6840", "area": "Hutto / Round Rock / Austin", "niche": "Hutto-local boutique, relationship-first closings", "score": null, "email_score": null, "web_score": null, "tech_score": null, "risk": "No uploaded runbook/report was provided for this domain.", "top_fixes": ["Run domain health scan", "Confirm email authentication posture", "Validate analytics/CRM/lead capture"], "outreach": "Frame as a local Hutto partner conversation; request permission to prepare the same quick domain/closing-readiness audit.", "report": "reports/hippore-report-pending.html", "status": "Report pending", "severity": "pending"}, {"rank": 5, "target": "Service First Real Estate Group", "primary_contact": "Nick Himes", "role": "Owner / Team Lead / Agent", "domain": "servicefirstrealestate.com", "website": "https://servicefirstrealestate.com", "email": "nick@servicefirstrealestate.com", "phone": "512-964-8883", "area": "Georgetown / Jarrell / Hutto", "niche": "Affordability corridor, Georgetown/Jarrell growth", "score": 14, "email_score": 2, "web_score": 7, "tech_score": 5, "risk": "SPF soft fail via SendGrid; DMARC not found; DKIM not detected; analytics/CRM not detected", "top_fixes": ["Harden SPF to -all", "Publish DMARC record", "Install GA4 and CRM/IDX lead capture"], "outreach": "Offer a Jarrell/Georgetown buyer-readiness guide and quick email-security fixes to reduce wire-fraud exposure.", "report": "reports/Domain-Health-Runbook_servicefirstrealestate.com_2026-05-02.pdf", "status": "Report ready", "severity": "high"}, {"rank": 6, "target": "CTX Advantage Group", "primary_contact": "Ashley Brinkoeter / Kris Haney", "role": "REALTOR® team leads", "domain": "ctxadvantage.com", "website": "https://ctxadvantage.com", "email": "ashley@ctxadvantage.com", "phone": "512-200-3505 / Ashley mobile 512-966-4720", "area": "Georgetown / Liberty Hill / Leander", "niche": "Georgetown/KW team, high-growth corridors", "score": 14, "email_score": 2, "web_score": 7, "tech_score": 5, "risk": "SPF soft fail; DMARC not found; DKIM not detected; analytics/CRM not detected", "top_fixes": ["Harden SPF to -all", "Publish DMARC record", "Install analytics and CRM/IDX lead capture"], "outreach": "Lead with Georgetown/Liberty Hill closing-friction intelligence plus a domain hardening checklist.", "report": "reports/Domain-Health-Runbook_ctxadvantage.com_2026-05-02.pdf", "status": "Report ready", "severity": "high"}, {"rank": 7, "target": "The Stacy Group", "primary_contact": "Don Stacy", "role": "Owner/Broker", "domain": "thestacygroup.com", "website": "https://thestacygroup.com", "email": "don@thestacygroup.com / info@TheStacyGroup.com", "phone": "512-869-0223", "area": "Sun City / Georgetown", "niche": "Sun City, downsizers, resale, senior-client support", "score": 18, "email_score": 6, "web_score": 7, "tech_score": 5, "risk": "DMARC monitoring only; DKIM not detected; sitemap/analytics/CRM not detected", "top_fixes": ["Advance DMARC enforcement", "Generate sitemap", "Install analytics and CRM/IDX lead capture"], "outreach": "Offer a senior/downsizer closing concierge and wire-fraud protection checklist for mature-client transactions.", "report": "reports/Domain-Health-Runbook_thestacygroup.com_2026-05-02.pdf", "status": "Report ready", "severity": "moderate"}, {"rank": 8, "target": "Jorgenson Real Estate", "primary_contact": "Kasey Jorgenson", "role": "Founder / Broker", "domain": "jorgensonrealestate.com", "website": "https://jorgensonrealestate.com", "email": "kasey@jorgensonre.com", "phone": "512-574-5484 / Office 512-439-3698", "area": "Round Rock / Georgetown / Central TX", "niche": "Independent brokerage, high-volume, strong website/SEO", "score": 19, "email_score": 4, "web_score": 10, "tech_score": 5, "risk": "SPF soft fail; DMARC monitoring only; DKIM not detected; analytics/CRM not detected", "top_fixes": ["Harden SPF to -all", "Advance DMARC enforcement", "Install GA4 and CRM/IDX lead capture"], "outreach": "Acknowledge strong SEO; lead with security/compliance hardening and closing-risk reduction for high volume.", "report": "reports/Domain-Health-Runbook_jorgensonrealestate.com_2026-05-02.pdf", "status": "Report ready", "severity": "moderate"}, {"rank": 9, "target": "Thrive Realty", "primary_contact": "Katie Hanner", "role": "Managing Broker", "domain": "thriverealty.com", "website": "https://thriverealty.com", "email": "Hello@ThriveRealty.com", "phone": "Office 512-379-7553 / Katie direct 512-964-0956", "area": "Leander / Cedar Park / Georgetown", "niche": "North-growth corridor, polished local team", "score": 21, "email_score": 6, "web_score": 7, "tech_score": 8, "risk": "DMARC monitoring only; DKIM not detected; sitemap/CRM not detected", "top_fixes": ["Advance DMARC enforcement", "Generate sitemap", "Integrate CRM/lead capture"], "outreach": "Lead with a Leander/Cedar Park buyer guide and a quick DMARC enforcement upgrade plan.", "report": "reports/Domain-Health-Runbook_thriverealty.com_2026-05-02.pdf", "status": "Report ready", "severity": "moderate"}, {"rank": 10, "target": "RE/MAX Vision / Rooker Team", "primary_contact": "Maureen Rooker / AC Rooker", "role": "Broker/Owner; REALTOR®/Owner", "domain": "remaxvisionhutto.com / maureenrooker.remax.com", "website": "https://remaxvisionhutto.com", "alt_website": "https://maureenrooker.remax.com", "email": "Contact form / RE/MAX office", "phone": "Office 512-759-2210 / Maureen 512-789-2210 / AC 512-825-8134", "area": "Hutto", "niche": "Hutto-local, resale/new construction, local office", "score": 11, "email_score": 2, "web_score": 4, "tech_score": 5, "risk": "SPF neutral/soft posture; DMARC not found; DKIM not detected; SSL not verified; no sitemap/analytics/CRM detected", "top_fixes": ["Harden SPF", "Publish DMARC", "Enable/verify HTTPS and add sitemap/analytics"], "outreach": "Use this as the strongest remediation opportunity: local Hutto title partner plus security/website quick wins.", "report": "reports/Domain-Health-Runbook_remaxvisionhutto.com_2026-05-02.pdf", "status": "Report ready", "severity": "critical"}];
+    let activeFilter = 'all';
+
+    function esc(str) {
+      return String(str ?? '').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+    }
+    function telLink(phone) {
+      const first = String(phone || '').match(/\d{3}[-.\s]?\d{3}[-.\s]?\d{4}/);
+      return first ? 'tel:' + first[0].replace(/\D/g,'') : '#';
+    }
+    function mailTo(email) {
+      const first = String(email || '').match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);
+      return first ? 'mailto:' + first[0] : '#';
+    }
+    function scoreClass(t) {
+      if (t.severity === 'critical') return 'critical';
+      if (t.severity === 'high') return 'high';
+      if (t.severity === 'pending') return 'pending';
+      return 'moderate';
+    }
+    function scoreLabel(t) { return t.score == null ? '—' : t.score; }
+    function statusPill(t) {
+      const cls = t.status === 'Report ready' ? 'ready' : 'pending';
+      const dot = t.status === 'Report ready' ? '●' : '◐';
+      return `<span class="status-pill ${cls}">${dot} ${esc(t.status)}</span>`;
+    }
+    function reportText(t) { return t.status === 'Report ready' ? 'Open runbook PDF' : 'Open pending report'; }
+
+    function renderTimeline() {
+      const root = document.getElementById('timeline');
+      root.innerHTML = targets.map(t => `<article class="step"><div class="rank">${t.rank}</div><strong>${esc(t.primary_contact)}</strong><span>${esc(t.target)}</span></article>`).join('');
+    }
+    function cardHTML(t) {
+      const fixes = (t.top_fixes || []).map(f => `<span class="fix">${esc(f)}</span>`).join('');
+      const extra = t.extra_report ? `<a class="btn" href="${esc(t.extra_report)}" target="_blank" rel="noopener">Extra email report</a>` : '';
+      const alt = t.alt_website ? `<a class="btn" href="${esc(t.alt_website)}" target="_blank" rel="noopener">Alt site</a>` : '';
+      return `<article class="card target-card" data-search="${esc(Object.values(t).flat().join(' ').toLowerCase())}" data-rank="${t.rank}" data-status="${esc(t.status)}" data-severity="${esc(t.severity)}">
+        <div class="card-head">
+          <div class="target-title"><div class="badge-rank">${t.rank}</div><div><h3>${esc(t.target)}</h3><div class="sub">${esc(t.primary_contact)} · ${esc(t.role)}<br>${esc(t.area)} · ${esc(t.niche)}</div></div></div>
+          <div class="score ${scoreClass(t)}"><strong>${scoreLabel(t)}</strong><span>/ 30 pts</span></div>
+        </div>
+        <div class="meta-grid">
+          <div class="meta"><label>Domain</label><div><a href="${esc(t.website)}" target="_blank" rel="noopener">${esc(t.domain)}</a></div></div>
+          <div class="meta"><label>Email</label><div><a href="${mailTo(t.email)}">${esc(t.email)}</a></div></div>
+          <div class="meta"><label>Phone</label><div><a href="${telLink(t.phone)}">${esc(t.phone)}</a></div></div>
+          <div class="meta"><label>Status</label><div>${statusPill(t)}</div></div>
+        </div>
+        <div class="risk"><strong>Opportunity/Risk:</strong> ${esc(t.risk)}</div>
+        <div class="fixes">${fixes}</div>
+        <p class="sub"><strong style="color:var(--white)">Outreach angle:</strong> ${esc(t.outreach)}</p>
+        <div class="card-actions">
+          <a class="btn primary" href="${esc(t.report)}" target="_blank" rel="noopener">${reportText(t)}</a>
+          <a class="btn sky" href="${esc(t.website)}" target="_blank" rel="noopener">Open website</a>
+          <a class="btn" href="${mailTo(t.email)}">Email</a>
+          <a class="btn" href="${telLink(t.phone)}">Call</a>
+          ${alt}${extra}
+        </div>
+      </article>`;
+    }
+    function renderCards() {
+      const query = document.getElementById('searchInput').value.trim().toLowerCase();
+      const filtered = targets.filter(t => {
+        const search = Object.values(t).flat().join(' ').toLowerCase();
+        const matchesSearch = !query || search.includes(query);
+        let matchesFilter = true;
+        if (activeFilter === 'ready') matchesFilter = t.status === 'Report ready';
+        if (activeFilter === 'pending') matchesFilter = t.status !== 'Report ready';
+        if (activeFilter === 'high') matchesFilter = ['high','critical'].includes(t.severity);
+        if (activeFilter === 'first5') matchesFilter = t.rank <= 5;
+        return matchesSearch && matchesFilter;
+      });
+      document.getElementById('cards').innerHTML = filtered.map(cardHTML).join('') || '<div class="card"><h3>No matches</h3><p class="sub">Try a different search or filter.</p></div>';
+    }
+    function renderTable() {
+      const tbody = document.querySelector('#targetTable tbody');
+      tbody.innerHTML = targets.map(t => `<tr>
+        <td><strong>${t.rank}</strong></td>
+        <td><strong>${esc(t.target)}</strong><br><span>${esc(t.area)}</span></td>
+        <td><a href="${esc(t.website)}" target="_blank" rel="noopener">${esc(t.domain)}</a></td>
+        <td><strong>${esc(t.primary_contact)}</strong><br>${esc(t.role)}</td>
+        <td><a href="${mailTo(t.email)}">${esc(t.email)}</a></td>
+        <td><a href="${telLink(t.phone)}">${esc(t.phone)}</a></td>
+        <td><strong class="sev-${scoreClass(t)}">${scoreLabel(t)}/30</strong></td>
+        <td>${statusPill(t)}</td>
+        <td><a class="btn primary" href="${esc(t.report)}" target="_blank" rel="noopener">${reportText(t)}</a></td>
+      </tr>`).join('');
+    }
+    document.querySelectorAll('.chip').forEach(chip => chip.addEventListener('click', () => {
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeFilter = chip.dataset.filter;
+      renderCards();
+    }));
+    document.getElementById('searchInput').addEventListener('input', renderCards);
+    renderTimeline();
+    renderCards();
+    renderTable();
+  </script>
+</body>
+</html>

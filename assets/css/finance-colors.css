@@ -1,0 +1,95 @@
+/* --------------------------------------------------------------------------
+   Team finance color contrast helpers
+   --------------------------------------------------------------------------
+   Incoming money collected by fundraisers / dues = bright green.
+   Team spending / outgoing expenses = bright red.
+--------------------------------------------------------------------------- */
+
+:root {
+  --finance-green: #00ff66;
+  --finance-green-soft: rgba(0, 255, 102, 0.14);
+  --finance-red: #ff1f1f;
+  --finance-red-soft: rgba(255, 31, 31, 0.14);
+}
+
+.money-in,
+.total-positive,
+.finance-in,
+.finance-positive,
+.amount-positive,
+[data-money="in"],
+[data-money-type="income"],
+[data-money-type="collected"] {
+  color: var(--finance-green) !important;
+  font-weight: 800;
+  text-shadow: 0 0 16px rgba(0, 255, 102, 0.28);
+}
+
+.money-out,
+.total-negative,
+.finance-out,
+.finance-negative,
+.amount-negative,
+[data-money="out"],
+[data-money-type="expense"],
+[data-money-type="spent"] {
+  color: var(--finance-red) !important;
+  font-weight: 800;
+  text-shadow: 0 0 16px rgba(255, 31, 31, 0.28);
+}
+
+.finance-summary .money-in,
+.finance-summary .total-positive,
+.report-table .money-in,
+.report-table .total-positive {
+  background: var(--finance-green-soft);
+  border-radius: 8px;
+  padding: 0.08rem 0.34rem;
+}
+
+.finance-summary .money-out,
+.finance-summary .total-negative,
+.report-table .money-out,
+.report-table .total-negative {
+  background: var(--finance-red-soft);
+  border-radius: 8px;
+  padding: 0.08rem 0.34rem;
+}
+
+.finance-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  margin: 0.75rem 0 1rem;
+  font-size: 0.88rem;
+}
+
+.finance-legend span {
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  padding: 0.35rem 0.65rem;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.finance-legend .legend-in::before,
+.finance-legend .legend-out::before {
+  content: "";
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.finance-legend .legend-in::before {
+  background: var(--finance-green);
+  box-shadow: 0 0 14px rgba(0, 255, 102, 0.36);
+}
+
+.finance-legend .legend-out::before {
+  background: var(--finance-red);
+  box-shadow: 0 0 14px rgba(255, 31, 31, 0.36);
+}

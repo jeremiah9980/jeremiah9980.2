@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Teleo Title | CTX Real Estate Target List</title>
+  <meta name="description" content="Central Texas real estate team target list with contact details, domain health findings, and runbook links." />
+  <style>
+    :root{--navy:#071326;--navy2:#0d2140;--coral:#ff6b5f;--blue:#69c7ff;--text:#f8fbff;--muted:#b8c6d9;--card:rgba(255,255,255,.07);--line:rgba(255,255,255,.14);--good:#8ee28e;--warn:#ffc66d;--bad:#ff7a7a}*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at top left,#183b70 0,#071326 38%,#040915 100%);color:var(--text)}a{color:inherit}.wrap{max-width:1180px;margin:0 auto;padding:34px 20px 60px}.hero{padding:34px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.035));box-shadow:0 24px 70px rgba(0,0,0,.35)}.eyebrow{color:var(--blue);font-size:12px;text-transform:uppercase;letter-spacing:.18em;font-weight:800}.hero h1{font-size:clamp(34px,6vw,70px);line-height:.95;margin:14px 0}.hero p{max-width:850px;color:var(--muted);font-size:18px;line-height:1.6}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:999px;text-decoration:none;font-weight:800;border:1px solid var(--line);background:rgba(255,255,255,.08)}.btn.primary{background:var(--coral);color:#160907;border-color:transparent}.section{margin-top:28px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.card{border:1px solid var(--line);border-radius:22px;background:var(--card);padding:20px}.card h3{margin:0 0 8px}.muted{color:var(--muted)}.score{font-size:34px;font-weight:900}.risk{display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:900}.risk.high{background:rgba(255,122,122,.16);color:var(--bad)}.risk.med{background:rgba(255,198,109,.16);color:var(--warn)}.risk.low{background:rgba(142,226,142,.16);color:var(--good)}table{width:100%;border-collapse:collapse;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:rgba(255,255,255,.05)}th,td{text-align:left;padding:14px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--blue);font-size:12px;text-transform:uppercase;letter-spacing:.12em}td{color:#eef5ff}.timeline{counter-reset:item}.step{display:grid;grid-template-columns:52px 1fr;gap:14px;margin:12px 0}.num{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:var(--coral);color:#180706;font-weight:900}.small{font-size:13px}.tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.tool{font-size:12px;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:8px 10px;color:var(--text);background:rgba(255,255,255,.06)}@media(max-width:900px){.grid{grid-template-columns:1fr}table{display:block;overflow-x:auto}.hero{padding:24px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Teleo Title · Central Texas Business Development</div>
+      <h1>Top Real Estate Team Targets</h1>
+      <p>A focused first-contact list for Georgetown, Leander, Cedar Park, Round Rock, Hutto, and Jarrell. Each target includes public contact details, domain-health findings, and a linked runbook/report for engagement follow-up.</p>
+      <div class="actions"><a class="btn primary" href="#targets">View Targets</a><a class="btn" href="data/targets.csv">Download CSV</a><a class="btn" href="data/targets.json">Download JSON</a></div>
+    </section>
+
+    <section class="section card">
+      <div class="eyebrow">Best first-contact order</div>
+      <div class="timeline" id="order"></div>
+    </section>
+
+    <section id="targets" class="section">
+      <div class="eyebrow">Target cards</div>
+      <div class="grid" id="cards"></div>
+    </section>
+
+    <section class="section">
+      <div class="eyebrow">Contact sheet</div>
+      <table><thead><tr><th>Target</th><th>Decision contact</th><th>Email / Phone</th><th>Findings</th><th>Links</th></tr></thead><tbody id="rows"></tbody></table>
+    </section>
+  </main>
+<script>
+const targets = [
+ {rank:1,target:'T. Kerr Property Group',domain:'tkerrrealestate.com',contact:'Tanya Kerr — Founder, Broker Associate, REALTOR®',email:'tanya@tkerrrealestate.com',phone:'Office 512-851-8350 / Cell 512-748-5343',score:21,risk:'DMARC monitoring only; DKIM not detected; sitemap not found; no CRM/IDX detected.',site:'https://tkerrrealestate.com',report:'reports/Domain-Health-Runbook_tkerrrealestate.com_2026-05-02.pdf'},
+ {rank:2,target:'Mallach & Company',domain:'mallachandcompany.com',contact:'Tina Mallach — Broker/Owner',email:'MallachandCompany@gmail.com',phone:'512-587-9127',score:14,risk:'SPF not found; DMARC monitoring only; DKIM not detected; sitemap/analytics/CRM gaps.',site:'https://mallachandcompany.com',report:'reports/Domain-Health-Runbook_mallachandcompany.com_2026-05-02.pdf'},
+ {rank:3,target:'Hoyden Homes & The Summers Group',domain:'hoydenhomes.com',contact:'Jennifer Summers — Broker/Owner / Founder',email:'jennifer@hoydenhomes.com',phone:'512-799-1999',score:14,risk:'SPF soft fail; DMARC not found; DKIM not detected; sitemap/analytics/CRM gaps.',site:'https://hoydenhomes.com',report:'reports/Domain-Health-Runbook_hoydenhomes.com_2026-05-02.pdf'},
+ {rank:4,target:'Hippo Realty / Brooke Daniel',domain:'hippore.com',contact:'Brooke Daniel — Broker/Owner; Russell Daniel — Broker/Owner',email:'admin@hippore.com',phone:'Office 512-222-9008 / Brooke mobile 214-232-6840',score:null,risk:'Runbook pending upload. Strong Hutto boutique relationship target.',site:'https://hippore.com',report:'#'},
+ {rank:5,target:'Service First Real Estate Group',domain:'servicefirstrealestate.com',contact:'Nick Himes — Owner / Team Lead / Agent',email:'nick@servicefirstrealestate.com',phone:'512-964-8883',score:14,risk:'SPF soft fail; DMARC not found; DKIM not detected; sitemap/analytics/CRM gaps.',site:'https://servicefirstrealestate.com',report:'reports/Domain-Health-Runbook_servicefirstrealestate.com_2026-05-02.pdf'},
+ {rank:6,target:'CTX Advantage Group',domain:'ctxadvantage.com',contact:'Ashley Brinkoeter & Kris Haney — REALTOR® team leads',email:'ashley@ctxadvantage.com',phone:'512-200-3505 / Ashley mobile 512-966-4720',score:14,risk:'SPF soft fail; DMARC not found; DKIM not detected; sitemap/analytics/CRM gaps.',site:'https://ctxadvantage.com',report:'reports/Domain-Health-Runbook_ctxadvantage.com_2026-05-02.pdf'},
+ {rank:7,target:'The Stacy Group',domain:'thestacygroup.com',contact:'Don Stacy — Owner/Broker',email:'don@thestacygroup.com / info@TheStacyGroup.com',phone:'512-869-0223',score:18,risk:'DMARC monitoring only; DKIM not detected; sitemap/analytics/CRM gaps.',site:'https://thestacygroup.com',report:'reports/Domain-Health-Runbook_thestacygroup.com_2026-05-02.pdf'},
+ {rank:8,target:'Jorgenson Real Estate',domain:'jorgensonrealestate.com',contact:'Kasey Jorgenson — Founder / Broker',email:'kasey@jorgensonre.com',phone:'512-574-5484 / Office 512-439-3698',score:19,risk:'SPF soft fail; DMARC monitoring only; DKIM not detected; analytics/CRM gaps.',site:'https://jorgensonrealestate.com',report:'reports/Domain-Health-Runbook_jorgensonrealestate.com_2026-05-02.pdf'},
+ {rank:9,target:'Thrive Realty',domain:'thriverealty.com',contact:'Katie Hanner — Managing Broker',email:'Hello@ThriveRealty.com',phone:'Office 512-379-7553 / Katie direct 512-964-0956',score:21,risk:'DMARC monitoring only; DKIM not detected; sitemap not found; no CRM/IDX detected.',site:'https://thriverealty.com',report:'reports/Domain-Health-Runbook_thriverealty.com_2026-05-02.pdf'},
+ {rank:10,target:'RE/MAX Vision / Rooker Team',domain:'remaxvisionhutto.com / maureenrooker.remax.com',contact:'Maureen Rooker — Broker/Owner; AC Rooker — REALTOR®/Owner',email:'Contact form / RE/MAX office',phone:'Office 512-759-2210 / Maureen 512-789-2210 / AC 512-825-8134',score:11,risk:'SPF neutral/soft fail; DMARC not found; SSL verification warning; sitemap/analytics/CRM gaps.',site:'https://remaxvisionhutto.com',report:'reports/Domain-Health-Runbook_remaxvisionhutto.com_2026-05-02.pdf'}
+];
+function riskClass(s){return s===null?'med':s>=20?'low':s>=15?'med':'high'}
+document.getElementById('order').innerHTML=targets.map(t=>`<div class="step"><div class="num">${t.rank}</div><div><strong>${t.contact.split(' — ')[0]}</strong><div class="muted">${t.target}</div></div></div>`).join('');
+document.getElementById('cards').innerHTML=targets.map(t=>`<article class="card"><div class="eyebrow">#${t.rank} · ${t.domain}</div><h3>${t.target}</h3><p class="muted">${t.contact}</p><div class="score">${t.score ?? 'Pending'}${t.score?'<span class="small"> / 30</span>':''}</div><p><span class="risk ${riskClass(t.score)}">${t.score===null?'Runbook pending':t.score<15?'High opportunity':t.score<20?'Medium opportunity':'Warm opportunity'}</span></p><p class="muted small">${t.risk}</p><div class="tools"><a class="tool" href="${t.site}" target="_blank">Website</a><a class="tool" href="mailto:${t.email.split(' / ')[0]}">Email</a><a class="tool" href="${t.report}" target="_blank">Runbook / Report</a></div></article>`).join('');
+document.getElementById('rows').innerHTML=targets.map(t=>`<tr><td><strong>${t.target}</strong><br><span class="muted small">${t.domain}</span></td><td>${t.contact}</td><td>${t.email}<br>${t.phone}</td><td><strong>${t.score ?? 'Pending'}${t.score?'/30':''}</strong><br><span class="muted small">${t.risk}</span></td><td><a href="${t.site}" target="_blank">Website</a><br><a href="${t.report}" target="_blank">Runbook</a></td></tr>`).join('');
+</script>
+</body>
+</html>

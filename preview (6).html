@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teleo Title Website Improvement Runbook</title>
+  <style>
+    :root {
+      --bg: #061a31;
+      --bg-2: #092642;
+      --panel: #0d2f52;
+      --panel-2: #123b63;
+      --text: #ffffff;
+      --muted: #b8c9da;
+      --coral: #ff6f61;
+      --blue: #70cfff;
+      --green: #67e8a5;
+      --yellow: #ffd166;
+      --red: #ff8a8a;
+      --border: rgba(255,255,255,0.14);
+      --shadow: 0 20px 55px rgba(0,0,0,0.35);
+      --code: #06111f;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(112, 207, 255, 0.22), transparent 32%),
+        radial-gradient(circle at top right, rgba(255, 111, 97, 0.16), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 20px 64px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(9,38,66,0.98), rgba(13,47,82,0.94));
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 36px;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 6px 12px;
+      background: rgba(255,111,97,0.14);
+      color: var(--coral);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.04;
+      letter-spacing: -0.045em;
+    }
+
+    .hero p {
+      max-width: 880px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      font-weight: 800;
+      color: var(--text);
+      background: rgba(255,255,255,0.07);
+      text-decoration: none;
+    }
+
+    .button.primary {
+      background: var(--coral);
+      color: #08182b;
+      border-color: transparent;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .score-card {
+      background: rgba(255,255,255,0.055);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .score-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .score-card strong {
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .toc {
+      position: sticky;
+      top: 18px;
+      background: rgba(9,38,66,0.94);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .toc h2 {
+      margin: 0 0 12px;
+      color: var(--coral);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .toc a {
+      display: block;
+      padding: 9px 10px;
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .toc a:hover {
+      background: rgba(112,207,255,0.11);
+      text-decoration: none;
+    }
+
+    section {
+      background: rgba(9,38,66,0.88);
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      padding: 26px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      margin: 24px 0 8px;
+      color: var(--blue);
+      font-size: 19px;
+    }
+
+    h4 {
+      margin: 18px 0 8px;
+      color: var(--yellow);
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .section-intro {
+      margin: 0 0 18px;
+      color: var(--muted);
+    }
+
+    .callout {
+      border-left: 4px solid var(--coral);
+      background: rgba(255,111,97,0.1);
+      padding: 14px 16px;
+      border-radius: 14px;
+      margin: 18px 0;
+      color: var(--text);
+    }
+
+    .callout.blue {
+      border-left-color: var(--blue);
+      background: rgba(112,207,255,0.1);
+    }
+
+    .callout.green {
+      border-left-color: var(--green);
+      background: rgba(103,232,165,0.09);
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .status {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .status strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .status small {
+      color: var(--muted);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .badge.fix { background: rgba(255,111,97,0.15); color: var(--coral); }
+    .badge.pass { background: rgba(103,232,165,0.13); color: var(--green); }
+    .badge.na { background: rgba(255,209,102,0.14); color: var(--yellow); }
+    .badge.info { background: rgba(112,207,255,0.14); color: var(--blue); }
+
+    .step {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: rgba(255,255,255,0.045);
+      padding: 18px;
+      margin: 14px 0;
+    }
+
+    .step-title {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .step-number {
+      flex: 0 0 34px;
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: var(--coral);
+      color: #08182b;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+    }
+
+    .step-title h3 {
+      margin: 3px 0 0;
+    }
+
+    ul, ol {
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0 0;
+    }
+
+    .checklist li {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.045);
+      margin-bottom: 8px;
+    }
+
+    .checklist li::before {
+      content: "☐";
+      color: var(--blue);
+      font-weight: 900;
+      margin-right: 10px;
+    }
+
+    pre {
+      position: relative;
+      background: var(--code);
+      border: 1px solid rgba(112,207,255,0.22);
+      border-radius: 18px;
+      overflow-x: auto;
+      padding: 16px;
+      margin: 12px 0 18px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+    }
+
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      color: #d9f1ff;
+      font-size: 13px;
+      line-height: 1.55;
+      white-space: pre;
+    }
+
+    .code-label {
+      display: inline-block;
+      margin-top: 10px;
+      margin-bottom: -4px;
+      color: var(--yellow);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 680px;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(255,255,255,0.08);
+      color: var(--blue);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    td {
+      background: rgba(255,255,255,0.035);
+      color: var(--text);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+      margin-top: 28px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        position: static;
+      }
+
+      .score-grid,
+      .status-grid,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="eyebrow">Execution Runbook</div>
+      <h1>Teleo Title Website Improvement Runbook</h1>
+      <p>
+        A simplified, step-by-step implementation guide for fixing the website audit findings across
+        email/domain security, SEO, marketing, social media, tracking, and tech stack readiness.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#priority-order" class="button primary">Start With Priority Order</a>
+        <a href="#copy-paste-snippets" class="button">Jump to Code Snippets</a>
+      </div>
+
+      <div class="score-grid">
+        <div class="score-card">
+          <span>Overall Scan</span>
+          <strong>7/30</strong>
+        </div>
+        <div class="score-card">
+          <span>Website & SEO</span>
+          <strong>4/10</strong>
+        </div>
+        <div class="score-card">
+          <span>Marketing</span>
+          <strong>1/10</strong>
+        </div>
+        <div class="score-card">
+          <span>Tech / CRM</span>
+          <strong>2/10</strong>
+        </div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="toc">
+        <h2>Runbook Menu</h2>
+        <a href="#audit-summary">Audit Summary</a>
+        <a href="#priority-order">Priority Order</a>
+        <a href="#domain-security">1. Domain & Email Security</a>
+        <a href="#seo">2. Website & SEO</a>
+        <a href="#marketing">3. Marketing & Social Media</a>
+        <a href="#tech-stack">4. Tech Stack & CRM</a>
+        <a href="#copy-paste-snippets">Copy/Paste Snippets</a>
+        <a href="#verification">Verification Checklist</a>
+        <a href="#placeholders">Values to Collect</a>
+      </aside>
+
+      <div class="content">
+        <section id="audit-summary">
+          <h2>Audit Summary</h2>
+          <p class="section-intro">
+            The site is live, secure over HTTPS, mobile responsive, hosted on Vercel, and appears to be built on Next.js.
+            The biggest gaps are email authentication, tracking, local SEO signals, social proof, and conversion tools.
+          </p>
+
+          <div class="status-grid">
+            <div class="status">
+              <span class="badge pass">Passing</span>
+              <strong>HTTPS + Mobile</strong>
+              <small>HTTP redirects to HTTPS and viewport meta exists.</small>
+            </div>
+            <div class="status">
+              <span class="badge fix">Fix First</span>
+              <strong>SPF / DKIM / DMARC</strong>
+              <small>Email/domain trust needs to be corrected before campaigns.</small>
+            </div>
+            <div class="status">
+              <span class="badge fix">Fix Next</span>
+              <strong>SEO + Tracking</strong>
+              <small>Add sitemap, robots.txt, GTM, schema, Google profile/map.</small>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Area</th>
+                  <th>Current Status</th>
+                  <th>Target Outcome</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Email & Domain</td>
+                  <td>MX/SPF/DKIM/DMARC flagged, blacklist passed</td>
+                  <td>Google Workspace mail authenticated and DMARC monitored</td>
+                </tr>
+                <tr>
+                  <td>SEO</td>
+                  <td>Contact and local copy exist, sitemap/schema/blog missing</td>
+                  <td>Local entity signals, crawl files, resources page, tracking</td>
+                </tr>
+                <tr>
+                  <td>Marketing</td>
+                  <td>Hero video exists, social links/pixels/newsletter/reviews missing</td>
+                  <td>Social proof, retargeting foundation, lead capture</td>
+                </tr>
+                <tr>
+                  <td>Tech Stack</td>
+                  <td>Schedule page and HTTPS pass, portal/chat/automation missing</td>
+                  <td>Order Title CTA, client portal, chat, automation, heatmaps</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="priority-order">
+          <h2>Recommended Priority Order</h2>
+          <p class="section-intro">
+            Work from trust and deliverability first, then SEO/tracking, then conversion features.
+          </p>
+
+          <ol>
+            <li><strong>Fix DNS email authentication:</strong> SPF, DKIM, then DMARC monitoring.</li>
+            <li><strong>Verify MX:</strong> Keep Google Workspace MX if correct and remove conflicting MX records.</li>
+            <li><strong>Add GTM:</strong> Use GTM as the single tracking container.</li>
+            <li><strong>Add sitemap.xml and robots.txt:</strong> Make the site crawlable and easy to index.</li>
+            <li><strong>Add Local Business schema:</strong> Help Google understand the business entity.</li>
+            <li><strong>Add Google Business Profile link/map:</strong> Strengthen local trust signals.</li>
+            <li><strong>Add social links, newsletter, testimonials, and reviews:</strong> Improve marketing score and credibility.</li>
+            <li><strong>Add Order Title, Client Portal, Live Chat, and E-Sign support sections:</strong> Improve conversion flow.</li>
+            <li><strong>Add Clarity or Hotjar:</strong> Track how users move through the site.</li>
+            <li><strong>Re-run the audit:</strong> Validate score movement and identify remaining issues.</li>
+          </ol>
+
+          <div class="callout">
+            <strong>Important:</strong> Do not install the same tracking pixel directly and through Google Tag Manager at the same time.
+            That can create duplicate pageviews and broken conversion data.
+          </div>
+        </section>
+
+        <section id="domain-security">
+          <h2>1. Domain & Email Security</h2>
+          <p class="section-intro">
+            This is the most important trust layer. Fix it before running outreach, newsletters, ads, or automated follow-up.
+          </p>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">1</span>
+              <h3>Verify Google Workspace MX</h3>
+            </div>
+            <p>The scan shows <strong>smtp.google.com</strong>, which is the current Google Workspace MX value. Verify it in Namecheap.</p>
+
+            <span class="code-label">Namecheap MX Record</span>
+            <pre><code>Type: MX
+Host: @
+Value: smtp.google.com
+Priority: 1
+TTL: Automatic</code></pre>
+
+            <ul>
+              <li>Go to <strong>Namecheap → Domain List → Manage → Advanced DNS</strong>.</li>
+              <li>Confirm the MX record above exists.</li>
+              <li>Remove old or conflicting MX records unless Google Admin specifically tells you to keep them.</li>
+            </ul>
+          </div>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">2</span>
+              <h3>Add SPF</h3>
+            </div>
+            <p>SPF authorizes Google Workspace to send email for the domain.</p>
+
+            <span class="code-label">SPF TXT Record</span>
+            <pre><code>Type: TXT
+Host: @
+Value: v=spf1 include:_spf.google.com ~all
+TTL: Automatic</code></pre>
+
+            <div class="callout blue">
+              Only use one SPF record at the root domain. Multiple SPF TXT records can break SPF validation.
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">3</span>
+              <h3>Generate and Add DKIM</h3>
+            </div>
+            <p>Do not guess the DKIM value. Generate it from Google Admin.</p>
+
+            <ol>
+              <li>Open <strong>Google Admin Console</strong>.</li>
+              <li>Go to <strong>Apps → Google Workspace → Gmail → Authenticate email</strong>.</li>
+              <li>Select the Teleo Title domain.</li>
+              <li>Generate a new DKIM record.</li>
+              <li>Copy the host and TXT value into Namecheap.</li>
+              <li>Return to Google Admin and click <strong>Start Authentication</strong>.</li>
+            </ol>
+
+            <span class="code-label">DKIM TXT Record Format</span>
+            <pre><code>Type: TXT
+Host: google._domainkey
+Value: [long DKIM value generated by Google Admin]
+TTL: Automatic</code></pre>
+          </div>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">4</span>
+              <h3>Add DMARC Monitoring</h3>
+            </div>
+            <p>Start with monitoring only. Move to quarantine/reject after confirming legitimate email passes SPF and DKIM.</p>
+
+            <span class="code-label">Initial DMARC Record</span>
+            <pre><code>Type: TXT
+Host: _dmarc
+Value: v=DMARC1; p=none; rua=mailto:dmarc@teleotitle.com; pct=100
+TTL: Automatic</code></pre>
+
+            <p>Create this mailbox or Google Group before using the record:</p>
+
+            <pre><code>dmarc@teleotitle.com</code></pre>
+
+            <span class="code-label">Later Rollout Options</span>
+            <pre><code># Step 2: Partial quarantine after monitoring
+v=DMARC1; p=quarantine; rua=mailto:dmarc@teleotitle.com; pct=25
+
+# Step 3: Strongest final policy after validation
+v=DMARC1; p=reject; rua=mailto:dmarc@teleotitle.com; pct=100</code></pre>
+          </div>
+        </section>
+
+        <section id="seo">
+          <h2>2. Website & SEO</h2>
+          <p class="section-intro">
+            These fixes improve crawlability, local authority, tracking, and search clarity for a Georgetown-based title company.
+          </p>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">1</span>
+              <h3>Mark IDX / MLS as Not Applicable</h3>
+            </div>
+            <p>This is a title company website, not a brokerage website. IDX/MLS search should not count against the score.</p>
+            <pre><code>IDX / MLS Search: N/A — Not required for title company website</code></pre>
+          </div>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">2</span>
+              <h3>Add Google Business Profile Link and Map</h3>
+            </div>
+            <p>Add this to the contact page and footer. Replace the placeholder address and map link.</p>
+
+            <span class="code-label">Location Section</span>
+            <pre><code>&lt;section id="location" class="location-section"&gt;
+  &lt;h2&gt;Visit Our Georgetown Office&lt;/h2&gt;
+  &lt;p&gt;
+    Teleo Title proudly serves Georgetown, Sun City, Round Rock,
+    Liberty Hill, Cedar Park, Austin, and the surrounding Central Texas
+    real estate community.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    &lt;strong&gt;Teleo Title&lt;/strong&gt;&lt;br&gt;
+    123 Main Street&lt;br&gt;
+    Georgetown, TX 78626
+  &lt;/p&gt;
+
+  &lt;a href="https://www.google.com/maps/place/YOUR-GOOGLE-BUSINESS-PROFILE-LINK"
+     target="_blank"
+     rel="noopener"&gt;
+    View us on Google
+  &lt;/a&gt;
+&lt;/section&gt;</code></pre>
+
+            <span class="code-label">Google Map Embed</span>
+            <pre><code>&lt;div class="map-embed"&gt;
+  &lt;iframe
+    src="YOUR_GOOGLE_MAPS_EMBED_URL"
+    width="100%"
+    height="350"
+    style="border:0;"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"&gt;
+  &lt;/iframe&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">3</span>
+              <h3>Add a Resources Page</h3>
+            </div>
+            <p>Use <strong>/resources</strong> instead of a heavy blog. This gives Google indexable content and gives agents useful material.</p>
+
+            <span class="code-label">Homepage Resources Preview</span>
+            <pre><code>&lt;section id="resources" class="resources-preview"&gt;
+  &lt;h2&gt;Title &amp; Closing Resources&lt;/h2&gt;
+  &lt;p&gt;
+    Helpful updates for Realtors, lenders, buyers, sellers,
+    and Central Texas real estate partners.
+  &lt;/p&gt;
+
+  &lt;div class="resource-grid"&gt;
+    &lt;article&gt;
+      &lt;h3&gt;What Buyers Should Know Before Closing&lt;/h3&gt;
+      &lt;p&gt;A simple guide to help buyers understand the title and escrow process.&lt;/p&gt;
+      &lt;a href="/resources/what-buyers-should-know-before-closing"&gt;Read More&lt;/a&gt;
+    &lt;/article&gt;
+
+    &lt;article&gt;
+      &lt;h3&gt;Why Clear Communication Matters in Title&lt;/h3&gt;
+      &lt;p&gt;How proactive communication helps reduce closing delays.&lt;/p&gt;
+      &lt;a href="/resources/clear-communication-in-title"&gt;Read More&lt;/a&gt;
+    &lt;/article&gt;
+
+    &lt;article&gt;
+      &lt;h3&gt;Georgetown Real Estate Closing Checklist&lt;/h3&gt;
+      &lt;p&gt;A local checklist for smoother closings in Georgetown and Central Texas.&lt;/p&gt;
+      &lt;a href="/resources/georgetown-closing-checklist"&gt;Read More&lt;/a&gt;
+    &lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+          </div>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">4</span>
+              <h3>Create sitemap.xml</h3>
+            </div>
+            <p>For a Next.js/Vercel site, place this in <strong>/public/sitemap.xml</strong>.</p>
+
+            <span class="code-label">/public/sitemap.xml</span>
+            <pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+  &lt;url&gt;
+    &lt;loc&gt;https://teleotitle.com/&lt;/loc&gt;
+    &lt;lastmod&gt;2026-05-01&lt;/lastmod&gt;
+    &lt;priority&gt;1.0&lt;/priority&gt;
+  &lt;/url&gt;
+
+  &lt;url&gt;
+    &lt;loc&gt;https://teleotitle.com/about&lt;/loc&gt;
+    &lt;lastmod&gt;2026-05-01&lt;/lastmod&gt;
+    &lt;priority&gt;0.8&lt;/priority&gt;
+  &lt;/url&gt;
+
+  &lt;url&gt;
+    &lt;loc&gt;https://teleotitle.com/services&lt;/loc&gt;
+    &lt;lastmod&gt;2026-05-01&lt;/lastmod&gt;
+    &lt;priority&gt;0.8&lt;/priority&gt;
+  &lt;/url&gt;
+
+  &lt;url&gt;
+    &lt;loc&gt;https://teleotitle.com/resources&lt;/loc&gt;
+    &lt;lastmod&gt;2026-05-01&lt;/lastmod&gt;
+    &lt;priority&gt;0.7&lt;/priority&gt;
+  &lt;/url&gt;
+
+  &lt;url&gt;
+    &lt;loc&gt;https://teleotitle.com/contact&lt;/loc&gt;
+    &lt;lastmod&gt;2026-05-01&lt;/lastmod&gt;
+    &lt;priority&gt;0.9&lt;/priority&gt;
+  &lt;/url&gt;
+&lt;/urlset&gt;</code></pre>
+          </div>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">5</span>
+              <h3>Create robots.txt</h3>
+            </div>
+            <p>Place this in <strong>/public/robots.txt</strong>.</p>
+
+            <pre><code>User-agent: *
+Allow: /
+
+Sitemap: https://teleotitle.com/sitemap.xml</code></pre>
+          </div>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">6</span>
+              <h3>Add Local Business Schema</h3>
+            </div>
+            <p>Add this JSON-LD to the homepage head. Replace all placeholder business values.</p>
+
+            <span class="code-label">Schema Markup</span>
+            <pre><code>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Teleo Title",
+  "url": "https://teleotitle.com",
+  "logo": "https://teleotitle.com/logo.png",
+  "image": "https://teleotitle.com/office-or-brand-image.jpg",
+  "description": "Teleo Title is a Georgetown, Texas title company serving Realtors, lenders, buyers, sellers, builders, and real estate partners across Central Texas.",
+  "telephone": "+1-XXX-XXX-XXXX",
+  "email": "info@teleotitle.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "123 Main Street",
+    "addressLocality": "Georgetown",
+    "addressRegion": "TX",
+    "postalCode": "78626",
+    "addressCountry": "US"
+  },
+  "areaServed": [
+    "Georgetown TX",
+    "Sun City TX",
+    "Round Rock TX",
+    "Liberty Hill TX",
+    "Cedar Park TX",
+    "Austin TX",
+    "Central Texas"
+  ],
+  "sameAs": [
+    "https://www.facebook.com/profile.php?id=61587456031850",
+    "https://www.instagram.com/teleotitle/",
+    "https://www.linkedin.com/company/teleo-title/",
+    "https://www.google.com/maps/place/YOUR-GOOGLE-BUSINESS-PROFILE-LINK"
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:00",
+      "closes": "17:00"
+    }
+  ]
+}
+&lt;/script&gt;</code></pre>
+          </div>
+        </section>
+
+        <section id="marketing">
+          <h2>3. Marketing & Social Media</h2>
+          <p class="section-intro">
+            These changes improve social trust, retargeting readiness, lead capture, and proof that the company is active.
+          </p>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">1</span>
+              <h3>Add Social Links</h3>
+            </div>
+            <p>Add these in the header, footer, or both.</p>
+
+            <pre><code>&lt;section class="social-links"&gt;
+  &lt;a href="https://www.facebook.com/profile.php?id=61587456031850" target="_blank" rel="noopener"&gt;Facebook&lt;/a&gt;
+  &lt;a href="https://www.instagram.com/teleotitle/" target="_blank" rel="noopener"&gt;Instagram&lt;/a&gt;
+  &lt;a href="https://www.linkedin.com/company/teleo-title/" target="_blank" rel="noopener"&gt;LinkedIn&lt;/a&gt;
+  &lt;a href="https://www.youtube.com/@YOURCHANNEL" target="_blank" rel="noopener"&gt;YouTube&lt;/a&gt;
+&lt;/section&gt;</code></pre>
+          </div>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">2</span>
+              <h3>Add Newsletter / Email Capture</h3>
+            </div>
+            <p>Place this near the bottom of the homepage or on the resources page.</p>
+
+            <pre><code>&lt;section id="newsletter" class="newsletter-signup"&gt;
+  &lt;h2&gt;Stay Updated&lt;/h2&gt;
+  &lt;p&gt;Get market updates, closing tips, and helpful real estate/title resources.&lt;/p&gt;
+
+  &lt;form action="YOUR_FORM_ENDPOINT" method="POST"&gt;
+    &lt;label for="email"&gt;Email address&lt;/label&gt;
+    &lt;input
+      type="email"
+      id="email"
+      name="email"
+      placeholder="Enter your email"
+      required
+    /&gt;
+
+    &lt;button type="submit"&gt;Subscribe&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/section&gt;</code></pre>
+
+            <p>Use Mailchimp, HubSpot, GoHighLevel, ConvertKit, Formspree, Netlify Forms, or a custom API endpoint.</p>
+          </div>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">3</span>
+              <h3>Add Testimonials</h3>
+            </div>
+            <p>Add this section to the homepage. Replace placeholder quotes with real testimonials when available.</p>
+
+            <pre><code>&lt;section id="testimonials" class="testimonials"&gt;
+  &lt;h2&gt;What Clients Are Saying&lt;/h2&gt;
+
+  &lt;div class="testimonial-card"&gt;
+    &lt;p&gt;“The team made the closing process smooth, clear, and stress-free.”&lt;/p&gt;
+    &lt;strong&gt;— Local Realtor&lt;/strong&gt;
+  &lt;/div&gt;
+
+  &lt;div class="testimonial-card"&gt;
+    &lt;p&gt;“Excellent communication from start to finish. Highly recommend.”&lt;/p&gt;
+    &lt;strong&gt;— Homebuyer&lt;/strong&gt;
+  &lt;/div&gt;
+
+  &lt;div class="testimonial-card"&gt;
+    &lt;p&gt;“Professional, responsive, and detail-oriented on every transaction.”&lt;/p&gt;
+    &lt;strong&gt;— Real Estate Partner&lt;/strong&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+          </div>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">4</span>
+              <h3>Add Google Reviews Widget</h3>
+            </div>
+            <p>Use a third-party widget or Google Business Profile/Places API-based solution.</p>
+
+            <pre><code>&lt;section id="google-reviews" class="google-reviews"&gt;
+  &lt;h2&gt;Google Reviews&lt;/h2&gt;
+
+  &lt;div class="google-reviews-widget"&gt;
+    &lt;script src="YOUR_GOOGLE_REVIEWS_WIDGET_SCRIPT"&gt;&lt;/script&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+          </div>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">5</span>
+              <h3>Add Retargeting Pixels Through GTM</h3>
+            </div>
+            <p>Install GTM once, then deploy Meta Pixel and LinkedIn Insight Tag through GTM where possible.</p>
+
+            <div class="callout">
+              Avoid installing a pixel both directly in code and through GTM. Pick one method.
+            </div>
+          </div>
+        </section>
+
+        <section id="tech-stack">
+          <h2>4. Tech Stack & CRM</h2>
+          <p class="section-intro">
+            For a title company, the practical equivalents are title order intake, client portal access, closing workflow support, chat, scheduling, and marketing automation.
+          </p>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">1</span>
+              <h3>Mark Brokerage-Only Items as N/A</h3>
+            </div>
+            <pre><code>Real Estate CRM: N/A — Title company site, not brokerage/agent lead-gen site.
+IDX Platform: N/A — Not required for a title company website.</code></pre>
+          </div>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">2</span>
+              <h3>Add Order Title and Client Portal Links</h3>
+            </div>
+
+            <span class="code-label">Navigation Links</span>
+            <pre><code>&lt;nav&gt;
+  &lt;a href="/"&gt;Home&lt;/a&gt;
+  &lt;a href="/about"&gt;About&lt;/a&gt;
+  &lt;a href="/services"&gt;Services&lt;/a&gt;
+  &lt;a href="/resources"&gt;Resources&lt;/a&gt;
+  &lt;a href="/calendar"&gt;Schedule&lt;/a&gt;
+  &lt;a href="/contact"&gt;Contact&lt;/a&gt;
+  &lt;a href="/order-title" class="nav-cta"&gt;Order Title&lt;/a&gt;
+  &lt;a href="YOUR_TRANSACTION_PORTAL_URL" target="_blank" rel="noopener"&gt;
+    Client Portal
+  &lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+
+            <span class="code-label">Homepage CTA</span>
+            <pre><code>&lt;section id="closing-portal" class="portal-section"&gt;
+  &lt;h2&gt;Manage Your Closing Online&lt;/h2&gt;
+  &lt;p&gt;
+    Realtors, lenders, buyers, and sellers can securely access closing updates,
+    submit information, and communicate with our title team.
+  &lt;/p&gt;
+
+  &lt;div class="portal-actions"&gt;
+    &lt;a href="/order-title" class="button-primary"&gt;Start a Title Order&lt;/a&gt;
+    &lt;a href="YOUR_TRANSACTION_PORTAL_URL" class="button-secondary" target="_blank" rel="noopener"&gt;
+      Access Client Portal
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+          </div>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">3</span>
+              <h3>Create /order-title Form</h3>
+            </div>
+
+            <pre><code>&lt;form action="YOUR_CRM_OR_FORM_ENDPOINT" method="POST"&gt;
+  &lt;label for="name"&gt;Your Name&lt;/label&gt;
+  &lt;input type="text" id="name" name="name" required&gt;
+
+  &lt;label for="email"&gt;Email Address&lt;/label&gt;
+  &lt;input type="email" id="email" name="email" required&gt;
+
+  &lt;label for="phone"&gt;Phone Number&lt;/label&gt;
+  &lt;input type="tel" id="phone" name="phone"&gt;
+
+  &lt;label for="role"&gt;I am a...&lt;/label&gt;
+  &lt;select id="role" name="role"&gt;
+    &lt;option&gt;Realtor&lt;/option&gt;
+    &lt;option&gt;Lender&lt;/option&gt;
+    &lt;option&gt;Buyer&lt;/option&gt;
+    &lt;option&gt;Seller&lt;/option&gt;
+    &lt;option&gt;Builder&lt;/option&gt;
+    &lt;option&gt;Investor&lt;/option&gt;
+  &lt;/select&gt;
+
+  &lt;label for="property-address"&gt;Property Address&lt;/label&gt;
+  &lt;input type="text" id="property-address" name="property_address"&gt;
+
+  &lt;label for="message"&gt;Transaction Details&lt;/label&gt;
+  &lt;textarea id="message" name="message"&gt;&lt;/textarea&gt;
+
+  &lt;button type="submit"&gt;Submit Title Order Request&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+          </div>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">4</span>
+              <h3>Add E-Signature Support Section</h3>
+            </div>
+            <p>This safely communicates e-signature support without exposing signing workflows publicly.</p>
+
+            <pre><code>&lt;section id="esignature" class="esign-section"&gt;
+  &lt;h2&gt;Secure E-Signature Support&lt;/h2&gt;
+  &lt;p&gt;
+    When available for your transaction, Teleo Title supports secure electronic
+    signature workflows through approved closing and document platforms.
+  &lt;/p&gt;
+  &lt;p&gt;
+    For security, signing links are sent directly to authorized transaction
+    parties and should never be accessed through unverified emails or text links.
+  &lt;/p&gt;
+  &lt;a href="/contact"&gt;Ask About E-Signature Options&lt;/a&gt;
+&lt;/section&gt;</code></pre>
+          </div>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">5</span>
+              <h3>Add Live Chat</h3>
+            </div>
+            <p>Use HubSpot, GoHighLevel, Intercom, Tidio, Crisp, or Zendesk Chat.</p>
+
+            <pre><code>&lt;!-- Live Chat Widget --&gt;
+&lt;script&gt;
+  window.chatSettings = {
+    company: "Teleo Title",
+    primaryCTA: "Start a Title Order",
+    secondaryCTA: "Contact Escrow Team"
+  };
+&lt;/script&gt;
+&lt;script async src="YOUR_CHAT_WIDGET_SCRIPT_URL"&gt;&lt;/script&gt;</code></pre>
+          </div>
+
+          <div class="step">
+            <div class="step-title">
+              <span class="step-number">6</span>
+              <h3>Add Scheduling Embed</h3>
+            </div>
+            <p>The calendar page already exists. Improve it with an embedded scheduler if available.</p>
+
+            <pre><code>&lt;section id="schedule" class="schedule-section"&gt;
+  &lt;h1&gt;Schedule With Teleo Title&lt;/h1&gt;
+  &lt;p&gt;
+    Book time with our team for title questions, Realtor partnerships,
+    closing coordination, or escrow support.
+  &lt;/p&gt;
+
+  &lt;div
+    class="calendly-inline-widget"
+    data-url="https://calendly.com/YOUR-CALENDLY-LINK"
+    style="min-width:320px;height:700px;"&gt;
+  &lt;/div&gt;
+
+  &lt;script
+    type="text/javascript"
+    src="https://assets.calendly.com/assets/external/widget.js"
+    async&gt;
+  &lt;/script&gt;
+&lt;/section&gt;</code></pre>
+          </div>
+        </section>
+
+        <section id="copy-paste-snippets">
+          <h2>Copy/Paste Tracking Snippets</h2>
+          <p class="section-intro">
+            Use these snippets only after collecting the real IDs. GTM should be the preferred container for most tracking tools.
+          </p>
+
+          <h3>Google Tag Manager</h3>
+          <span class="code-label">Place inside &lt;head&gt;</span>
+          <pre><code>&lt;!-- Google Tag Manager --&gt;
+&lt;script&gt;
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');
+&lt;/script&gt;
+&lt;!-- End Google Tag Manager --&gt;</code></pre>
+
+          <span class="code-label">Place immediately after opening &lt;body&gt;</span>
+          <pre><code>&lt;!-- Google Tag Manager noscript --&gt;
+&lt;noscript&gt;
+  &lt;iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    height="0"
+    width="0"
+    style="display:none;visibility:hidden"&gt;
+  &lt;/iframe&gt;
+&lt;/noscript&gt;
+&lt;!-- End Google Tag Manager noscript --&gt;</code></pre>
+
+          <h3>Meta Pixel</h3>
+          <pre><code>&lt;!-- Meta Pixel Code --&gt;
+&lt;script&gt;
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+
+  fbq('init', 'YOUR_PIXEL_ID');
+  fbq('track', 'PageView');
+&lt;/script&gt;
+
+&lt;noscript&gt;
+  &lt;img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&amp;ev=PageView&amp;noscript=1"/&gt;
+&lt;/noscript&gt;
+&lt;!-- End Meta Pixel Code --&gt;</code></pre>
+
+          <h3>LinkedIn Insight Tag</h3>
+          <pre><code>&lt;script type="text/javascript"&gt;
+  _linkedin_partner_id = "YOUR_LINKEDIN_PARTNER_ID";
+  window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+  window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+&lt;/script&gt;
+
+&lt;script type="text/javascript"&gt;
+  (function(l) {
+    if (!l) {
+      window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+      window.lintrk.q=[];
+    }
+    var s = document.getElementsByTagName("script")[0];
+    var b = document.createElement("script");
+    b.type = "text/javascript";
+    b.async = true;
+    b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+    s.parentNode.insertBefore(b, s);
+  })(window.lintrk);
+&lt;/script&gt;
+
+&lt;noscript&gt;
+  &lt;img height="1" width="1" style="display:none;" alt=""
+    src="https://px.ads.linkedin.com/collect/?pid=YOUR_LINKEDIN_PARTNER_ID&amp;fmt=gif" /&gt;
+&lt;/noscript&gt;</code></pre>
+
+          <h3>Microsoft Clarity</h3>
+          <pre><code>&lt;!-- Microsoft Clarity --&gt;
+&lt;script type="text/javascript"&gt;
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);
+    t.async=1;
+    t.src="https://www.clarity.ms/tag/YOUR_CLARITY_ID";
+    y=l.getElementsByTagName(r)[0];
+    y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "YOUR_CLARITY_ID");
+&lt;/script&gt;</code></pre>
+
+          <h3>HubSpot Tracking</h3>
+          <pre><code>&lt;!-- HubSpot Tracking Code --&gt;
+&lt;script
+  type="text/javascript"
+  id="hs-script-loader"
+  async
+  defer
+  src="//js.hs-scripts.com/YOUR_PORTAL_ID.js"&gt;
+&lt;/script&gt;</code></pre>
+        </section>
+
+        <section id="verification">
+          <h2>Verification Checklist</h2>
+          <p class="section-intro">
+            Use this after changes are deployed.
+          </p>
+
+          <div class="two-col">
+            <div>
+              <h3>DNS / Email</h3>
+              <ul class="checklist">
+                <li>MX points to smtp.google.com with priority 1</li>
+                <li>Only one SPF record exists</li>
+                <li>DKIM record is generated from Google Admin</li>
+                <li>Google Admin shows DKIM authentication started</li>
+                <li>DMARC p=none record exists</li>
+                <li>dmarc@teleotitle.com exists as mailbox or group</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3>Website</h3>
+              <ul class="checklist">
+                <li>https://teleotitle.com/sitemap.xml loads</li>
+                <li>https://teleotitle.com/robots.txt loads</li>
+                <li>GTM appears in the page source</li>
+                <li>Google Business Profile link works</li>
+                <li>Google map appears on contact page</li>
+                <li>Schema validates with no critical errors</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3>Marketing</h3>
+              <ul class="checklist">
+                <li>Facebook link works</li>
+                <li>Instagram link works</li>
+                <li>LinkedIn link works</li>
+                <li>Newsletter form submits correctly</li>
+                <li>Testimonials section appears</li>
+                <li>Google Reviews widget loads</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3>Tech Stack</h3>
+              <ul class="checklist">
+                <li>Order Title page exists</li>
+                <li>Client Portal link exists</li>
+                <li>Live chat widget loads</li>
+                <li>E-signature support section exists</li>
+                <li>Calendar page still works</li>
+                <li>Clarity or Hotjar captures sessions</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="placeholders">
+          <h2>Values to Collect Before Patching</h2>
+          <p class="section-intro">
+            Gather these values before editing the production site.
+          </p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Value / Placeholder</th>
+                  <th>Where It Is Used</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Facebook Page</td>
+                  <td>https://www.facebook.com/profile.php?id=61587456031850</td>
+                  <td>Footer, schema, social links</td>
+                </tr>
+                <tr>
+                  <td>Instagram</td>
+                  <td>https://www.instagram.com/teleotitle/</td>
+                  <td>Footer, schema, social links</td>
+                </tr>
+                <tr>
+                  <td>LinkedIn</td>
+                  <td>https://www.linkedin.com/company/teleo-title/</td>
+                  <td>Footer, schema, social links</td>
+                </tr>
+                <tr>
+                  <td>GTM Container ID</td>
+                  <td>GTM-XXXXXXX</td>
+                  <td>Tracking foundation</td>
+                </tr>
+                <tr>
+                  <td>GA4 Measurement ID</td>
+                  <td>G-XXXXXXXXXX</td>
+                  <td>Analytics inside GTM</td>
+                </tr>
+                <tr>
+                  <td>Meta Pixel ID</td>
+                  <td>YOUR_PIXEL_ID</td>
+                  <td>Retargeting and ad tracking</td>
+                </tr>
+                <tr>
+                  <td>LinkedIn Partner ID</td>
+                  <td>YOUR_LINKEDIN_PARTNER_ID</td>
+                  <td>LinkedIn Insight Tag</td>
+                </tr>
+                <tr>
+                  <td>Microsoft Clarity ID</td>
+                  <td>YOUR_CLARITY_ID</td>
+                  <td>Heatmaps/session recording</td>
+                </tr>
+                <tr>
+                  <td>Newsletter Form Endpoint</td>
+                  <td>YOUR_FORM_ENDPOINT</td>
+                  <td>Lead capture</td>
+                </tr>
+                <tr>
+                  <td>Transaction Portal URL</td>
+                  <td>YOUR_TRANSACTION_PORTAL_URL</td>
+                  <td>Client portal CTA</td>
+                </tr>
+                <tr>
+                  <td>Google Map Embed</td>
+                  <td>YOUR_GOOGLE_MAPS_EMBED_URL</td>
+                  <td>Contact page and local SEO</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout green">
+            Best expected result after these changes: email/domain health corrected, SEO near 9/10, marketing near 8/10,
+            and tech stack near 8/8 applicable items passing depending on how the audit tool scores title-company N/A items.
+          </div>
+        </section>
+
+        <p class="footer-note">
+          Built as a simplified execution document from the four uploaded Teleo Title audit runbooks.
+        </p>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

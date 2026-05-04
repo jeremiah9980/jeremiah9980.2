@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Teleo Title Website Runbook · Next-Gen-IT</title>
+    <meta
+      name="description"
+      content="Simplified Teleo Title website, SEO, email security, marketing, and tech stack runbook prepared by Next-Gen-IT."
+    />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <style>
+      .runbook-layout {
+        display: grid;
+        grid-template-columns: 280px minmax(0, 1fr);
+        gap: 1rem;
+        align-items: start;
+      }
+      .runbook-toc {
+        position: sticky;
+        top: 92px;
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        padding: 1rem;
+        background: rgba(10, 35, 66, 0.78);
+        box-shadow: 0 14px 42px rgba(0,0,0,.18);
+      }
+      .runbook-toc h2 {
+        margin: 0 0 .7rem;
+        font-family: var(--mono);
+        color: var(--coral);
+        font-size: .78rem;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+      }
+      .runbook-toc a {
+        display: block;
+        padding: .55rem .65rem;
+        border-radius: 12px;
+        color: var(--ink-soft);
+        font-size: .9rem;
+      }
+      .runbook-toc a:hover,
+      .runbook-toc a:focus {
+        background: var(--coral-soft);
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .runbook-section {
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        background: rgba(10, 35, 66, .74);
+        box-shadow: 0 16px 55px rgba(0,0,0,.18);
+        padding: clamp(1.25rem, 3vw, 2rem);
+        margin-bottom: 1rem;
+      }
+      .runbook-section h2,
+      .runbook-section h3 {
+        font-family: var(--display);
+        color: var(--ink);
+        line-height: 1.06;
+      }
+      .runbook-section h2 {
+        font-size: clamp(1.9rem, 4vw, 3rem);
+        margin-bottom: .55rem;
+      }
+      .runbook-section h3 {
+        font-size: clamp(1.25rem, 2vw, 1.65rem);
+        margin: 1.2rem 0 .45rem;
+      }
+      .runbook-section p,
+      .runbook-section li {
+        color: var(--ink-soft);
+      }
+      .runbook-section ul,
+      .runbook-section ol {
+        margin: .85rem 0 0 1.25rem;
+      }
+      .runbook-note {
+        border-left: 3px solid var(--coral);
+        border-radius: 0 16px 16px 0;
+        background: var(--coral-soft);
+        padding: .9rem 1rem;
+        margin: 1rem 0;
+        color: var(--ink-soft);
+      }
+      .runbook-note.sky {
+        border-left-color: var(--sky);
+        background: var(--sky-soft);
+      }
+      .runbook-note.warn {
+        border-left-color: var(--warn);
+        background: rgba(245, 158, 11, .13);
+      }
+      .runbook-score-grid,
+      .runbook-card-grid,
+      .runbook-two-grid {
+        display: grid;
+        gap: .85rem;
+      }
+      .runbook-score-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        margin-top: 1.2rem;
+      }
+      .runbook-card-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .runbook-two-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .runbook-mini-card {
+        border: 1px solid var(--rule);
+        border-radius: 18px;
+        background: rgba(255,255,255,.045);
+        padding: 1rem;
+      }
+      .runbook-mini-card b {
+        display: block;
+        color: var(--ink);
+        margin-bottom: .25rem;
+      }
+      .runbook-mini-card span {
+        display: block;
+        font-family: var(--mono);
+        color: var(--coral);
+        font-size: .74rem;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        margin-bottom: .35rem;
+      }
+      .runbook-stat {
+        border: 1px solid var(--rule);
+        border-radius: 18px;
+        background: rgba(255,255,255,.045);
+        padding: 1rem;
+      }
+      .runbook-stat .label {
+        font-family: var(--mono);
+        color: var(--ink-muted);
+        font-size: .68rem;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+      .runbook-stat .value {
+        display: block;
+        margin-top: .35rem;
+        font-family: var(--display);
+        color: var(--coral);
+        font-size: clamp(1.7rem, 3vw, 2.35rem);
+        line-height: 1;
+      }
+      .step-card {
+        position: relative;
+        border: 1px solid var(--rule);
+        border-radius: 20px;
+        background: rgba(255,255,255,.045);
+        padding: 1rem 1rem 1rem 4rem;
+        margin: .85rem 0;
+      }
+      .step-num {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        width: 2.1rem;
+        height: 2.1rem;
+        border-radius: 13px;
+        display: grid;
+        place-items: center;
+        font-family: var(--mono);
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--coral), var(--coral-deep));
+        color: #fff;
+      }
+      .code-label {
+        display: inline-flex;
+        margin: .8rem 0 .35rem;
+        font-family: var(--mono);
+        color: var(--sky);
+        font-size: .72rem;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+      pre.runbook-code {
+        margin: 0 0 .8rem;
+        padding: 1rem;
+        overflow-x: auto;
+        border-radius: 16px;
+        border: 1px solid rgba(143, 215, 255, .25);
+        border-left: 3px solid var(--coral);
+        background: rgba(4, 19, 38, .88);
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,.025);
+      }
+      pre.runbook-code code {
+        display: block;
+        white-space: pre;
+        font-family: var(--mono);
+        color: var(--ink-soft);
+        font-size: .82rem;
+        line-height: 1.55;
+      }
+      .checklist {
+        list-style: none !important;
+        margin-left: 0 !important;
+      }
+      .checklist li {
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        background: rgba(255,255,255,.04);
+        padding: .7rem .8rem;
+        margin: .5rem 0;
+      }
+      .checklist li::before {
+        content: "☐";
+        margin-right: .6rem;
+        color: var(--sky);
+        font-weight: 800;
+      }
+      .runbook-table-wrap {
+        overflow-x: auto;
+      }
+      .runbook-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 720px;
+      }
+      .runbook-table th,
+      .runbook-table td {
+        text-align: left;
+        vertical-align: top;
+        border-bottom: 1px solid var(--rule-soft);
+        padding: .85rem .65rem;
+        color: var(--ink-soft);
+      }
+      .runbook-table th {
+        font-family: var(--mono);
+        font-size: .72rem;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        color: var(--coral);
+      }
+      .runbook-table code,
+      .runbook-section code {
+        font-family: var(--mono);
+        color: var(--sky);
+        background: rgba(143, 215, 255, .09);
+        border: 1px solid rgba(143, 215, 255, .18);
+        border-radius: 6px;
+        padding: .05rem .28rem;
+      }
+      @media (max-width: 980px) {
+        .runbook-layout,
+        .runbook-score-grid,
+        .runbook-card-grid,
+        .runbook-two-grid {
+          grid-template-columns: 1fr;
+        }
+        .runbook-toc {
+          position: static;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="site-nav">
+      <div class="site-nav-inner">
+        <a href="../../index.html" class="brand">
+          Cargill<span class="amp">&amp;</span>Co
+          <span class="brand-sub">Enterprise · SMB · Lab</span>
+        </a>
+        <button class="nav-toggle" aria-label="Toggle menu">Menu</button>
+        <ul class="nav-links">
+          <li><a href="../../index.html">Index</a></li>
+          <li><a href="../">Professional</a></li>
+          <li><a href="../cargill-consulting/">Cargill Consulting</a></li>
+          <li><a href="./" class="active">Next-Gen-IT</a></li>
+          <li><a href="../../projects/">Projects</a></li>
+          <li><a href="../about/">About</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <span class="eyebrow eyebrow-rule">Teleo Title · Website Improvement Runbook</span>
+          <h1>Fix the audit findings in the <em>right order</em>.</h1>
+          <p class="lede">
+            A simplified execution guide for Teleo Title covering email/domain security, Website SEO,
+            marketing and social proof, tracking, and title-company workflow technology.
+          </p>
+          <div class="hero-meta">
+            <span>Prepared by Next-Gen-IT</span>
+            <span>Domain: teleotitle.com</span>
+            <span>Scan baseline: May 1, 2026</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="tight">
+        <div class="container">
+          <div class="runbook-layout">
+            <aside class="runbook-toc">
+              <h2>Runbook menu</h2>
+              <a href="#summary">Audit summary</a>
+              <a href="#order">Priority order</a>
+              <a href="#email-security">1. Email security</a>
+              <a href="#seo">2. Website &amp; SEO</a>
+              <a href="#marketing">3. Marketing &amp; social</a>
+              <a href="#tech-stack">4. Tech stack</a>
+              <a href="#tracking">Copy/paste tracking</a>
+              <a href="#verify">Verification checklist</a>
+              <a href="#values">Values to collect</a>
+            </aside>
+
+            <div>
+              <section id="summary" class="runbook-section">
+                <span class="eyebrow eyebrow-rule">Baseline</span>
+                <h2>Current audit snapshot</h2>
+                <p>
+                  The site is live, secure over HTTPS, mobile responsive, hosted on Vercel, and built on Next.js.
+                  The biggest gaps are email authentication, analytics/tracking, local SEO signals, social proof,
+                  and title-company conversion tools.
+                </p>
+                <div class="runbook-score-grid">
+                  <div class="runbook-stat"><div class="label">Overall</div><span class="value">7/30</span></div>
+                  <div class="runbook-stat"><div class="label">Website &amp; SEO</div><span class="value">4/10</span></div>
+                  <div class="runbook-stat"><div class="label">Marketing</div><span class="value">1/10</span></div>
+                  <div class="runbook-stat"><div class="label">Tech / CRM</div><span class="value">2/10</span></div>
+                </div>
+                <div class="runbook-note warn">
+                  <strong>Title-industry risk:</strong> Teleo Title coordinates real estate closings, so spoofable email is not just an IT issue.
+                  It creates wire-fraud exposure. Fix SPF, DKIM, and DMARC before launching outbound marketing.
+                </div>
+              </section>
+
+              <section id="order" class="runbook-section">
+                <span class="eyebrow eyebrow-rule">Execution sequence</span>
+                <h2>Do the fixes in this order</h2>
+                <div class="runbook-card-grid">
+                  <div class="runbook-mini-card"><span>Phase 01</span><b>Trust layer</b><p>Verify MX, add SPF, generate DKIM, then add DMARC monitoring.</p></div>
+                  <div class="runbook-mini-card"><span>Phase 02</span><b>Crawl + tracking</b><p>Add sitemap, robots.txt, GTM, GA4, schema, and Google Business Profile/map.</p></div>
+                  <div class="runbook-mini-card"><span>Phase 03</span><b>Conversion layer</b><p>Add social links, newsletter, testimonials, reviews, Order Title, client portal, and chat.</p></div>
+                </div>
+                <ol>
+                  <li>Fix DNS email authentication: SPF, DKIM, then DMARC monitoring.</li>
+                  <li>Verify Google Workspace MX and remove conflicting MX records.</li>
+                  <li>Add Google Tag Manager as the single tracking container.</li>
+                  <li>Add <code>sitemap.xml</code> and <code>robots.txt</code>.</li>
+                  <li>Add Local Business schema and Google Business Profile link/map.</li>
+                  <li>Add social links, newsletter, testimonials, and Google Reviews.</li>
+                  <li>Add Order Title, Client Portal, live chat, e-signature support, and Clarity.</li>
+                  <li>Re-run the audit and document the new score.</li>
+                </ol>
+                <div class="runbook-note">
+                  Do not install the same pixel both directly and through Google Tag Manager. Duplicate tags can break pageview and conversion data.
+                </div>
+              </section>
+
+              <section id="email-security" class="runbook-section">
+                <span class="eyebrow eyebrow-rule">1 · Email and domain security</span>
+                <h2>Fix domain trust before marketing</h2>
+                <p>DNS is managed through Namecheap default nameservers. Google Workspace is the email provider.</p>
+
+                <div class="step-card">
+                  <span class="step-num">1</span>
+                  <h3>Verify Google Workspace MX</h3>
+                  <p>The scan shows <code>smtp.google.com</code>, which is Google Workspace’s current single-record MX value. Confirm it in Namecheap.</p>
+                  <span class="code-label">Namecheap MX record</span>
+                  <pre class="runbook-code"><code>Type: MX
+Host: @
+Value: smtp.google.com
+Priority: 1
+TTL: Automatic</code></pre>
+                </div>
+
+                <div class="step-card">
+                  <span class="step-num">2</span>
+                  <h3>Add SPF</h3>
+                  <p>SPF authorizes Google Workspace to send email for <code>teleotitle.com</code>. Only keep one SPF TXT record at the root.</p>
+                  <span class="code-label">SPF TXT record</span>
+                  <pre class="runbook-code"><code>Type: TXT
+Host: @
+Value: v=spf1 include:_spf.google.com ~all
+TTL: Automatic</code></pre>
+                </div>
+
+                <div class="step-card">
+                  <span class="step-num">3</span>
+                  <h3>Generate DKIM from Google Admin</h3>
+                  <p>Do not guess DKIM. Generate the exact host/value inside Google Admin, then publish it in Namecheap.</p>
+                  <span class="code-label">Google Admin path</span>
+                  <pre class="runbook-code"><code>Google Admin Console
+→ Apps
+→ Google Workspace
+→ Gmail
+→ Authenticate email
+→ Select domain
+→ Generate New Record
+→ Copy TXT host and TXT value into DNS
+→ Start Authentication</code></pre>
+                  <span class="code-label">DKIM DNS format</span>
+                  <pre class="runbook-code"><code>Type: TXT
+Host: google._domainkey
+Value: [long DKIM value generated by Google Admin]
+TTL: Automatic</code></pre>
+                </div>
+
+                <div class="step-card">
+                  <span class="step-num">4</span>
+                  <h3>Add DMARC monitoring</h3>
+                  <p>Start with monitoring. Move to quarantine/reject after legitimate email passes SPF and DKIM.</p>
+                  <span class="code-label">Initial DMARC record</span>
+                  <pre class="runbook-code"><code>Type: TXT
+Host: _dmarc
+Value: v=DMARC1; p=none; rua=mailto:dmarc@teleotitle.com; pct=100
+TTL: Automatic</code></pre>
+                  <span class="code-label">Later rollout options</span>
+                  <pre class="runbook-code"><code># Step 2: partial quarantine after monitoring
+v=DMARC1; p=quarantine; rua=mailto:dmarc@teleotitle.com; pct=25
+
+# Step 3: final strong policy after validation
+v=DMARC1; p=reject; rua=mailto:dmarc@teleotitle.com; pct=100</code></pre>
+                </div>
+              </section>
+
+              <section id="seo" class="runbook-section">
+                <span class="eyebrow eyebrow-rule">2 · Website and SEO</span>
+                <h2>Make the site crawlable, local, and measurable</h2>
+
+                <div class="step-card">
+                  <span class="step-num">1</span>
+                  <h3>Mark IDX/MLS as N/A</h3>
+                  <p>A title company does not need IDX/MLS search. Do not score this like a real estate brokerage.</p>
+                  <pre class="runbook-code"><code>IDX / MLS Search: N/A — Not required for title company website</code></pre>
+                </div>
+
+                <div class="step-card">
+                  <span class="step-num">2</span>
+                  <h3>Add Google Business Profile link and map</h3>
+                  <p>Add this to the contact page and footer. Replace the placeholders with the verified Google profile and embed URL.</p>
+                  <span class="code-label">Location section</span>
+                  <pre class="runbook-code"><code>&lt;section id="location" class="location-section"&gt;
+  &lt;h2&gt;Visit Our Georgetown Office&lt;/h2&gt;
+  &lt;p&gt;
+    Teleo Title proudly serves Georgetown, Sun City, Round Rock,
+    Liberty Hill, Cedar Park, Austin, and the surrounding Central Texas
+    real estate community.
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;strong&gt;Teleo Title&lt;/strong&gt;&lt;br&gt;
+    501 S Austin Ave&lt;br&gt;
+    Georgetown, TX 78626
+  &lt;/p&gt;
+  &lt;a href="https://www.google.com/maps/place/YOUR-GOOGLE-BUSINESS-PROFILE-LINK"
+     target="_blank" rel="noopener"&gt;View us on Google&lt;/a&gt;
+&lt;/section&gt;</code></pre>
+                  <span class="code-label">Map embed</span>
+                  <pre class="runbook-code"><code>&lt;div class="map-embed"&gt;
+  &lt;iframe
+    src="YOUR_GOOGLE_MAPS_EMBED_URL"
+    width="100%"
+    height="350"
+    style="border:0;"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"&gt;
+  &lt;/iframe&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <div class="step-card">
+                  <span class="step-num">3</span>
+                  <h3>Add a resources page</h3>
+                  <p>Use <code>/resources</code> instead of a heavy blog. Add three starter articles for title and closing SEO.</p>
+                  <pre class="runbook-code"><code>&lt;section id="resources" class="resources-preview"&gt;
+  &lt;h2&gt;Title &amp;amp; Closing Resources&lt;/h2&gt;
+  &lt;p&gt;Helpful updates for Realtors, lenders, buyers, sellers, and Central Texas real estate partners.&lt;/p&gt;
+  &lt;div class="resource-grid"&gt;
+    &lt;article&gt;
+      &lt;h3&gt;What Buyers Should Know Before Closing&lt;/h3&gt;
+      &lt;a href="/resources/what-buyers-should-know-before-closing"&gt;Read More&lt;/a&gt;
+    &lt;/article&gt;
+    &lt;article&gt;
+      &lt;h3&gt;Why Clear Communication Matters in Title&lt;/h3&gt;
+      &lt;a href="/resources/clear-communication-in-title"&gt;Read More&lt;/a&gt;
+    &lt;/article&gt;
+    &lt;article&gt;
+      &lt;h3&gt;Georgetown Real Estate Closing Checklist&lt;/h3&gt;
+      &lt;a href="/resources/georgetown-closing-checklist"&gt;Read More&lt;/a&gt;
+    &lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+                </div>
+
+                <div class="step-card">
+                  <span class="step-num">4</span>
+                  <h3>Create sitemap.xml and robots.txt</h3>
+                  <p>For a Next.js/Vercel app, add these under <code>/public</code>.</p>
+                  <span class="code-label">/public/sitemap.xml</span>
+                  <pre class="runbook-code"><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+  &lt;url&gt;&lt;loc&gt;https://teleotitle.com/&lt;/loc&gt;&lt;priority&gt;1.0&lt;/priority&gt;&lt;/url&gt;
+  &lt;url&gt;&lt;loc&gt;https://teleotitle.com/about&lt;/loc&gt;&lt;priority&gt;0.8&lt;/priority&gt;&lt;/url&gt;
+  &lt;url&gt;&lt;loc&gt;https://teleotitle.com/services&lt;/loc&gt;&lt;priority&gt;0.8&lt;/priority&gt;&lt;/url&gt;
+  &lt;url&gt;&lt;loc&gt;https://teleotitle.com/resources&lt;/loc&gt;&lt;priority&gt;0.7&lt;/priority&gt;&lt;/url&gt;
+  &lt;url&gt;&lt;loc&gt;https://teleotitle.com/contact&lt;/loc&gt;&lt;priority&gt;0.9&lt;/priority&gt;&lt;/url&gt;
+&lt;/urlset&gt;</code></pre>
+                  <span class="code-label">/public/robots.txt</span>
+                  <pre class="runbook-code"><code>User-agent: *
+Allow: /
+
+Sitemap: https://teleotitle.com/sitemap.xml</code></pre>
+                </div>
+
+                <div class="step-card">
+                  <span class="step-num">5</span>
+                  <h3>Add Local Business schema</h3>
+                  <p>Add JSON-LD to the homepage head and replace all placeholders.</p>
+                  <pre class="runbook-code"><code>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Teleo Title",
+  "url": "https://teleotitle.com",
+  "logo": "https://teleotitle.com/logo.png",
+  "description": "Teleo Title is a Georgetown, Texas title company serving Realtors, lenders, buyers, sellers, builders, and real estate partners across Central Texas.",
+  "telephone": "+1-XXX-XXX-XXXX",
+  "email": "info@teleotitle.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "501 S Austin Ave",
+    "addressLocality": "Georgetown",
+    "addressRegion": "TX",
+    "postalCode": "78626",
+    "addressCountry": "US"
+  },
+  "areaServed": ["Georgetown TX", "Sun City TX", "Round Rock TX", "Liberty Hill TX", "Cedar Park TX", "Austin TX", "Central Texas"],
+  "sameAs": [
+    "https://www.facebook.com/profile.php?id=61587456031850",
+    "https://www.instagram.com/teleotitle/",
+    "https://www.linkedin.com/company/teleo-title/",
+    "https://www.google.com/maps/place/YOUR-GOOGLE-BUSINESS-PROFILE-LINK"
+  ]
+}
+&lt;/script&gt;</code></pre>
+                </div>
+              </section>
+
+              <section id="marketing" class="runbook-section">
+                <span class="eyebrow eyebrow-rule">3 · Marketing and social</span>
+                <h2>Add trust signals and lead capture</h2>
+
+                <div class="runbook-two-grid">
+                  <div class="runbook-mini-card"><span>Fix</span><b>Social links</b><p>Add Facebook, Instagram, LinkedIn, and YouTube if available.</p></div>
+                  <div class="runbook-mini-card"><span>Fix</span><b>Lead capture</b><p>Add newsletter/resource form and route submissions into CRM or automation.</p></div>
+                  <div class="runbook-mini-card"><span>Fix</span><b>Testimonials</b><p>Add agent, buyer, seller, and lender proof sections.</p></div>
+                  <div class="runbook-mini-card"><span>Fix</span><b>Google reviews</b><p>Add a reviews widget or verified Google Business Profile embed.</p></div>
+                </div>
+
+                <h3>Social links</h3>
+                <pre class="runbook-code"><code>&lt;section class="social-links"&gt;
+  &lt;a href="https://www.facebook.com/profile.php?id=61587456031850" target="_blank" rel="noopener"&gt;Facebook&lt;/a&gt;
+  &lt;a href="https://www.instagram.com/teleotitle/" target="_blank" rel="noopener"&gt;Instagram&lt;/a&gt;
+  &lt;a href="https://www.linkedin.com/company/teleo-title/" target="_blank" rel="noopener"&gt;LinkedIn&lt;/a&gt;
+  &lt;a href="https://www.youtube.com/@YOURCHANNEL" target="_blank" rel="noopener"&gt;YouTube&lt;/a&gt;
+&lt;/section&gt;</code></pre>
+
+                <h3>Newsletter form</h3>
+                <pre class="runbook-code"><code>&lt;section id="newsletter" class="newsletter-signup"&gt;
+  &lt;h2&gt;Stay Updated&lt;/h2&gt;
+  &lt;p&gt;Get market updates, closing tips, and helpful real estate/title resources.&lt;/p&gt;
+  &lt;form action="YOUR_FORM_ENDPOINT" method="POST"&gt;
+    &lt;label for="email"&gt;Email address&lt;/label&gt;
+    &lt;input type="email" id="email" name="email" placeholder="Enter your email" required /&gt;
+    &lt;button type="submit"&gt;Subscribe&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/section&gt;</code></pre>
+
+                <h3>Testimonials</h3>
+                <pre class="runbook-code"><code>&lt;section id="testimonials" class="testimonials"&gt;
+  &lt;h2&gt;What Clients Are Saying&lt;/h2&gt;
+  &lt;div class="testimonial-card"&gt;
+    &lt;p&gt;“The team made the closing process smooth, clear, and stress-free.”&lt;/p&gt;
+    &lt;strong&gt;— Local Realtor&lt;/strong&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+
+                <h3>Google Reviews widget</h3>
+                <pre class="runbook-code"><code>&lt;section id="google-reviews" class="google-reviews"&gt;
+  &lt;h2&gt;Google Reviews&lt;/h2&gt;
+  &lt;div class="google-reviews-widget"&gt;
+    &lt;script src="YOUR_GOOGLE_REVIEWS_WIDGET_SCRIPT"&gt;&lt;/script&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+              </section>
+
+              <section id="tech-stack" class="runbook-section">
+                <span class="eyebrow eyebrow-rule">4 · Tech stack and title workflow</span>
+                <h2>Use title-company equivalents, not brokerage scoring</h2>
+                <p>CRM and IDX are brokerage items. For a title company, use Order Title, Client Portal, e-signature support, scheduling, chat, marketing automation, and UX tracking.</p>
+
+                <div class="step-card">
+                  <span class="step-num">1</span>
+                  <h3>Mark brokerage-only checks as N/A</h3>
+                  <pre class="runbook-code"><code>Real Estate CRM: N/A — Title company site, not brokerage/agent lead-gen site.
+IDX Platform: N/A — Not required for a title company website.</code></pre>
+                </div>
+
+                <div class="step-card">
+                  <span class="step-num">2</span>
+                  <h3>Add Order Title and Client Portal</h3>
+                  <pre class="runbook-code"><code>&lt;nav&gt;
+  &lt;a href="/"&gt;Home&lt;/a&gt;
+  &lt;a href="/about"&gt;About&lt;/a&gt;
+  &lt;a href="/services"&gt;Services&lt;/a&gt;
+  &lt;a href="/resources"&gt;Resources&lt;/a&gt;
+  &lt;a href="/calendar"&gt;Schedule&lt;/a&gt;
+  &lt;a href="/contact"&gt;Contact&lt;/a&gt;
+  &lt;a href="/order-title" class="nav-cta"&gt;Order Title&lt;/a&gt;
+  &lt;a href="YOUR_TRANSACTION_PORTAL_URL" target="_blank" rel="noopener"&gt;Client Portal&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+                </div>
+
+                <div class="step-card">
+                  <span class="step-num">3</span>
+                  <h3>Create /order-title intake form</h3>
+                  <pre class="runbook-code"><code>&lt;form action="YOUR_CRM_OR_FORM_ENDPOINT" method="POST"&gt;
+  &lt;label for="name"&gt;Your Name&lt;/label&gt;
+  &lt;input type="text" id="name" name="name" required&gt;
+  &lt;label for="email"&gt;Email Address&lt;/label&gt;
+  &lt;input type="email" id="email" name="email" required&gt;
+  &lt;label for="phone"&gt;Phone Number&lt;/label&gt;
+  &lt;input type="tel" id="phone" name="phone"&gt;
+  &lt;label for="role"&gt;I am a...&lt;/label&gt;
+  &lt;select id="role" name="role"&gt;
+    &lt;option&gt;Realtor&lt;/option&gt;
+    &lt;option&gt;Lender&lt;/option&gt;
+    &lt;option&gt;Buyer&lt;/option&gt;
+    &lt;option&gt;Seller&lt;/option&gt;
+    &lt;option&gt;Builder&lt;/option&gt;
+    &lt;option&gt;Investor&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;label for="property-address"&gt;Property Address&lt;/label&gt;
+  &lt;input type="text" id="property-address" name="property_address"&gt;
+  &lt;label for="message"&gt;Transaction Details&lt;/label&gt;
+  &lt;textarea id="message" name="message"&gt;&lt;/textarea&gt;
+  &lt;button type="submit"&gt;Submit Title Order Request&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+                </div>
+
+                <div class="step-card">
+                  <span class="step-num">4</span>
+                  <h3>Add e-signature support copy</h3>
+                  <pre class="runbook-code"><code>&lt;section id="esignature" class="esign-section"&gt;
+  &lt;h2&gt;Secure E-Signature Support&lt;/h2&gt;
+  &lt;p&gt;
+    When available for your transaction, Teleo Title supports secure electronic
+    signature workflows through approved closing and document platforms.
+  &lt;/p&gt;
+  &lt;p&gt;
+    For security, signing links are sent directly to authorized transaction parties
+    and should never be accessed through unverified emails or text links.
+  &lt;/p&gt;
+  &lt;a href="/contact"&gt;Ask About E-Signature Options&lt;/a&gt;
+&lt;/section&gt;</code></pre>
+                </div>
+
+                <div class="step-card">
+                  <span class="step-num">5</span>
+                  <h3>Add live chat</h3>
+                  <pre class="runbook-code"><code>&lt;!-- Live Chat Widget --&gt;
+&lt;script&gt;
+  window.chatSettings = {
+    company: "Teleo Title",
+    primaryCTA: "Start a Title Order",
+    secondaryCTA: "Contact Escrow Team"
+  };
+&lt;/script&gt;
+&lt;script async src="YOUR_CHAT_WIDGET_SCRIPT_URL"&gt;&lt;/script&gt;</code></pre>
+                </div>
+              </section>
+
+              <section id="tracking" class="runbook-section">
+                <span class="eyebrow eyebrow-rule">Tracking snippets</span>
+                <h2>Install GTM first, then add pixels through GTM</h2>
+
+                <h3>Google Tag Manager — head</h3>
+                <pre class="runbook-code"><code>&lt;!-- Google Tag Manager --&gt;
+&lt;script&gt;
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');
+&lt;/script&gt;
+&lt;!-- End Google Tag Manager --&gt;</code></pre>
+
+                <h3>Google Tag Manager — body</h3>
+                <pre class="runbook-code"><code>&lt;!-- Google Tag Manager noscript --&gt;
+&lt;noscript&gt;
+  &lt;iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;
+&lt;/noscript&gt;
+&lt;!-- End Google Tag Manager noscript --&gt;</code></pre>
+
+                <h3>Microsoft Clarity</h3>
+                <pre class="runbook-code"><code>&lt;!-- Microsoft Clarity --&gt;
+&lt;script type="text/javascript"&gt;
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r); t.async=1;
+    t.src="https://www.clarity.ms/tag/YOUR_CLARITY_ID";
+    y=l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "YOUR_CLARITY_ID");
+&lt;/script&gt;</code></pre>
+
+                <h3>HubSpot tracking</h3>
+                <pre class="runbook-code"><code>&lt;!-- HubSpot Tracking Code --&gt;
+&lt;script type="text/javascript" id="hs-script-loader" async defer
+  src="//js.hs-scripts.com/YOUR_PORTAL_ID.js"&gt;&lt;/script&gt;</code></pre>
+              </section>
+
+              <section id="verify" class="runbook-section">
+                <span class="eyebrow eyebrow-rule">Final QA</span>
+                <h2>Verification checklist</h2>
+                <div class="runbook-two-grid">
+                  <div>
+                    <h3>DNS / Email</h3>
+                    <ul class="checklist">
+                      <li>MX points to <code>smtp.google.com</code> with priority 1</li>
+                      <li>Only one SPF record exists</li>
+                      <li>DKIM record was generated from Google Admin</li>
+                      <li>Google Admin shows DKIM authentication started</li>
+                      <li>DMARC <code>p=none</code> record exists</li>
+                      <li><code>dmarc@teleotitle.com</code> exists as mailbox or group</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3>Website</h3>
+                    <ul class="checklist">
+                      <li><code>https://teleotitle.com/sitemap.xml</code> loads</li>
+                      <li><code>https://teleotitle.com/robots.txt</code> loads</li>
+                      <li>GTM appears in page source</li>
+                      <li>Google Business Profile link works</li>
+                      <li>Google map appears on contact page</li>
+                      <li>Schema validates with no critical errors</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3>Marketing</h3>
+                    <ul class="checklist">
+                      <li>Facebook link works</li>
+                      <li>Instagram link works</li>
+                      <li>LinkedIn link works</li>
+                      <li>Newsletter form submits correctly</li>
+                      <li>Testimonials section appears</li>
+                      <li>Google Reviews widget loads</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3>Tech stack</h3>
+                    <ul class="checklist">
+                      <li>Order Title page exists</li>
+                      <li>Client Portal link exists</li>
+                      <li>Live chat widget loads</li>
+                      <li>E-signature support section exists</li>
+                      <li>Calendar page still works</li>
+                      <li>Clarity or Hotjar captures sessions</li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+
+              <section id="values" class="runbook-section">
+                <span class="eyebrow eyebrow-rule">Before patching production</span>
+                <h2>Values to collect</h2>
+                <div class="runbook-table-wrap">
+                  <table class="runbook-table">
+                    <thead>
+                      <tr><th>Item</th><th>Value / Placeholder</th><th>Used for</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Facebook Page</td><td>https://www.facebook.com/profile.php?id=61587456031850</td><td>Footer, schema, social links</td></tr>
+                      <tr><td>Instagram</td><td>https://www.instagram.com/teleotitle/</td><td>Footer, schema, social links</td></tr>
+                      <tr><td>LinkedIn</td><td>https://www.linkedin.com/company/teleo-title/</td><td>Footer, schema, social links</td></tr>
+                      <tr><td>GTM Container ID</td><td>GTM-XXXXXXX</td><td>Tracking foundation</td></tr>
+                      <tr><td>GA4 Measurement ID</td><td>G-XXXXXXXXXX</td><td>Analytics inside GTM</td></tr>
+                      <tr><td>Meta Pixel ID</td><td>YOUR_PIXEL_ID</td><td>Retargeting and ad tracking</td></tr>
+                      <tr><td>LinkedIn Partner ID</td><td>YOUR_LINKEDIN_PARTNER_ID</td><td>LinkedIn Insight Tag</td></tr>
+                      <tr><td>Microsoft Clarity ID</td><td>YOUR_CLARITY_ID</td><td>Heatmaps and session recording</td></tr>
+                      <tr><td>Newsletter endpoint</td><td>YOUR_FORM_ENDPOINT</td><td>Lead capture</td></tr>
+                      <tr><td>Transaction Portal URL</td><td>YOUR_TRANSACTION_PORTAL_URL</td><td>Client portal CTA</td></tr>
+                      <tr><td>Google Map Embed</td><td>YOUR_GOOGLE_MAPS_EMBED_URL</td><td>Contact page and local SEO</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="runbook-note sky">
+                  Expected result after implementation: domain/email health corrected, SEO near 9/10, marketing near 8/10, and tech stack near 8/8 applicable checks depending on how the audit tool handles title-company N/A items.
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="footer-brand">Cargill<span>&amp;</span>Co</div>
+            <p class="footer-tag">
+              Teleo Title Website Improvement Runbook · Next-Gen-IT · Georgetown / Austin, TX · May 2026
+            </p>
+          </div>
+          <div class="footer-col">
+            <h5>Professional</h5>
+            <ul>
+              <li><a href="../cargill-consulting/">Cargill Consulting</a></li>
+              <li><a href="./">Next-Gen-IT</a></li>
+              <li><a href="../about/">About</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5>Next-Gen-IT</h5>
+            <ul>
+              <li><a href="./starsky-owen-audit-report.html">Starsky Owen Realty</a></li>
+              <li><a href="./shonna-king-domain-health-audit.html">Shonna King</a></li>
+              <li><a href="./email-security-pilot-campaign.html">Email security pilot</a></li>
+              <li><a href="./partnership-strategy.html">Partnership strategy</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5>Contact</h5>
+            <ul>
+              <li><a href="https://github.com/jeremiah9980">GitHub</a></li>
+              <li><a href="https://www.linkedin.com/in/jeremiahcargill/">LinkedIn</a></li>
+              <li><span class="muted">Austin, TX</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-meta">
+          <span>© 2026 Jeremiah Cargill</span>
+          <span>Built in production · Portfolio &amp; practice</span>
+        </div>
+      </div>
+    </footer>
+    <script src="../../assets/js/main.js"></script>
+  </body>
+</html>

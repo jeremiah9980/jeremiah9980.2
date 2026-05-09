@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Security Scan — Next-Gen IT Pros</title>
+  <meta name="description" content="Free email authentication scan. Check your domain's SPF, DKIM, and DMARC records for wire fraud vulnerabilities.">
+
+  <!-- Same fonts as the portal -->
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Link to site stylesheet if it exists alongside this file -->
+  <!-- <link rel="stylesheet" href="style.css"> -->
+
+  <style>
+    /* ── Design tokens (mirrors jeremiah9980.2 :root) ── */
+    :root {
+      --paper:        #071A32;
+      --paper-deep:   #0A2342;
+      --paper-edge:   #041326;
+      --panel:        rgba(10,35,66,.82);
+      --panel-strong: rgba(13,43,79,.94);
+
+      --ink:          #FFFFFF;
+      --ink-soft:     #D7E2F0;
+      --ink-muted:    #91A6C3;
+
+      --rule:         rgba(145,166,195,.22);
+      --rule-soft:    rgba(145,166,195,.12);
+
+      --coral:        #FF6B5F;
+      --coral-deep:   #E4473A;
+      --coral-soft:   rgba(255,107,95,.14);
+      --coral-glow:   rgba(255,107,95,.38);
+
+      --sky:          #8FD7FF;
+      --sky-deep:     #1B8BD6;
+      --sky-soft:     rgba(143,215,255,.14);
+      --sky-glow:     rgba(143,215,255,.28);
+
+      --ok:           #22C55E;
+      --warn:         #F59E0B;
+      --danger:       #EF4444;
+
+      --display:      'Fraunces', Georgia, serif;
+      --body:         'IBM Plex Sans', -apple-system, sans-serif;
+      --mono:         'IBM Plex Mono', 'SF Mono', monospace;
+
+      --gutter:       clamp(1rem,3vw,2rem);
+      --page-max:     1240px;
+      --radius:       22px;
+      --shadow:       0 22px 70px rgba(0,0,0,.34);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      font-family: var(--body);
+      color: var(--ink);
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at 82% 12%, var(--coral-glow) 0%, transparent 30%),
+        radial-gradient(circle at 14% 22%, var(--sky-glow)   0%, transparent 34%),
+        linear-gradient(135deg, var(--paper-edge) 0%, var(--paper) 46%, #0B274D 100%);
+      background-attachment: fixed;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: "";
+      position: fixed; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.026) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.65), transparent 75%);
+      z-index: -1;
+    }
+
+    a { color: var(--sky); text-decoration: none; transition: color .2s, text-shadow .2s; }
+    a:hover, a:focus { color: var(--coral); text-shadow: 0 0 20px var(--coral-glow); }
+
+    /* ── Nav ── */
+    .site-nav {
+      position: sticky; top: 0; z-index: 999;
+      background: rgba(4,19,38,.82);
+      border-bottom: 1px solid var(--rule);
+      backdrop-filter: blur(18px);
+    }
+    .site-nav-inner {
+      max-width: var(--page-max); margin: 0 auto;
+      padding: 1rem var(--gutter);
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    }
+    .brand {
+      font-family: var(--display);
+      font-size: clamp(1.3rem,2.4vw,1.65rem);
+      color: var(--ink);
+      display: flex; align-items: baseline; gap: .25rem;
+      text-decoration: none;
+    }
+    .brand .amp { color: var(--coral); }
+    .brand-sub {
+      font-family: var(--mono); font-size: .66rem;
+      letter-spacing: .08em; color: var(--ink-muted);
+      margin-left: .55rem; text-transform: uppercase;
+    }
+    .nav-links { list-style: none; display: flex; gap: clamp(.75rem,2vw,1.45rem); align-items: center; }
+    .nav-links a {
+      color: var(--ink-soft); font-size: .92rem;
+      padding: .35rem 0; border-bottom: 2px solid transparent;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--coral); border-color: var(--coral); text-shadow: none;
+    }
+
+    /* ── Report shell ── */
+    .report-shell {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: clamp(2rem,5vw,4rem) var(--gutter) 6rem;
+    }
+
+    /* ── Eyebrow / kicker ── */
+    .eyebrow, .report-kicker {
+      display: inline-flex; align-items: center; gap: .7rem;
+      font-family: var(--mono); color: var(--coral);
+      font-size: .74rem; letter-spacing: .12em; text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .eyebrow::before, .report-kicker::before {
+      content: ""; width: 34px; height: 2px;
+      background: linear-gradient(90deg, var(--coral), var(--sky));
+      border-radius: 99px;
+    }
+
+    /* ── Report hero card ── */
+    .report-hero {
+      border: 1px solid var(--rule); border-radius: var(--radius);
+      padding: clamp(1.6rem,4vw,3rem);
+      background:
+        linear-gradient(135deg, var(--coral-soft), transparent 34%),
+        linear-gradient(160deg, var(--sky-soft),   transparent 48%),
+        var(--panel-strong);
+      box-shadow: var(--shadow); margin-bottom: 1.2rem;
+    }
+    .report-hero h1 {
+      font-family: var(--display);
+      font-size: clamp(2.55rem,6vw,5.2rem);
+      line-height: .96; letter-spacing: -.045em; margin-bottom: 1rem;
+    }
+    .report-hero h1 em { color: var(--coral); font-style: italic; font-weight: 400; }
+    .report-sub { color: var(--ink-soft); font-size: clamp(1rem,2vw,1.2rem); max-width: 640px; }
+
+    /* ── Scan input ── */
+    .scan-form { display: flex; gap: 0; margin: 1.8rem 0 .5rem; }
+    .scan-input {
+      flex: 1; height: 54px; padding: 0 18px;
+      font-family: var(--mono); font-size: 1rem;
+      background: rgba(255,255,255,.06); color: var(--ink);
+      border: 1.5px solid var(--rule); border-right: none;
+      border-radius: 12px 0 0 12px; outline: none;
+      transition: border-color .2s;
+    }
+    .scan-input:focus { border-color: var(--coral); }
+    .scan-input::placeholder { color: var(--ink-muted); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 44px; padding: .68rem 1.4rem; border-radius: 999px;
+      background: linear-gradient(135deg, var(--coral), var(--coral-deep));
+      color: #fff; border: none; font-weight: 700; cursor: pointer;
+      box-shadow: 0 16px 42px rgba(228,71,58,.23);
+      font-family: var(--body); font-size: .95rem;
+      transition: filter .2s;
+    }
+    .btn:hover { filter: brightness(1.07); color: #fff; }
+    .scan-btn {
+      height: 54px; border-radius: 0 12px 12px 0;
+      padding: 0 2rem;
+      font-family: var(--mono); font-size: .8rem;
+      letter-spacing: .1em; text-transform: uppercase; font-weight: 500;
+    }
+    .scan-error {
+      font-family: var(--mono); font-size: .78rem;
+      color: var(--danger); margin-top: .4rem; letter-spacing: .04em;
+    }
+
+    /* ── What we check grid ── */
+    .checks-preview {
+      display: grid; grid-template-columns: repeat(2,1fr);
+      gap: 1px; background: var(--rule);
+      border: 1px solid var(--rule); border-radius: 16px;
+      overflow: hidden; margin-top: 2rem;
+    }
+    .checks-preview-cell {
+      background: rgba(255,255,255,.04); padding: 1.1rem 1.3rem;
+    }
+    .checks-preview-cell h4 {
+      font-family: var(--display); font-size: .98rem;
+      color: var(--ink); margin-bottom: .25rem;
+    }
+    .checks-preview-cell p { font-size: .82rem; color: var(--ink-muted); }
+
+    /* ── Scan progress ── */
+    .scan-steps { max-width: 320px; margin: 2.5rem auto 0; display: grid; gap: 1rem; }
+    .scan-step { display: flex; align-items: center; gap: .9rem; }
+    .step-dot {
+      width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .72rem; font-weight: 700; color: #fff;
+      background: rgba(145,166,195,.22);
+      transition: background .4s;
+    }
+    .step-dot.done    { background: var(--ok); }
+    .step-dot.active  { background: var(--coral); }
+    .step-label {
+      font-family: var(--mono); font-size: .76rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--ink-muted); transition: color .3s;
+    }
+    .step-label.done   { color: var(--ok); }
+    .step-label.active { color: var(--coral); }
+
+    /* ── Meta grid ── */
+    .report-meta-grid {
+      display: grid; grid-template-columns: repeat(4,minmax(0,1fr));
+      gap: 1px; border: 1px solid var(--rule);
+      border-radius: 18px; overflow: hidden; background: var(--rule);
+      margin-bottom: 1rem;
+    }
+    .report-meta-cell { background: rgba(7,26,50,.78); padding: 1rem 1.1rem; }
+    .report-meta-cell .k {
+      font-family: var(--mono); font-size: .7rem;
+      letter-spacing: .13em; text-transform: uppercase;
+      color: var(--ink-muted); margin-bottom: .35rem;
+    }
+    .report-meta-cell .v { color: var(--ink); font-weight: 700; }
+
+    /* ── Verdict banner ── */
+    .verdict-banner {
+      border-radius: 14px; padding: 1rem 1.3rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      margin-bottom: 1.2rem; border: 1px solid;
+    }
+    .verdict-label {
+      font-family: var(--display); font-size: 1rem; font-weight: 400;
+      white-space: nowrap; padding-top: .1rem; min-width: 130px;
+    }
+    .verdict-msg { font-size: .9rem; color: var(--ink-soft); line-height: 1.65; }
+
+    /* ── Findings ── */
+    .report-findings { display: grid; gap: .75rem; }
+    .report-finding {
+      display: grid; grid-template-columns: 106px 1fr;
+      gap: 1rem; align-items: start;
+      border: 1px solid var(--rule); border-radius: 18px;
+      padding: 1.1rem 1.2rem;
+      background: rgba(255,255,255,.045);
+      opacity: 0; transform: translateY(8px);
+      transition: opacity .35s ease, transform .35s ease;
+    }
+    .report-finding.visible { opacity: 1; transform: none; }
+    .finding-left { display: flex; flex-direction: column; gap: .5rem; }
+    .report-badge {
+      display: inline-flex; align-items: center; gap: .3rem;
+      font-family: var(--mono); font-size: .68rem;
+      letter-spacing: .12em; text-transform: uppercase; font-weight: 800;
+      border-radius: 999px; padding: .35rem .6rem;
+      color: var(--ink); border: 1px solid var(--rule);
+      background: rgba(255,255,255,.06);
+      width: fit-content;
+    }
+    .report-badge.pass   { background: rgba(34,197,94,.2);  border-color: rgba(34,197,94,.55);  color: #86efac; }
+    .report-badge.warn   { background: rgba(245,158,11,.2); border-color: rgba(245,158,11,.55); color: #fcd34d; }
+    .report-badge.fail,
+    .report-badge.high   { background: rgba(239,68,68,.22); border-color: rgba(239,68,68,.6);   color: #fca5a5; }
+    .report-badge.info   { background: var(--sky-soft);     border-color: rgba(143,215,255,.4);  color: var(--sky); }
+    .check-sublabel {
+      font-family: var(--mono); font-size: .66rem;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--ink-muted); line-height: 1.4;
+    }
+    .finding-verdict {
+      font-family: var(--display); font-size: 1.05rem;
+      color: var(--ink); margin-bottom: .35rem; line-height: 1.1;
+    }
+    .report-dns {
+      display: block; white-space: pre-wrap;
+      font-family: var(--mono); font-size: .78rem;
+      color: var(--ink-soft);
+      background: rgba(4,19,38,.78);
+      border: 1px solid var(--rule); border-left: 3px solid var(--coral);
+      border-radius: 14px; padding: .75rem 1rem;
+      margin: .5rem 0; overflow-x: auto; word-break: break-all;
+    }
+    .finding-risk  { font-size: .82rem; font-style: italic; margin-top: .3rem; line-height: 1.5; }
+    .finding-detail { font-size: .82rem; color: var(--ink-muted); line-height: 1.5; }
+
+    /* ── Note ── */
+    .report-note {
+      border-left: 3px solid var(--coral);
+      background: var(--coral-soft);
+      padding: .9rem 1rem; border-radius: 0 14px 14px 0;
+      margin-top: 1rem; color: var(--ink-soft);
+      font-size: .84rem; line-height: 1.65;
+    }
+    .report-note strong { color: var(--ink); }
+
+    /* ── CTA card ── */
+    .cta-card {
+      margin-top: 1.5rem;
+      border: 1px solid var(--rule); border-radius: var(--radius);
+      padding: clamp(1.4rem,3vw,2.2rem);
+      background:
+        linear-gradient(135deg, var(--coral-soft), transparent 40%),
+        var(--panel);
+      box-shadow: 0 14px 42px rgba(0,0,0,.18);
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+    }
+    .cta-card .report-kicker { margin-bottom: .6rem; }
+    .cta-card h2 {
+      font-family: var(--display); font-size: clamp(1.35rem,2.5vw,1.8rem);
+      line-height: 1.15; color: var(--ink); margin-bottom: .5rem; max-width: 380px;
+    }
+    .cta-card p { color: var(--ink-soft); font-size: .9rem; max-width: 400px; }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid rgba(143,215,255,.45);
+      color: var(--sky); box-shadow: none;
+      padding: .68rem 1.4rem; border-radius: 999px;
+      font-family: var(--body); font-size: .95rem;
+      font-weight: 600; cursor: pointer;
+      display: inline-flex; align-items: center;
+      transition: background .2s, color .2s; text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn-ghost:hover { background: var(--sky-soft); color: var(--sky); text-shadow: none; }
+
+    /* ── Pass state ── */
+    .pass-card {
+      margin-top: 1.5rem;
+      border: 1px solid rgba(34,197,94,.35);
+      border-radius: var(--radius); padding: 1.8rem 2rem;
+      background: rgba(34,197,94,.08);
+      display: flex; gap: 1.2rem; align-items: flex-start;
+    }
+    .pass-icon {
+      width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(34,197,94,.25); border: 1px solid rgba(34,197,94,.5);
+      color: var(--ok); display: flex; align-items: center;
+      justify-content: center; font-size: 1.2rem; font-weight: 700;
+    }
+    .pass-card h3 {
+      font-family: var(--display); font-size: 1.25rem;
+      color: var(--ok); margin-bottom: .4rem;
+    }
+    .pass-card p { color: var(--ink-soft); font-size: .9rem; line-height: 1.65; }
+
+    /* ── Reset link ── */
+    .new-scan-btn {
+      font-family: var(--mono); font-size: .76rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--ink-muted); background: transparent;
+      border: 1px solid var(--rule); border-radius: 999px;
+      padding: .45rem 1rem; cursor: pointer;
+      transition: color .2s, border-color .2s;
+    }
+    .new-scan-btn:hover { color: var(--coral); border-color: var(--coral); }
+
+    /* ── Footer ── */
+    .site-footer {
+      padding: clamp(2rem,5vw,3.5rem) 0;
+      background: rgba(4,19,38,.74);
+      border-top: 1px solid var(--rule);
+    }
+    .footer-inner {
+      max-width: var(--page-max); margin: 0 auto;
+      padding: 0 var(--gutter);
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-brand { font-family: var(--display); font-size: 1.35rem; color: var(--ink); }
+    .footer-brand span { color: var(--coral); }
+    .footer-meta { color: var(--ink-muted); font-size: .82rem; }
+
+    /* ── Utility ── */
+    .hidden { display: none !important; }
+    .text-coral { color: var(--coral); }
+    .text-ok    { color: var(--ok); }
+    .text-warn  { color: var(--warn); }
+    .text-danger{ color: var(--danger); }
+
+    @media (max-width: 640px) {
+      .site-nav-inner { flex-direction: column; padding: .75rem var(--gutter); }
+      .nav-links { gap: .7rem; flex-wrap: wrap; }
+      .report-meta-grid { grid-template-columns: repeat(2,1fr); }
+      .report-finding { grid-template-columns: 1fr; }
+      .checks-preview { grid-template-columns: 1fr; }
+      .cta-card { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ── -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav-inner">
+      <a class="brand" href="index.html">
+        Next-Gen IT<span class="amp"> &amp;</span> Pros
+        <span class="brand-sub">Georgetown, TX</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="email-scan.html" class="active">Email Scan</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════
+       ENTRY STATE
+  ══════════════════════════════════════════════ -->
+  <main id="view-entry" class="report-shell">
+    <div class="report-hero">
+      <div class="report-kicker">Wire Fraud Prevention · Free Check</div>
+      <h1>
+        Can someone send email<br>
+        <em>pretending to be you?</em>
+      </h1>
+      <p class="report-sub">
+        Most real estate and title domains are completely open to impersonation.
+        Enter your domain — 10 seconds, live DNS check, no account required.
+      </p>
+
+      <div class="scan-form">
+        <input
+          id="domain-input"
+          class="scan-input"
+          type="text"
+          placeholder="yourdomain.com"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+          aria-label="Domain to scan"
+        >
+        <button class="btn scan-btn" onclick="startScan()">Run Scan →</button>
+      </div>
+      <div id="scan-error" class="scan-error hidden"></div>
+
+      <div class="checks-preview">
+        <div class="checks-preview-cell">
+          <h4>MX Records</h4>
+          <p>Is this domain configured to send and receive mail?</p>
+        </div>
+        <div class="checks-preview-cell">
+          <h4>SPF Record</h4>
+          <p>Who is authorized to send email from this domain?</p>
+        </div>
+        <div class="checks-preview-cell">
+          <h4>DMARC Policy</h4>
+          <p>What happens when someone spoofs this domain?</p>
+        </div>
+        <div class="checks-preview-cell">
+          <h4>DKIM Signing</h4>
+          <p>Are outgoing emails cryptographically signed?</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ══════════════════════════════════════════════
+       SCANNING STATE
+  ══════════════════════════════════════════════ -->
+  <main id="view-scanning" class="report-shell hidden">
+    <div class="report-hero" style="text-align:center; padding: 3.5rem 2rem;">
+      <div class="report-kicker" style="justify-content:center;">Running DNS Checks</div>
+      <h1 style="font-size: clamp(1.8rem,4vw,3rem); margin-bottom:.5rem;">
+        Scanning <span id="scan-domain-label" class="text-coral"></span>
+      </h1>
+      <p class="report-sub" style="margin:0 auto .5rem;">Querying DNS authentication records…</p>
+      <div class="scan-steps" id="scan-steps">
+        <div class="scan-step" data-step="0">
+          <div class="step-dot" id="dot-0"></div>
+          <span class="step-label" id="lbl-0">MX Records</span>
+        </div>
+        <div class="scan-step" data-step="1">
+          <div class="step-dot" id="dot-1"></div>
+          <span class="step-label" id="lbl-1">SPF Policy</span>
+        </div>
+        <div class="scan-step" data-step="2">
+          <div class="step-dot" id="dot-2"></div>
+          <span class="step-label" id="lbl-2">DMARC Record</span>
+        </div>
+        <div class="scan-step" data-step="3">
+          <div class="step-dot" id="dot-3"></div>
+          <span class="step-label" id="lbl-3">DKIM Signing</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ══════════════════════════════════════════════
+       RESULTS STATE
+  ══════════════════════════════════════════════ -->
+  <main id="view-results" class="report-shell hidden">
+
+    <!-- Report hero -->
+    <div class="report-hero">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:1.2rem;">
+        <div>
+          <div class="report-kicker">Audit Report</div>
+          <h1 id="result-domain" style="font-size:clamp(2rem,5vw,3.8rem); margin-bottom:.3rem;"></h1>
+          <p class="report-sub" id="result-date" style="font-size:.82rem; color:var(--ink-muted);"></p>
+        </div>
+        <button class="new-scan-btn" onclick="resetScan()">← New Scan</button>
+      </div>
+
+      <!-- Meta grid -->
+      <div class="report-meta-grid" id="result-meta">
+        <div class="report-meta-cell"><div class="k">Domain</div><div class="v" id="meta-domain">—</div></div>
+        <div class="report-meta-cell"><div class="k">Checks Run</div><div class="v">4 of 4</div></div>
+        <div class="report-meta-cell"><div class="k">Passed</div><div class="v" id="meta-passed">—</div></div>
+        <div class="report-meta-cell"><div class="k">Overall Risk</div><div class="v" id="meta-risk">—</div></div>
+      </div>
+
+      <!-- Verdict banner -->
+      <div class="verdict-banner" id="verdict-banner">
+        <div class="verdict-label" id="verdict-label"></div>
+        <div class="verdict-msg"   id="verdict-msg"></div>
+      </div>
+    </div>
+
+    <!-- Findings -->
+    <div class="report-findings" id="findings-list"></div>
+
+    <!-- DKIM note (shown conditionally) -->
+    <div class="report-note hidden" id="dkim-note">
+      <strong>DKIM note:</strong> DKIM keys are stored under a selector name configured by your email provider.
+      10 common selectors were checked. If DKIM is active under a custom selector it exists but cannot be confirmed via this external scan.
+    </div>
+
+    <!-- CTA / Pass state -->
+    <div class="cta-card hidden" id="cta-block">
+      <div>
+        <div class="report-kicker">Get This Fixed</div>
+        <h2>We configure SPF, DKIM, and DMARC — then show you the spoofing attempts we blocked.</h2>
+        <p>Fixed-fee engagement. No retainer required to start.</p>
+      </div>
+      <a href="mailto:contact@nextgenitpros.com" class="btn">Talk to Us →</a>
+    </div>
+
+    <div class="pass-card hidden" id="pass-block">
+      <div class="pass-icon">✓</div>
+      <div>
+        <h3>This domain is properly protected.</h3>
+        <p>
+          SPF and DMARC are correctly configured. Spoofed email claiming to come from this domain
+          will be rejected before it reaches your clients. Keep DMARC aggregate reporting active
+          to monitor ongoing activity.
+        </p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">Next-Gen IT<span> &amp;</span> Pros</div>
+      <div class="footer-meta">DNS queries via Cloudflare DoH &middot; No data stored &middot; Georgetown, TX</div>
+    </div>
+  </footer>
+
+
+  <script>
+  /* ════════════════════════════════════════════
+     DNS-over-HTTPS helpers
+  ════════════════════════════════════════════ */
+  const DOH = "https://cloudflare-dns.com/dns-query";
+
+  async function dnsQuery(name, type) {
+    try {
+      const r = await fetch(`${DOH}?name=${encodeURIComponent(name)}&type=${type}`, {
+        headers: { Accept: "application/dns-json" }
+      });
+      return r.ok ? r.json() : { Answer: [] };
+    } catch { return { Answer: [] }; }
+  }
+
+  function getRecords(result) {
+    return (result?.Answer || []).map(a => (a.data || "").replace(/^"|"$/g, ""));
+  }
+
+  /* ════════════════════════════════════════════
+     Individual checks
+  ════════════════════════════════════════════ */
+  async function checkMX(domain) {
+    const r    = await dnsQuery(domain, "MX");
+    const recs = getRecords(r);
+    const ok   = recs.length > 0;
+    return {
+      id: "mx", label: "MX Records", sub: "Is this domain configured to send and receive email?",
+      status: ok ? "pass" : "fail",
+      verdict: ok ? `${recs.length} mail server${recs.length > 1 ? "s" : ""} configured` : "No mail server found",
+      raw: ok ? recs[0] : null,
+      risk: ok ? null : "Domain has no mail server — email infrastructure may be broken",
+      detail: ok ? "Mail infrastructure is present and resolving" : "No MX records detected. Email delivery may be broken.",
+    };
+  }
+
+  async function checkSPF(domain) {
+    const r   = await dnsQuery(domain, "TXT");
+    const spf = getRecords(r).find(a => a.startsWith("v=spf1"));
+    if (!spf) return {
+      id: "spf", label: "SPF Record", sub: "Who is authorized to send email from this domain?",
+      status: "fail", verdict: "No SPF record found", raw: null,
+      risk: "Anyone can send email claiming to be from this domain",
+      detail: "No SPF TXT record detected. Domain is open to spoofing.",
+    };
+    const hard = spf.includes("-all"), soft = spf.includes("~all"), open = spf.includes("+all");
+    return {
+      id: "spf", label: "SPF Record", sub: "Who is authorized to send email from this domain?",
+      status:  hard ? "pass" : soft ? "warn" : "fail",
+      verdict: hard ? "SPF enforced — hard fail (-all)"
+             : soft ? "SPF present but not enforced (~all)"
+             : open ? "Dangerous: SPF allows any sender (+all)"
+             :        "SPF present — policy terminator unclear",
+      raw: spf.length > 76 ? spf.slice(0, 73) + "…" : spf,
+      risk:   hard ? null
+            : soft ? "Soft fail flags but does not block spoofed mail"
+            :        "Any server on the internet can send as this domain",
+      detail: hard ? "Unauthorized senders are rejected outright"
+            : soft ? "Upgrade to -all to fully block unauthorized senders"
+            :        "Review SPF record — all mechanism is missing or dangerous",
+    };
+  }
+
+  async function checkDMARC(domain) {
+    const r   = await dnsQuery("_dmarc." + domain, "TXT");
+    const rec = getRecords(r).find(a => a.startsWith("v=DMARC1"));
+    if (!rec) return {
+      id: "dmarc", label: "DMARC Policy", sub: "What happens when someone spoofs this domain?",
+      status: "fail", verdict: "No DMARC record — domain unprotected", raw: null,
+      risk: "Critical: no policy exists to prevent or report spoofed email. Impersonation is trivial.",
+      detail: "Any attacker can send email from this domain with zero enforcement or detection.",
+    };
+    const pMatch  = rec.match(/p=([a-z]+)/i);
+    const p       = pMatch ? pMatch[1].toLowerCase() : "none";
+    const pctM    = rec.match(/pct=(\d+)/i);
+    const pct     = pctM ? parseInt(pctM[1]) : 100;
+    const rua     = /rua=mailto:/i.test(rec);
+    return {
+      id: "dmarc", label: "DMARC Policy", sub: "What happens when someone spoofs this domain?",
+      status:  p === "reject" ? "pass" : p === "quarantine" ? "warn" : "fail",
+      verdict: p === "reject"     ? "DMARC enforced — spoofed mail rejected (p=reject" + (pct < 100 ? ", pct=" + pct : "") + ")"
+             : p === "quarantine" ? "DMARC quarantine — partially enforced"
+             :                      "DMARC monitoring only — no enforcement (p=none)",
+      raw: rec.length > 76 ? rec.slice(0, 73) + "…" : rec,
+      risk:   p === "reject"     ? null
+            : p === "quarantine" ? "Spoofed mail goes to spam instead of being blocked outright"
+            :                      "No enforcement — spoofed email is delivered normally to your clients",
+      detail: p === "reject"     ? "p=reject" + (rua ? " · Aggregate reporting active" : " · Consider enabling rua= reporting")
+            : p === "quarantine" ? "Advance to p=reject to fully close the wire fraud attack vector"
+            :                      "p=none is monitoring only — zero protection against impersonation",
+    };
+  }
+
+  const DKIM_SELECTORS = ["google","selector1","selector2","default","mail","k1","s1","smtp","dkim","mx"];
+
+  async function checkDKIM(domain) {
+    const hits = (await Promise.all(
+      DKIM_SELECTORS.map(async sel => {
+        const r   = await dnsQuery(sel + "._domainkey." + domain, "TXT");
+        const hit = getRecords(r).find(a => a.includes("v=DKIM1") || a.includes("p="));
+        return hit ? { sel, hit } : null;
+      })
+    )).filter(Boolean);
+
+    return hits.length > 0 ? {
+      id: "dkim", label: "DKIM Signing", sub: "Are outgoing emails cryptographically signed?",
+      status: "pass", verdict: "DKIM active — selector: " + hits[0].sel,
+      raw: hits[0].sel + "._domainkey." + domain,
+      risk: null, detail: "Cryptographic signature found. Email authenticity is verifiable by recipients.",
+    } : {
+      id: "dkim", label: "DKIM Signing", sub: "Are outgoing emails cryptographically signed?",
+      status: "unknown", verdict: "DKIM not confirmed via common selectors", raw: null,
+      risk: "Signing key could not be found — may exist under a non-standard selector",
+      detail: "10 common selectors checked. DKIM may be active but requires selector name to verify.",
+    };
+  }
+
+  /* ════════════════════════════════════════════
+     Risk scoring
+  ════════════════════════════════════════════ */
+  function calcRisk(checks) {
+    const dmarc = checks.find(c => c.id === "dmarc");
+    const spf   = checks.find(c => c.id === "spf");
+    const fails = checks.filter(c => c.status === "fail").length;
+    if (dmarc?.status === "pass" && spf?.status === "pass") return "protected";
+    if (!dmarc?.raw) return "critical";
+    if (fails >= 2)  return "critical";
+    if (fails === 1) return "exposed";
+    return "partial";
+  }
+
+  const RISK_CFG = {
+    protected: {
+      label: "Protected", textColor: "var(--ok)",
+      bannerBg: "rgba(34,197,94,.10)", bannerBorder: "rgba(34,197,94,.35)",
+      msg: "Email authentication is fully configured. This domain is protected against impersonation and wire fraud spoofing.",
+    },
+    partial: {
+      label: "Partial Protection", textColor: "var(--warn)",
+      bannerBg: "rgba(245,158,11,.10)", bannerBorder: "rgba(245,158,11,.4)",
+      msg: "Some protections are in place but gaps remain. Spoofed email claiming to come from this domain may still reach clients.",
+    },
+    exposed: {
+      label: "Exposed", textColor: "var(--danger)",
+      bannerBg: "rgba(239,68,68,.10)", bannerBorder: "rgba(239,68,68,.4)",
+      msg: "This domain can be impersonated. Attackers can send email that appears to come from this business.",
+    },
+    critical: {
+      label: "Critical Risk", textColor: "var(--danger)",
+      bannerBg: "rgba(239,68,68,.14)", bannerBorder: "rgba(239,68,68,.55)",
+      msg: "No email authentication detected. This domain is fully open to wire fraud spoofing attacks.",
+    },
+  };
+
+  const STATUS_CFG = {
+    pass:    { badgeCls: "pass",    icon: "✓", riskColor: "var(--ok)"     },
+    warn:    { badgeCls: "warn",    icon: "!",  riskColor: "var(--warn)"   },
+    fail:    { badgeCls: "fail",    icon: "✕", riskColor: "var(--danger)"  },
+    unknown: { badgeCls: "info",    icon: "?",  riskColor: "var(--ink-muted)" },
+  };
+
+  /* ════════════════════════════════════════════
+     View management
+  ════════════════════════════════════════════ */
+  function showView(id) {
+    ["entry","scanning","results"].forEach(v => {
+      document.getElementById("view-" + v).classList.toggle("hidden", v !== id);
+    });
+  }
+
+  /* ════════════════════════════════════════════
+     Scan progress animation
+  ════════════════════════════════════════════ */
+  let stepTimer = null;
+  let currentStep = 0;
+
+  function setStep(s) {
+    currentStep = s;
+    for (let i = 0; i < 4; i++) {
+      const dot = document.getElementById("dot-" + i);
+      const lbl = document.getElementById("lbl-" + i);
+      dot.classList.remove("done", "active");
+      lbl.classList.remove("done", "active");
+      const names = ["MX Records","SPF Policy","DMARC Record","DKIM Signing"];
+      if (i < s) {
+        dot.classList.add("done"); dot.textContent = "✓";
+        lbl.classList.add("done"); lbl.textContent = names[i] + " — done";
+      } else if (i === s) {
+        dot.classList.add("active"); dot.textContent = "·";
+        lbl.classList.add("active"); lbl.textContent = "Checking " + names[i] + "…";
+      } else {
+        dot.textContent = ""; lbl.textContent = names[i];
+      }
+    }
+  }
+
+  /* ════════════════════════════════════════════
+     Render findings
+  ════════════════════════════════════════════ */
+  function renderFindings(checks) {
+    const list = document.getElementById("findings-list");
+    list.innerHTML = "";
+
+    checks.forEach((check, i) => {
+      const sc  = STATUS_CFG[check.status] || STATUS_CFG.unknown;
+      const row = document.createElement("div");
+      row.className = "report-finding";
+
+      row.innerHTML = `
+        <div class="finding-left">
+          <span class="report-badge ${sc.badgeCls}">${sc.icon} ${sc.badgeCls === "fail" ? "FAIL" : sc.badgeCls === "pass" ? "PASS" : sc.badgeCls === "warn" ? "WARN" : "UNKNOWN"}</span>
+          <span class="check-sublabel">${check.label}</span>
+        </div>
+        <div>
+          <div class="finding-verdict">${check.verdict}</div>
+          ${check.raw ? `<code class="report-dns">${escHtml(check.raw)}</code>` : ""}
+          ${check.risk ? `<div class="finding-risk" style="color:${sc.riskColor}">${check.risk}</div>` : ""}
+          <div class="finding-detail">${check.detail}</div>
+        </div>`;
+
+      list.appendChild(row);
+      // Staggered reveal
+      setTimeout(() => row.classList.add("visible"), 80 + i * 110);
+    });
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  }
+
+  /* ════════════════════════════════════════════
+     Main scan flow
+  ════════════════════════════════════════════ */
+  async function startScan() {
+    const raw    = document.getElementById("domain-input").value;
+    const domain = raw.trim().toLowerCase()
+      .replace(/^https?:\/\//, "").replace(/^www\./, "").split("/")[0];
+
+    if (!domain || !domain.includes(".")) {
+      const err = document.getElementById("scan-error");
+      err.textContent = "Enter a valid domain — e.g. yourbusiness.com";
+      err.classList.remove("hidden");
+      return;
+    }
+
+    // Show scanning view
+    document.getElementById("scan-domain-label").textContent = domain;
+    showView("scanning");
+    setStep(0);
+
+    let s = 0;
+    stepTimer = setInterval(() => {
+      s = Math.min(s + 1, 3);
+      setStep(s);
+      if (s === 3) clearInterval(stepTimer);
+    }, 650);
+
+    // Run all checks in parallel
+    const [mx, spf, dmarc, dkim] = await Promise.all([
+      checkMX(domain), checkSPF(domain), checkDMARC(domain), checkDKIM(domain)
+    ]);
+    clearInterval(stepTimer);
+    setStep(4);
+
+    await new Promise(r => setTimeout(r, 300));
+
+    const checks = [mx, spf, dmarc, dkim];
+    const risk   = calcRisk(checks);
+    const rcfg   = RISK_CFG[risk];
+    const passed = checks.filter(c => c.status === "pass").length;
+
+    // Populate results
+    document.getElementById("result-domain").textContent = domain;
+    document.getElementById("result-date").textContent =
+      "Email authentication audit · " +
+      new Date().toLocaleDateString("en-US", { month:"short", day:"numeric", year:"numeric" });
+
+    document.getElementById("meta-domain").textContent = domain;
+    document.getElementById("meta-passed").textContent = passed + " / 4";
+    document.getElementById("meta-risk").textContent   = rcfg.label;
+    document.getElementById("meta-risk").style.color   = rcfg.textColor;
+
+    const banner = document.getElementById("verdict-banner");
+    banner.style.background   = rcfg.bannerBg;
+    banner.style.borderColor  = rcfg.bannerBorder;
+    document.getElementById("verdict-label").textContent  = rcfg.label;
+    document.getElementById("verdict-label").style.color  = rcfg.textColor;
+    document.getElementById("verdict-msg").textContent    = rcfg.msg;
+
+    renderFindings(checks);
+
+    // DKIM note
+    const dkimNote = document.getElementById("dkim-note");
+    dkimNote.classList.toggle("hidden", dkim.status !== "unknown");
+
+    // CTA vs pass state
+    const ctaBlock  = document.getElementById("cta-block");
+    const passBlock = document.getElementById("pass-block");
+    if (risk === "protected") {
+      ctaBlock.classList.add("hidden");
+      passBlock.classList.remove("hidden");
+    } else {
+      ctaBlock.classList.remove("hidden");
+      passBlock.classList.add("hidden");
+    }
+
+    showView("results");
+  }
+
+  function resetScan() {
+    document.getElementById("domain-input").value = "";
+    document.getElementById("scan-error").classList.add("hidden");
+    showView("entry");
+  }
+
+  // Allow Enter key in input
+  document.getElementById("domain-input")
+    .addEventListener("keydown", e => { if (e.key === "Enter") startScan(); });
+  </script>
+
+</body>
+</html>

@@ -436,6 +436,106 @@
       border-top: 1px solid rgba(220,38,38,.12);
     }
 
+    /* ── Scan result indicator ── */
+    @keyframes indicator-in {
+      0%   { opacity: 0; transform: translateX(110%); }
+      65%  { transform: translateX(-6px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes indicator-out {
+      0%   { opacity: 1; transform: translateX(0); }
+      100% { opacity: 0; transform: translateX(110%); }
+    }
+    @keyframes pulse-ring {
+      0%   { box-shadow: 0 0 0 0 var(--indicator-glow); }
+      70%  { box-shadow: 0 0 0 14px transparent; }
+      100% { box-shadow: 0 0 0 0 transparent; }
+    }
+
+    #scan-indicator {
+      position: fixed;
+      top: 76px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px 14px 16px;
+      border-radius: 14px;
+      border: 1.5px solid var(--indicator-border);
+      background: var(--indicator-bg);
+      box-shadow: 0 8px 32px var(--indicator-shadow), 0 2px 8px rgba(0,0,0,.12);
+      cursor: pointer;
+      animation: indicator-in .5s cubic-bezier(.34,1.56,.64,1) forwards;
+      max-width: 300px;
+    }
+    #scan-indicator.hiding {
+      animation: indicator-out .3s ease forwards;
+    }
+    #scan-indicator.fail {
+      --indicator-bg:     #dc2626;
+      --indicator-border: #b91c1c;
+      --indicator-shadow: rgba(220,38,38,.45);
+      --indicator-glow:   rgba(220,38,38,.5);
+      animation: indicator-in .5s cubic-bezier(.34,1.56,.64,1) forwards,
+                 pulse-ring 1.8s ease-out .6s 3;
+    }
+    #scan-indicator.warn {
+      --indicator-bg:     #d97706;
+      --indicator-border: #b45309;
+      --indicator-shadow: rgba(217,119,6,.4);
+      --indicator-glow:   rgba(217,119,6,.45);
+    }
+    #scan-indicator.pass {
+      --indicator-bg:     #16a34a;
+      --indicator-border: #15803d;
+      --indicator-shadow: rgba(22,163,74,.4);
+      --indicator-glow:   rgba(22,163,74,.45);
+      animation: indicator-in .5s cubic-bezier(.34,1.56,.64,1) forwards,
+                 pulse-ring 1.8s ease-out .6s 2;
+    }
+    .indicator-icon {
+      font-size: 1.5rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .indicator-text { flex: 1; }
+    .indicator-label {
+      font-family: var(--mono);
+      font-size: .7rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.75);
+      margin-bottom: 2px;
+    }
+    .indicator-verdict {
+      font-family: var(--display);
+      font-size: 1rem;
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.15;
+    }
+    .indicator-close {
+      font-size: .9rem;
+      color: rgba(255,255,255,.55);
+      flex-shrink: 0;
+      margin-left: 4px;
+      line-height: 1;
+    }
+
+    @media (max-width: 500px) {
+      #scan-indicator { right: 10px; left: 10px; max-width: none; top: 68px; }
+      @keyframes indicator-in {
+        0%   { opacity: 0; transform: translateY(-110%); }
+        65%  { transform: translateY(4px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes indicator-out {
+        0%   { opacity: 1; transform: translateY(0); }
+        100% { opacity: 0; transform: translateY(-110%); }
+      }
+    }
+
     /* ── Utility ── */
     .hidden { display: none !important; }
     .text-coral { color: var(--coral); }
@@ -470,6 +570,16 @@
       </ul>
     </div>
   </nav>
+
+  <!-- ── Scan result indicator (injected by JS) ── -->
+  <div id="scan-indicator" class="hidden" role="status" aria-live="polite" onclick="dismissIndicator()">
+    <div class="indicator-icon" id="indicator-icon"></div>
+    <div class="indicator-text">
+      <div class="indicator-label" id="indicator-label"></div>
+      <div class="indicator-verdict" id="indicator-verdict"></div>
+    </div>
+    <div class="indicator-close">✕</div>
+  </div>
 
   <!-- ══════════════════════════════════════════════
        ENTRY STATE
@@ -1025,11 +1135,43 @@
     }
 
     showView("results");
+    showIndicator(risk);
+  }
+
+  function showIndicator(risk) {
+    const el      = document.getElementById("scan-indicator");
+    const icon    = document.getElementById("indicator-icon");
+    const label   = document.getElementById("indicator-label");
+    const verdict = document.getElementById("indicator-verdict");
+
+    const cfg = {
+      protected: { cls: "pass", icon: "✓", label: "Scan Complete", verdict: "Domain is Protected"      },
+      partial:   { cls: "warn", icon: "!",  label: "Scan Complete", verdict: "Partial Protection"       },
+      exposed:   { cls: "fail", icon: "✕", label: "Scan Complete", verdict: "Domain is Exposed"        },
+      critical:  { cls: "fail", icon: "✕", label: "Scan Complete", verdict: "Critical — No Protection" },
+    }[risk] || { cls: "warn", icon: "!", label: "Scan Complete", verdict: "Review Results" };
+
+    el.className        = cfg.cls;          // sets color vars + animation
+    icon.textContent    = cfg.icon;
+    label.textContent   = cfg.label;
+    verdict.textContent = cfg.verdict;
+
+    // clear any existing auto-dismiss
+    if (window._indicatorTimer) clearTimeout(window._indicatorTimer);
+    window._indicatorTimer = setTimeout(dismissIndicator, 8000);
+  }
+
+  function dismissIndicator() {
+    const el = document.getElementById("scan-indicator");
+    if (!el || el.classList.contains("hidden")) return;
+    el.classList.add("hiding");
+    setTimeout(() => el.classList.add("hidden"), 320);
   }
 
   function resetScan() {
     document.getElementById("domain-input").value = "";
     document.getElementById("scan-error").classList.add("hidden");
+    dismissIndicator();
     showView("entry");
   }
 

@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bulk Email Security Scan — Next-Gen IT Pros</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:        #F4F7FC;
+  --paper-deep:   #EEF3FA;
+  --paper-edge:   #E6EDF7;
+  --panel:        rgba(255,255,255,.90);
+  --panel-strong: rgba(255,255,255,.97);
+  --ink:          #071A32;
+  --ink-soft:     #2C4A6E;
+  --ink-muted:    #6B849C;
+  --rule:         rgba(7,26,50,.10);
+  --rule-soft:    rgba(7,26,50,.06);
+  --coral:        #FF6B5F;
+  --coral-deep:   #E4473A;
+  --coral-soft:   rgba(255,107,95,.10);
+  --coral-glow:   rgba(255,107,95,.20);
+  --sky:          #1B8BD6;
+  --sky-soft:     rgba(27,139,214,.10);
+  --ok:           #16a34a;
+  --ok-soft:      rgba(22,163,74,.10);
+  --ok-border:    rgba(22,163,74,.30);
+  --warn:         #d97706;
+  --warn-soft:    rgba(217,119,6,.10);
+  --warn-border:  rgba(217,119,6,.30);
+  --danger:       #dc2626;
+  --danger-soft:  rgba(220,38,38,.10);
+  --danger-border:rgba(220,38,38,.30);
+  --display: 'Fraunces', Georgia, serif;
+  --body:    'IBM Plex Sans', -apple-system, sans-serif;
+  --mono:    'IBM Plex Mono', 'SF Mono', monospace;
+  --radius:  20px;
+  --shadow:  0 12px 48px rgba(7,26,50,.10);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  min-height:100vh;font-family:var(--body);color:var(--ink);line-height:1.6;
+  background:
+    radial-gradient(circle at 88% 8%,  var(--coral-glow) 0%,transparent 28%),
+    radial-gradient(circle at 10% 18%, rgba(27,139,214,.15) 0%,transparent 28%),
+    linear-gradient(160deg,#EEF3FA 0%,#F4F7FC 55%,#EDF2FA 100%);
+  background-attachment:fixed;-webkit-font-smoothing:antialiased;
+}
+
+/* NAV */
+.site-nav{
+  position:sticky;top:0;z-index:999;
+  background:rgba(244,247,252,.92);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--rule);
+}
+.nav-inner{
+  max-width:1200px;margin:0 auto;padding:0 clamp(1rem,3vw,2rem);
+  display:flex;justify-content:space-between;align-items:center;height:56px;
+}
+.brand{
+  font-family:var(--display);font-size:1.1rem;font-weight:400;
+  color:var(--ink);display:flex;align-items:baseline;gap:.2rem;text-decoration:none;
+}
+.brand .amp{color:var(--coral)}
+.nav-tag{
+  font-family:var(--mono);font-size:.68rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-muted);
+}
+
+/* SHELL */
+.shell{max-width:1200px;margin:0 auto;padding:clamp(1.5rem,4vw,3rem) clamp(1rem,3vw,2rem) 5rem}
+
+/* HERO */
+.hero-card{
+  background:
+    linear-gradient(135deg,var(--coral-soft),transparent 34%),
+    linear-gradient(220deg,var(--sky-soft),transparent 38%),
+    #fff;
+  border:1px solid var(--rule);border-radius:var(--radius);
+  padding:clamp(1.8rem,4vw,2.8rem);
+  box-shadow:var(--shadow);margin-bottom:1.2rem;
+  position:relative;overflow:hidden;
+}
+.hero-card::before{
+  content:"";position:absolute;inset:0 0 auto 0;height:3px;
+  background:linear-gradient(90deg,var(--coral),#8FD7FF);border-radius:var(--radius) var(--radius) 0 0;
+}
+.kicker{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--coral);margin-bottom:.9rem;
+}
+.kicker::before{content:"";width:28px;height:2px;display:inline-block;background:linear-gradient(90deg,var(--coral),#8FD7FF);border-radius:99px}
+.hero-h1{
+  font-family:var(--display);font-size:clamp(1.9rem,4vw,3rem);
+  font-weight:300;letter-spacing:-.025em;color:var(--ink);
+  line-height:1.05;margin-bottom:.6rem;
+}
+.hero-h1 em{font-style:italic;color:var(--coral)}
+.hero-lede{font-size:.95rem;font-weight:300;color:var(--ink-soft);max-width:64ch;line-height:1.7;margin-bottom:1.6rem}
+
+/* DROP ZONE */
+.drop-area{
+  border:2px dashed var(--rule);border-radius:14px;
+  padding:2.2rem 2rem;text-align:center;
+  background:rgba(255,255,255,.6);
+  transition:border-color .2s,background .2s;cursor:pointer;
+  margin-bottom:1rem;
+}
+.drop-area.dragover{border-color:var(--coral);background:var(--coral-soft)}
+.drop-icon{font-size:2rem;margin-bottom:.6rem;opacity:.5}
+.drop-title{font-family:var(--display);font-size:1.1rem;font-weight:300;color:var(--ink);margin-bottom:.3rem}
+.drop-sub{font-size:.82rem;font-weight:300;color:var(--ink-muted)}
+.drop-sub a{color:var(--coral);text-decoration:none;cursor:pointer}
+.drop-sub a:hover{text-decoration:underline}
+#file-input{display:none}
+
+/* PASTE AREA */
+.or-divider{
+  display:flex;align-items:center;gap:1rem;margin:.8rem 0;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-muted);
+}
+.or-divider::before,.or-divider::after{content:"";flex:1;height:1px;background:var(--rule)}
+.paste-area{
+  width:100%;min-height:100px;resize:vertical;
+  font-family:var(--mono);font-size:.85rem;line-height:1.6;
+  color:var(--ink);background:#fff;
+  border:1.5px solid var(--rule);border-radius:12px;
+  padding:14px 16px;outline:none;transition:border-color .2s;
+}
+.paste-area:focus{border-color:var(--coral)}
+.paste-area::placeholder{color:var(--ink-muted)}
+
+/* FORMAT NOTE */
+.format-note{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--rule);border:1px solid var(--rule);
+  border-radius:12px;overflow:hidden;margin:.8rem 0 1.2rem;
+}
+.format-cell{background:#f8fafd;padding:.8rem 1rem}
+.format-label{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-muted);margin-bottom:.4rem;
+}
+.format-example{font-family:var(--mono);font-size:.8rem;color:var(--sky);line-height:1.6}
+
+/* SCAN BTN */
+.scan-btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  height:48px;padding:0 2rem;cursor:pointer;
+  background:linear-gradient(135deg,var(--coral),var(--coral-deep));
+  color:#fff;border:none;border-radius:999px;
+  font-family:var(--mono);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;
+  box-shadow:0 8px 24px rgba(228,71,58,.28);transition:filter .2s;
+}
+.scan-btn:hover{filter:brightness(1.07)}
+.scan-btn:disabled{opacity:.5;cursor:not-allowed;filter:none}
+.clear-btn{
+  display:inline-flex;align-items:center;
+  height:48px;padding:0 1.4rem;cursor:pointer;
+  background:transparent;color:var(--ink-muted);
+  border:1px solid var(--rule);border-radius:999px;
+  font-family:var(--mono);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;
+  transition:color .2s,border-color .2s;
+}
+.clear-btn:hover{color:var(--coral);border-color:var(--coral)}
+.btn-row{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+
+/* PROGRESS */
+.progress-bar-wrap{
+  height:4px;background:var(--rule);border-radius:99px;
+  margin:1.2rem 0 .5rem;overflow:hidden;
+}
+.progress-bar-fill{
+  height:100%;border-radius:inherit;
+  background:linear-gradient(90deg,var(--coral),#8FD7FF);
+  transition:width .3s ease;
+}
+.progress-label{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:var(--ink-muted);
+  margin-bottom:1rem;
+}
+
+/* RESULTS HEADER */
+.results-header{
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:.75rem;margin-bottom:.9rem;
+}
+.results-title{
+  font-family:var(--display);font-size:1.5rem;font-weight:300;color:var(--ink);
+}
+.results-count{
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;
+  color:var(--ink-muted);margin-top:.15rem;
+}
+.export-btn{
+  display:inline-flex;align-items:center;gap:.4rem;
+  height:38px;padding:0 1.1rem;cursor:pointer;
+  background:transparent;color:var(--sky);
+  border:1px solid rgba(27,139,214,.35);border-radius:999px;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  transition:background .2s;text-decoration:none;
+}
+.export-btn:hover{background:var(--sky-soft)}
+
+/* SUMMARY CHIPS */
+.summary-chips{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.chip{
+  display:inline-flex;align-items:center;gap:.35rem;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;
+  padding:.35rem .7rem;border-radius:999px;border:1px solid;
+}
+.chip.critical{color:var(--danger);background:var(--danger-soft);border-color:var(--danger-border)}
+.chip.exposed {color:var(--danger);background:var(--danger-soft);border-color:var(--danger-border)}
+.chip.partial  {color:var(--warn);  background:var(--warn-soft);  border-color:var(--warn-border)}
+.chip.protected{color:var(--ok);    background:var(--ok-soft);    border-color:var(--ok-border)}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;border:1px solid var(--rule);border-radius:16px;background:#fff;box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;min-width:760px}
+thead tr{background:var(--ink)}
+th{
+  padding:.75rem 1rem;text-align:left;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.6);font-weight:400;white-space:nowrap;cursor:pointer;
+  user-select:none;
+}
+th:hover{color:#fff}
+th.sorted{color:var(--coral)}
+th .sort-arrow{margin-left:.3rem;opacity:.5;font-size:.7rem}
+th.sorted .sort-arrow{opacity:1;color:var(--coral)}
+tbody tr{border-bottom:1px solid var(--rule);transition:background .15s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#f8fafd}
+td{padding:.85rem 1rem;vertical-align:middle;font-size:.88rem}
+.td-domain{
+  font-family:var(--mono);font-size:.82rem;color:var(--ink);font-weight:500;
+}
+.td-company{font-size:.82rem;color:var(--ink-muted)}
+.td-risk{}
+.risk-badge{
+  display:inline-flex;align-items:center;gap:.3rem;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;
+  font-weight:600;text-transform:uppercase;
+  border-radius:999px;padding:.28rem .6rem;border:1.5px solid;white-space:nowrap;
+}
+.risk-badge.critical,.risk-badge.exposed{color:var(--danger);background:var(--danger-soft);border-color:var(--danger-border)}
+.risk-badge.partial  {color:var(--warn);  background:var(--warn-soft);  border-color:var(--warn-border)}
+.risk-badge.protected{color:var(--ok);    background:var(--ok-soft);    border-color:var(--ok-border)}
+.risk-badge.scanning {color:var(--ink-muted);background:#f4f7fc;border-color:var(--rule)}
+
+/* Per-check status dots */
+.check-cell{display:flex;flex-direction:column;gap:2px;min-width:68px}
+.check-item{
+  display:flex;align-items:center;gap:.35rem;
+  font-family:var(--mono);font-size:.68rem;color:var(--ink-muted);
+}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.dot.pass   {background:var(--ok)}
+.dot.warn   {background:var(--warn)}
+.dot.fail   {background:var(--danger)}
+.dot.unknown{background:var(--ink-muted);opacity:.4}
+.dot.pending{background:var(--rule);animation:blink 1s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
+
+.td-detail{font-size:.78rem;color:var(--ink-muted);max-width:200px;line-height:1.45}
+.detail-code{
+  font-family:var(--mono);font-size:.7rem;color:var(--sky);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width:180px;display:block;
+}
+
+/* EMPTY STATE */
+.empty-state{
+  text-align:center;padding:4rem 2rem;
+  border:1px solid var(--rule);border-radius:16px;
+  background:#fff;
+}
+.empty-icon{font-size:2.5rem;margin-bottom:.8rem;opacity:.3}
+.empty-title{font-family:var(--display);font-size:1.2rem;font-weight:300;color:var(--ink-muted)}
+
+/* FOOTER */
+.site-footer{
+  border-top:1px solid var(--rule);padding:1.5rem clamp(1rem,3vw,2rem);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:.5rem;background:rgba(244,247,252,.7);
+}
+.footer-brand{font-family:var(--display);font-size:.9rem;color:var(--ink-soft)}
+.footer-brand .amp{color:var(--coral)}
+.footer-note{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;color:var(--ink-muted)}
+
+.hidden{display:none!important}
+@media(max-width:640px){
+  .format-note{grid-template-columns:1fr}
+  .results-header{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">Next-Gen IT<span class="amp"> &amp;</span> Pros</a>
+    <div class="nav-tag">Bulk Email Security Scanner</div>
+  </div>
+</nav>
+
+<div class="shell">
+
+  <!-- INPUT CARD -->
+  <div class="hero-card" id="input-card">
+    <div class="kicker">Bulk Domain Audit</div>
+    <h1 class="hero-h1">Scan a list of domains for<br><em>wire fraud vulnerabilities.</em></h1>
+    <p class="hero-lede">Upload a CSV or paste a list of domains. Each domain gets a live MX, SPF, DMARC, and DKIM check — results appear as they come in.</p>
+
+    <!-- DROP ZONE -->
+    <div class="drop-area" id="drop-area" onclick="document.getElementById('file-input').click()">
+      <div class="drop-icon">📂</div>
+      <div class="drop-title">Drop a CSV file here</div>
+      <div class="drop-sub">or <a onclick="event.stopPropagation();document.getElementById('file-input').click()">browse to upload</a></div>
+    </div>
+    <input type="file" id="file-input" accept=".csv,.txt">
+
+    <div class="or-divider">or paste directly</div>
+
+    <textarea class="paste-area" id="paste-input" placeholder="starskyowen.com&#10;teleotitle.com&#10;Acme Realty, acmerealty.com&#10;Best Title, besttitle.com" rows="5"></textarea>
+
+    <!-- FORMAT HINT -->
+    <div class="format-note">
+      <div class="format-cell">
+        <div class="format-label">Format A — domains only</div>
+        <div class="format-example">starskyowen.com<br>teleotitle.com<br>acmerealty.com</div>
+      </div>
+      <div class="format-cell">
+        <div class="format-label">Format B — company, domain</div>
+        <div class="format-example">Starsky Owen Realty, starskyowen.com<br>Teleo Title, teleotitle.com<br>Acme Realty, acmerealty.com</div>
+      </div>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="btn-row">
+      <button class="scan-btn" id="scan-btn" onclick="startBulkScan()">Run Bulk Scan →</button>
+      <button class="clear-btn" onclick="clearAll()">Clear</button>
+    </div>
+
+    <!-- PROGRESS (hidden until scanning) -->
+    <div id="progress-wrap" class="hidden" style="margin-top:1.2rem">
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+      <div class="progress-label" id="progress-label">Preparing…</div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results-section" class="hidden">
+    <div class="results-header">
+      <div>
+        <div class="results-title">Scan Results</div>
+        <div class="results-count" id="results-count"></div>
+      </div>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
+        <button class="export-btn" onclick="exportCSV()">⬇ Export CSV</button>
+        <button class="clear-btn" onclick="clearAll()">New Scan</button>
+      </div>
+    </div>
+
+    <!-- Summary chips -->
+    <div class="summary-chips" id="summary-chips"></div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <table id="results-table">
+        <thead>
+          <tr>
+            <th onclick="sortTable('domain')" data-col="domain">Domain <span class="sort-arrow">↕</span></th>
+            <th onclick="sortTable('company')" data-col="company">Company <span class="sort-arrow">↕</span></th>
+            <th onclick="sortTable('risk')" data-col="risk">Risk <span class="sort-arrow">↕</span></th>
+            <th>MX</th>
+            <th>SPF</th>
+            <th>DMARC</th>
+            <th>DKIM</th>
+            <th>DMARC Policy</th>
+          </tr>
+        </thead>
+        <tbody id="results-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-brand">Next-Gen IT<span class="amp"> &amp;</span> Pros · Georgetown, TX</div>
+  <div class="footer-note">DNS via Cloudflare DoH · No data stored</div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════
+   DNS helpers
+══════════════════════════════════════════════ */
+async function dnsQuery(name, type) {
+  try {
+    const r = await fetch(
+      `https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(name)}&type=${type}`,
+      { headers: { Accept: 'application/dns-json' } }
+    );
+    return r.ok ? r.json() : { Answer: [] };
+  } catch { return { Answer: [] }; }
+}
+const recs = r => (r?.Answer || []).map(a => (a.data || '').replace(/^"|"$/g, ''));
+
+/* ══════════════════════════════════════════════
+   Individual checkers
+══════════════════════════════════════════════ */
+async function checkMX(d) {
+  const r = await dnsQuery(d, 'MX');
+  const ok = recs(r).length > 0;
+  return { status: ok ? 'pass' : 'fail', detail: ok ? `${recs(r).length} server(s)` : 'No MX' };
+}
+
+async function checkSPF(d) {
+  const r   = await dnsQuery(d, 'TXT');
+  const spf = recs(r).find(a => a.startsWith('v=spf1'));
+  if (!spf) return { status: 'fail', detail: 'No SPF', raw: null };
+  const hard = spf.includes('-all'), soft = spf.includes('~all');
+  return {
+    status:  hard ? 'pass' : soft ? 'warn' : 'fail',
+    detail:  hard ? 'Hard fail (-all)' : soft ? 'Soft fail (~all)' : 'No all mechanism',
+    raw:     spf.length > 48 ? spf.slice(0, 45) + '…' : spf,
+  };
+}
+
+async function checkDMARC(d) {
+  const r   = await dnsQuery(`_dmarc.${d}`, 'TXT');
+  const rec = recs(r).find(a => a.startsWith('v=DMARC1'));
+  if (!rec) return { status: 'fail', policy: null, detail: 'No DMARC', raw: null };
+  const p = (rec.match(/p=([a-z]+)/i) || [])[1]?.toLowerCase() || 'none';
+  return {
+    status:  p === 'reject' ? 'pass' : p === 'quarantine' ? 'warn' : 'fail',
+    policy:  p,
+    detail:  `p=${p}`,
+    raw:     rec.length > 48 ? rec.slice(0, 45) + '…' : rec,
+  };
+}
+
+const SELS = ['google','selector1','selector2','default','mail','k1','s1','smtp','dkim','mx'];
+async function checkDKIM(d) {
+  const hits = (await Promise.all(
+    SELS.map(async s => {
+      const r = await dnsQuery(`${s}._domainkey.${d}`, 'TXT');
+      return recs(r).find(a => a.includes('v=DKIM1') || a.includes('p=')) ? s : null;
+    })
+  )).filter(Boolean);
+  return hits.length
+    ? { status: 'pass',    detail: `sel: ${hits[0]}` }
+    : { status: 'unknown', detail: 'Not found' };
+}
+
+async function scanDomain(domain) {
+  const [mx, spf, dmarc, dkim] = await Promise.all([
+    checkMX(domain), checkSPF(domain), checkDMARC(domain), checkDKIM(domain)
+  ]);
+  const risk = calcRisk(mx, spf, dmarc, dkim);
+  return { domain, mx, spf, dmarc, dkim, risk };
+}
+
+function calcRisk(mx, spf, dmarc, dkim) {
+  if (dmarc.status === 'pass' && spf.status === 'pass') return 'protected';
+  if (!dmarc.raw && dmarc.status === 'fail') return 'critical';
+  const fails = [mx, spf, dmarc, dkim].filter(c => c.status === 'fail').length;
+  if (fails >= 2) return 'critical';
+  if (fails === 1) return 'exposed';
+  return 'partial';
+}
+
+const RISK_ORDER = { critical: 0, exposed: 1, partial: 2, protected: 3, scanning: 4 };
+const RISK_ICONS = { critical: '✕', exposed: '✕', partial: '!', protected: '✓', scanning: '·' };
+
+/* ══════════════════════════════════════════════
+   CSV / input parsing
+══════════════════════════════════════════════ */
+function parseInput(raw) {
+  return raw
+    .split(/[\n,;\r]+/)
+    .map(s => s.trim())
+    .filter(Boolean)
+    .reduce((acc, token, idx, arr) => {
+      // detect "Company Name, domain.com" pattern
+      const prev = acc[acc.length - 1];
+      const isDomain = /\.[a-z]{2,}$/i.test(token) && !token.includes(' ');
+      if (isDomain) {
+        // check if previous token was a non-domain (company name)
+        if (prev && !prev.domain) {
+          prev.domain = token.toLowerCase().replace(/^https?:\/\//,'').replace(/^www\./,'').split('/')[0];
+        } else {
+          acc.push({ company: '', domain: token.toLowerCase().replace(/^https?:\/\//,'').replace(/^www\./,'').split('/')[0] });
+        }
+      } else if (token && !token.includes('.')) {
+        // likely a company name
+        acc.push({ company: token, domain: '' });
+      } else if (token) {
+        // might be domain with subdomain or path — try anyway
+        const d = token.toLowerCase().replace(/^https?:\/\//,'').replace(/^www\./,'').split('/')[0];
+        if (d.includes('.')) acc.push({ company: '', domain: d });
+      }
+      return acc;
+    }, [])
+    .filter(e => e.domain);
+}
+
+function parseCSV(text) {
+  const lines = text.trim().split(/\r?\n/).filter(Boolean);
+  return lines.map(line => {
+    const parts = line.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/).map(p => p.trim().replace(/^"|"$/g, ''));
+    let company = '', domain = '';
+    if (parts.length >= 2) {
+      // figure out which column is the domain
+      if (/\.[a-z]{2,}$/i.test(parts[0]) && !parts[0].includes(' ')) {
+        domain = parts[0]; company = parts[1] || '';
+      } else if (/\.[a-z]{2,}$/i.test(parts[1]) && !parts[1].includes(' ')) {
+        company = parts[0]; domain = parts[1];
+      } else {
+        domain = parts[parts.length - 1];
+        company = parts.slice(0, -1).join(', ');
+      }
+    } else {
+      domain = parts[0];
+    }
+    domain = domain.toLowerCase().replace(/^https?:\/\//,'').replace(/^www\./,'').split('/')[0];
+    return { company: company.trim(), domain: domain.trim() };
+  }).filter(e => e.domain && e.domain.includes('.'));
+}
+
+/* ══════════════════════════════════════════════
+   State
+══════════════════════════════════════════════ */
+let scanResults = [];
+let sortCol = 'risk', sortDir = 1;
+
+/* ══════════════════════════════════════════════
+   File drag/drop
+══════════════════════════════════════════════ */
+const dropArea = document.getElementById('drop-area');
+dropArea.addEventListener('dragover', e => { e.preventDefault(); dropArea.classList.add('dragover'); });
+dropArea.addEventListener('dragleave', () => dropArea.classList.remove('dragover'));
+dropArea.addEventListener('drop', e => {
+  e.preventDefault(); dropArea.classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file) readFile(file);
+});
+document.getElementById('file-input').addEventListener('change', e => {
+  if (e.target.files[0]) readFile(e.target.files[0]);
+});
+function readFile(file) {
+  const reader = new FileReader();
+  reader.onload = ev => { document.getElementById('paste-input').value = ev.target.result; };
+  reader.readAsText(file);
+}
+
+/* ══════════════════════════════════════════════
+   Main scan
+══════════════════════════════════════════════ */
+async function startBulkScan() {
+  const raw     = document.getElementById('paste-input').value.trim();
+  if (!raw) { alert('Paste some domains or upload a CSV first.'); return; }
+
+  const entries = parseCSV(raw).length > 0 ? parseCSV(raw) : parseInput(raw);
+  const unique  = [...new Map(entries.map(e => [e.domain, e])).values()];
+  if (!unique.length) { alert('No valid domains found. Check your input format.'); return; }
+
+  // Reset
+  scanResults = unique.map(e => ({ ...e, status: 'scanning', mx: null, spf: null, dmarc: null, dkim: null, risk: 'scanning' }));
+  renderTable();
+  document.getElementById('results-section').classList.remove('hidden');
+  document.getElementById('scan-btn').disabled = true;
+  document.getElementById('progress-wrap').classList.remove('hidden');
+  updateProgress(0, unique.length);
+
+  let done = 0;
+  const CONCURRENCY = 4;
+
+  async function runNext(idx) {
+    if (idx >= unique.length) return;
+    const entry  = unique[idx];
+    const result = await scanDomain(entry.domain);
+    scanResults[idx] = { ...entry, ...result };
+    done++;
+    updateProgress(done, unique.length);
+    renderRow(idx);
+    updateSummary();
+  }
+
+  // Chunk into batches
+  const batches = [];
+  for (let i = 0; i < unique.length; i += CONCURRENCY)
+    batches.push(unique.slice(i, i + CONCURRENCY).map((_, j) => runNext(i + j)));
+  for (const batch of batches) await Promise.all(batch);
+
+  document.getElementById('scan-btn').disabled = false;
+  updateProgress(unique.length, unique.length, true);
+  updateResultsCount();
+}
+
+function updateProgress(done, total, complete) {
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = complete
+    ? `✓ Scan complete — ${total} domain${total !== 1 ? 's' : ''} checked`
+    : `Scanning… ${done} of ${total} (${pct}%)`;
+}
+
+/* ══════════════════════════════════════════════
+   Render
+══════════════════════════════════════════════ */
+function dot(status) {
+  return `<span class="dot ${status || 'pending'}"></span>`;
+}
+
+function renderTable() {
+  const tbody = document.getElementById('results-body');
+  tbody.innerHTML = '';
+  scanResults.forEach((_, i) => {
+    const tr = document.createElement('tr');
+    tr.id = `row-${i}`;
+    tbody.appendChild(tr);
+    renderRow(i);
+  });
+}
+
+function renderRow(i) {
+  const r  = scanResults[i];
+  const tr = document.getElementById(`row-${i}`);
+  if (!tr) return;
+
+  const riskCls   = r.risk || 'scanning';
+  const riskLabel = riskCls === 'scanning' ? '…' : riskCls.charAt(0).toUpperCase() + riskCls.slice(1);
+  const riskIcon  = RISK_ICONS[riskCls] || '·';
+
+  const spfRaw   = r.spf?.raw   ? `<span class="detail-code">${esc(r.spf.raw)}</span>`   : '';
+  const dmarcRaw = r.dmarc?.raw ? `<span class="detail-code">${esc(r.dmarc.raw)}</span>` : '';
+
+  tr.innerHTML = `
+    <td class="td-domain">${esc(r.domain)}</td>
+    <td class="td-company">${esc(r.company || '—')}</td>
+    <td class="td-risk">
+      <span class="risk-badge ${riskCls}">${riskIcon} ${riskLabel}</span>
+    </td>
+    <td>
+      <div class="check-item">${dot(r.mx?.status)}<span>${r.mx ? r.mx.detail : '…'}</span></div>
+    </td>
+    <td>
+      <div class="check-item">${dot(r.spf?.status)}<span>${r.spf ? r.spf.detail : '…'}</span></div>
+      ${spfRaw}
+    </td>
+    <td>
+      <div class="check-item">${dot(r.dmarc?.status)}<span>${r.dmarc ? r.dmarc.detail : '…'}</span></div>
+    </td>
+    <td>
+      <div class="check-item">${dot(r.dkim?.status)}<span>${r.dkim ? r.dkim.detail : '…'}</span></div>
+    </td>
+    <td>
+      ${r.dmarc?.policy
+        ? `<span class="detail-code">p=${r.dmarc.policy}</span>`
+        : (r.dmarc ? '<span style="color:var(--danger);font-family:var(--mono);font-size:.75rem">None</span>' : '—')}
+    </td>`;
+}
+
+function updateSummary() {
+  const counts = { critical: 0, exposed: 0, partial: 0, protected: 0 };
+  scanResults.forEach(r => { if (counts[r.risk] !== undefined) counts[r.risk]++; });
+  const chips = document.getElementById('summary-chips');
+  chips.innerHTML = Object.entries(counts).map(([k, v]) => v > 0
+    ? `<span class="chip ${k}">${RISK_ICONS[k]} ${v} ${k.charAt(0).toUpperCase()+k.slice(1)}</span>`
+    : '').join('');
+}
+
+function updateResultsCount() {
+  document.getElementById('results-count').textContent =
+    `${scanResults.length} domain${scanResults.length !== 1 ? 's' : ''} scanned`;
+  updateSummary();
+}
+
+/* ══════════════════════════════════════════════
+   Sort
+══════════════════════════════════════════════ */
+function sortTable(col) {
+  if (sortCol === col) sortDir *= -1; else { sortCol = col; sortDir = 1; }
+
+  document.querySelectorAll('th').forEach(th => {
+    th.classList.toggle('sorted', th.dataset.col === col);
+    if (th.dataset.col === col)
+      th.querySelector('.sort-arrow').textContent = sortDir === 1 ? '↑' : '↓';
+    else if (th.querySelector('.sort-arrow'))
+      th.querySelector('.sort-arrow').textContent = '↕';
+  });
+
+  scanResults.sort((a, b) => {
+    let av, bv;
+    if (col === 'risk')    { av = RISK_ORDER[a.risk] ?? 9;  bv = RISK_ORDER[b.risk] ?? 9; }
+    else if (col === 'domain')  { av = a.domain;  bv = b.domain; }
+    else if (col === 'company') { av = a.company || ''; bv = b.company || ''; }
+    if (av < bv) return -sortDir;
+    if (av > bv) return  sortDir;
+    return 0;
+  });
+
+  renderTable();
+}
+
+/* ══════════════════════════════════════════════
+   Export CSV
+══════════════════════════════════════════════ */
+function exportCSV() {
+  const header = ['Company','Domain','Risk','MX','SPF','SPF Record','DMARC','DMARC Policy','DKIM'];
+  const rows   = scanResults.map(r => [
+    r.company || '',
+    r.domain,
+    r.risk,
+    r.mx?.status    || '',
+    r.spf?.status   || '',
+    r.spf?.raw      || '',
+    r.dmarc?.status || '',
+    r.dmarc?.policy || '',
+    r.dkim?.status  || '',
+  ]);
+  const csv = [header, ...rows].map(row =>
+    row.map(cell => `"${String(cell).replace(/"/g,'""')}"`).join(',')
+  ).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a    = document.createElement('a');
+  a.href     = URL.createObjectURL(blob);
+  a.download = `email-security-scan-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+}
+
+/* ══════════════════════════════════════════════
+   Clear
+══════════════════════════════════════════════ */
+function clearAll() {
+  document.getElementById('paste-input').value = '';
+  document.getElementById('file-input').value  = '';
+  document.getElementById('results-section').classList.add('hidden');
+  document.getElementById('progress-wrap').classList.add('hidden');
+  document.getElementById('scan-btn').disabled = false;
+  scanResults = [];
+}
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+</script>
+
+</body>
+</html>

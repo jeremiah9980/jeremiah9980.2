@@ -1,0 +1,58 @@
+/* Primetime team roster cover styles */
+
+/* Hero section for the roster page using the cover image */
+.primetime-page .roster-cover-hero {
+  background-image: url('../images/roster-cover.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  min-height: 720px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  /* Use a yellow border on the bottom edge to match Primetime colors */
+  border-bottom: 4px solid var(--yellow, #d4a017);
+}
+
+.primetime-page .roster-cover-overlay {
+  width: 100%;
+  min-height: 720px;
+  /* Dark gradient overlay for readability */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.20) 0%,
+    rgba(0, 0, 0, 0.45) 45%,
+    rgba(0, 0, 0, 0.70) 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.primetime-page .roster-cover-hero .hero-inner {
+  text-align: center;
+  max-width: 900px;
+  color: #fff;
+}
+
+.primetime-page .roster-cover-hero .hero-kicker,
+.primetime-page .roster-cover-hero .hero-sub,
+.primetime-page .roster-cover-hero .hero-tagline,
+.primetime-page .roster-cover-hero h1 {
+  color: #fff;
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.65);
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 900px) {
+  .primetime-page .roster-cover-hero,
+  .primetime-page .roster-cover-overlay {
+    min-height: 520px;
+  }
+
+  .primetime-page .roster-cover-hero {
+    background-position: center center;
+  }
+}

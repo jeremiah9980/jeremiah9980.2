@@ -4,35 +4,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Williamson County Email Security Results | Next-Gen IT Pros</title>
-  <meta name="description" content="An anonymized Williamson County real estate and title company email spoofing risk snapshot covering SPF, DKIM, and DMARC exposure." />
+  <meta name="description" content="Bright color-coded Williamson County real estate and title company email spoofing risk results for SPF, DKIM, and DMARC." />
   <meta property="og:title" content="Williamson County Email Security Results" />
-  <meta property="og:description" content="34 real estate and title related company domains scanned. 65% showed exposure to email impersonation risk from SPF, DKIM, or DMARC gaps." />
+  <meta property="og:description" content="34 real estate/title related company domains scanned. 65% showed exposure to email impersonation risk from SPF, DKIM, or DMARC gaps." />
   <meta property="og:type" content="website" />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..900,0..100;1,9..144,400..900,0..100&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..900,0..100;1,9..144,400..900,0..100&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --paper: #f4f7fc;
-      --paper-deep: #eaf1fa;
-      --panel: rgba(255, 255, 255, .94);
-      --ink: #071a32;
-      --ink-soft: #2c4a6e;
-      --muted: #688199;
-      --rule: rgba(7, 26, 50, .12);
-      --rule-soft: rgba(7, 26, 50, .07);
-      --coral: #ff6b5f;
-      --coral-deep: #e4473a;
-      --coral-soft: rgba(255, 107, 95, .12);
-      --sky: #1b8bd6;
-      --sky-deep: #1275b8;
-      --sky-soft: rgba(27, 139, 214, .11);
-      --ok: #16a34a;
-      --warn: #d97706;
-      --danger: #dc2626;
+      --ink: #061427;
+      --ink-soft: #28415f;
+      --muted: #66798d;
+      --paper: #f7fbff;
+      --card: rgba(255,255,255,.92);
+      --rule: rgba(6,20,39,.12);
+      --red: #ff1744;
+      --red-dark: #b00020;
+      --red-soft: rgba(255,23,68,.14);
+      --yellow: #ffd600;
+      --yellow-dark: #9a6b00;
+      --yellow-soft: rgba(255,214,0,.22);
+      --green: #00c853;
+      --green-dark: #006b2d;
+      --green-soft: rgba(0,200,83,.16);
+      --blue: #1178ff;
+      --purple: #6d28d9;
       --display: 'Fraunces', Georgia, serif;
       --body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       --mono: 'IBM Plex Mono', 'SF Mono', Consolas, monospace;
-      --shadow: 0 18px 56px rgba(7, 26, 50, .12);
-      --radius: 24px;
+      --shadow: 0 24px 80px rgba(6,20,39,.15);
+      --radius: 28px;
       --page: 1180px;
       --gutter: clamp(1rem, 3vw, 2rem);
     }
@@ -43,24 +43,25 @@
       min-height: 100vh;
       font-family: var(--body);
       color: var(--ink);
-      line-height: 1.62;
+      line-height: 1.6;
       background:
-        radial-gradient(circle at 86% 8%, rgba(255, 107, 95, .24) 0%, transparent 28%),
-        radial-gradient(circle at 10% 18%, rgba(27, 139, 214, .22) 0%, transparent 30%),
-        linear-gradient(160deg, #eef3fa 0%, #f4f7fc 56%, #edf2fa 100%);
+        radial-gradient(circle at 7% 6%, rgba(255,23,68,.28), transparent 30%),
+        radial-gradient(circle at 92% 8%, rgba(0,200,83,.25), transparent 31%),
+        radial-gradient(circle at 50% 0%, rgba(255,214,0,.28), transparent 34%),
+        linear-gradient(135deg, #f9fbff 0%, #edf5ff 55%, #fff8d8 100%);
       background-attachment: fixed;
       -webkit-font-smoothing: antialiased;
     }
 
-    a { color: var(--sky-deep); text-decoration: none; }
-    a:hover { color: var(--coral-deep); }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { color: var(--purple); }
 
     .site-nav {
       position: sticky;
       top: 0;
       z-index: 20;
-      background: rgba(244, 247, 252, .9);
-      border-bottom: 1px solid var(--rule-soft);
+      background: rgba(247,251,255,.88);
+      border-bottom: 1px solid var(--rule);
       backdrop-filter: blur(18px);
     }
     .site-nav-inner {
@@ -71,107 +72,101 @@
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
+      flex-wrap: wrap;
     }
     .brand {
-      font-family: var(--display);
-      font-size: clamp(1.25rem, 2.3vw, 1.65rem);
       color: var(--ink);
-      letter-spacing: -.02em;
-      font-weight: 750;
+      font-family: var(--display);
+      font-size: clamp(1.25rem, 2.3vw, 1.7rem);
+      font-weight: 800;
+      letter-spacing: -.03em;
     }
-    .brand span { color: var(--coral); font-style: italic; font-weight: 500; }
-    .nav-actions { display: flex; align-items: center; gap: .85rem; flex-wrap: wrap; }
+    .brand span { color: var(--red); font-style: italic; font-weight: 500; }
+    .nav-actions { display: flex; gap: .8rem; align-items: center; flex-wrap: wrap; }
     .nav-actions a {
       font-family: var(--mono);
       font-size: .72rem;
       letter-spacing: .08em;
       text-transform: uppercase;
-      font-weight: 700;
       color: var(--ink-soft);
+      font-weight: 800;
     }
     .nav-actions .scan-pill {
       color: #fff;
-      background: linear-gradient(135deg, var(--coral), var(--coral-deep));
+      background: linear-gradient(135deg, var(--blue), var(--purple));
       padding: .62rem .9rem;
       border-radius: 999px;
-      box-shadow: 0 14px 34px rgba(228, 71, 58, .22);
+      box-shadow: 0 14px 34px rgba(17,120,255,.25);
     }
 
     .page-shell {
       max-width: var(--page);
       margin: 0 auto;
-      padding: clamp(2rem, 5vw, 4.4rem) var(--gutter) 5rem;
+      padding: clamp(2rem, 5vw, 4.6rem) var(--gutter) 5rem;
     }
 
     .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
-      gap: clamp(1rem, 3vw, 2rem);
-      align-items: stretch;
-      margin-bottom: 1.4rem;
-    }
-    .hero-card, .snapshot-card, .panel, .table-wrap, .notice {
       border: 1px solid var(--rule);
-      background: var(--panel);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-    .hero-card {
-      padding: clamp(1.6rem, 4vw, 3.2rem);
+      padding: clamp(1.6rem, 4vw, 3.3rem);
       background:
-        linear-gradient(135deg, var(--coral-soft), transparent 34%),
-        linear-gradient(160deg, var(--sky-soft), transparent 48%),
-        rgba(255, 255, 255, .95);
+        linear-gradient(135deg, rgba(255,23,68,.13), transparent 34%),
+        linear-gradient(45deg, rgba(255,214,0,.16), transparent 45%),
+        linear-gradient(165deg, rgba(0,200,83,.13), transparent 60%),
+        rgba(255,255,255,.93);
+      box-shadow: var(--shadow);
+      margin-bottom: 1.25rem;
     }
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: .7rem;
       font-family: var(--mono);
-      color: var(--coral-deep);
-      font-size: .74rem;
+      color: var(--red-dark);
+      font-size: .75rem;
       letter-spacing: .12em;
       text-transform: uppercase;
+      font-weight: 900;
       margin-bottom: 1rem;
-      font-weight: 700;
     }
     .eyebrow::before {
       content: '';
-      width: 34px;
-      height: 2px;
-      background: linear-gradient(90deg, var(--coral), var(--sky));
-      border-radius: 99px;
+      width: 38px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--red), var(--yellow), var(--green));
     }
     h1 {
       font-family: var(--display);
-      font-size: clamp(2.65rem, 6.4vw, 5.6rem);
-      line-height: .93;
-      letter-spacing: -.055em;
-      margin-bottom: 1.1rem;
+      font-size: clamp(2.8rem, 6.7vw, 6rem);
+      line-height: .9;
+      letter-spacing: -.06em;
+      max-width: 900px;
+      margin-bottom: 1rem;
     }
-    h1 em { color: var(--coral-deep); font-style: italic; font-weight: 500; }
+    h1 em { color: var(--red); font-style: italic; font-weight: 500; }
     .hero-text {
       color: var(--ink-soft);
-      font-size: clamp(1.02rem, 2vw, 1.2rem);
-      max-width: 710px;
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      max-width: 760px;
     }
     .hero-actions { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 1.6rem; }
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 46px;
-      padding: .75rem 1.15rem;
+      min-height: 48px;
+      padding: .76rem 1.2rem;
       border-radius: 999px;
-      font-weight: 800;
+      font-weight: 900;
       border: 1px solid transparent;
       transition: transform .18s ease, box-shadow .18s ease;
     }
     .btn:hover { transform: translateY(-1px); }
     .btn-primary {
       color: #fff;
-      background: linear-gradient(135deg, var(--coral), var(--coral-deep));
-      box-shadow: 0 18px 42px rgba(228, 71, 58, .25);
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      box-shadow: 0 18px 46px rgba(255,23,68,.28);
     }
     .btn-primary:hover { color: #fff; }
     .btn-secondary {
@@ -180,118 +175,108 @@
       border-color: var(--rule);
     }
 
-    .snapshot-card {
-      padding: 1.2rem;
+    .scoreboard {
       display: grid;
+      grid-template-columns: 1.1fr .95fr .95fr;
       gap: 1rem;
-      align-content: stretch;
+      margin: 1.25rem 0;
     }
-    .stat-big {
-      border-radius: 20px;
-      background: linear-gradient(145deg, rgba(220, 38, 38, .10), rgba(255, 107, 95, .05));
-      border: 1px solid rgba(220, 38, 38, .16);
+    .status-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 3px solid;
       padding: 1.35rem;
-    }
-    .stat-big .number {
-      font-family: var(--display);
-      font-size: clamp(4.2rem, 10vw, 7.5rem);
-      line-height: .86;
-      letter-spacing: -.06em;
-      color: var(--danger);
-    }
-    .stat-big .label {
-      font-weight: 800;
-      color: var(--ink);
-      margin-top: .7rem;
-      font-size: 1.05rem;
-    }
-    .stat-big .sub {
-      color: var(--muted);
-      font-size: .92rem;
-      margin-top: .25rem;
-    }
-    .mini-stats {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: .8rem;
-    }
-    .mini-stat {
-      border: 1px solid var(--rule-soft);
-      border-radius: 18px;
+      min-height: 320px;
+      box-shadow: var(--shadow);
       background: #fff;
-      padding: 1rem;
     }
-    .mini-stat .k {
-      font-family: var(--mono);
-      font-size: .68rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 700;
-      margin-bottom: .35rem;
+    .status-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: .16;
+      pointer-events: none;
     }
-    .mini-stat .v {
-      font-size: 1.75rem;
-      font-weight: 900;
-      letter-spacing: -.04em;
-      color: var(--ink);
-    }
-
-    .notice {
-      padding: 1rem 1.2rem;
-      margin-bottom: 1.4rem;
-      display: flex;
-      gap: .9rem;
-      align-items: flex-start;
-      box-shadow: none;
-      background: rgba(255, 255, 255, .72);
-    }
-    .notice strong { color: var(--ink); }
-    .notice p { color: var(--ink-soft); font-size: .94rem; }
-    .notice .dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--coral), var(--sky));
-      margin-top: .48rem;
-      flex: 0 0 auto;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
-      margin: 1.4rem 0;
-    }
-    .panel { padding: 1.25rem; box-shadow: 0 12px 38px rgba(7, 26, 50, .08); }
-    .panel h2, .panel h3 {
-      font-family: var(--display);
-      letter-spacing: -.03em;
-      line-height: 1.05;
-      margin-bottom: .65rem;
-    }
-    .panel h2 { font-size: clamp(1.7rem, 3.5vw, 2.5rem); }
-    .panel h3 { font-size: 1.35rem; }
-    .panel p { color: var(--ink-soft); }
-    .badge {
+    .status-card > * { position: relative; z-index: 1; }
+    .status-red { border-color: var(--red); }
+    .status-red::before { background: var(--red); }
+    .status-yellow { border-color: var(--yellow); }
+    .status-yellow::before { background: var(--yellow); opacity: .24; }
+    .status-green { border-color: var(--green); }
+    .status-green::before { background: var(--green); }
+    .status-label {
       display: inline-flex;
       align-items: center;
-      border-radius: 999px;
-      padding: .28rem .55rem;
+      gap: .5rem;
       font-family: var(--mono);
-      font-size: .64rem;
-      letter-spacing: .08em;
+      font-size: .78rem;
+      font-weight: 900;
+      letter-spacing: .1em;
       text-transform: uppercase;
-      font-weight: 800;
-      margin-bottom: .75rem;
-      border: 1px solid var(--rule-soft);
+      padding: .38rem .66rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
       background: #fff;
     }
-    .badge-danger { color: var(--danger); background: rgba(220, 38, 38, .06); border-color: rgba(220, 38, 38, .18); }
-    .badge-warn { color: var(--warn); background: rgba(217, 119, 6, .07); border-color: rgba(217, 119, 6, .18); }
-    .badge-ok { color: var(--ok); background: rgba(22, 163, 74, .07); border-color: rgba(22, 163, 74, .18); }
+    .status-red .status-label { color: var(--red-dark); box-shadow: inset 0 0 0 2px rgba(255,23,68,.28); }
+    .status-yellow .status-label { color: var(--yellow-dark); box-shadow: inset 0 0 0 2px rgba(255,214,0,.55); }
+    .status-green .status-label { color: var(--green-dark); box-shadow: inset 0 0 0 2px rgba(0,200,83,.3); }
+    .icon {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .status-red .icon { background: var(--red); }
+    .status-yellow .icon { background: var(--yellow); }
+    .status-green .icon { background: var(--green); }
+    .big-number {
+      font-family: var(--display);
+      font-size: clamp(4rem, 9vw, 7.25rem);
+      line-height: .85;
+      letter-spacing: -.07em;
+      margin-bottom: .65rem;
+    }
+    .status-red .big-number { color: var(--red); }
+    .status-yellow .big-number { color: var(--yellow-dark); }
+    .status-green .big-number { color: var(--green); }
+    .status-title {
+      font-size: clamp(1.35rem, 2.6vw, 2rem);
+      line-height: 1.05;
+      letter-spacing: -.04em;
+      font-weight: 900;
+      margin-bottom: .5rem;
+    }
+    .status-copy { color: var(--ink-soft); }
+    .status-list {
+      margin-top: 1rem;
+      display: grid;
+      gap: .45rem;
+      color: var(--ink-soft);
+      font-size: .94rem;
+    }
+    .status-list li { list-style: none; display: flex; gap: .45rem; }
+    .status-list li::before { content: '•'; font-weight: 900; }
+    .status-red .status-list li::before { color: var(--red); }
+    .status-yellow .status-list li::before { color: var(--yellow-dark); }
+    .status-green .status-list li::before { color: var(--green); }
 
-    .section { margin-top: 1.4rem; }
+    .banner {
+      border-radius: 24px;
+      padding: 1rem 1.2rem;
+      background: linear-gradient(90deg, var(--red), var(--yellow), var(--green));
+      box-shadow: 0 18px 50px rgba(6,20,39,.16);
+      margin: 1.25rem 0;
+    }
+    .banner-inner {
+      border-radius: 18px;
+      background: rgba(255,255,255,.94);
+      padding: 1rem 1.1rem;
+      color: var(--ink-soft);
+    }
+    .banner strong { color: var(--ink); }
+
     .section-head {
       display: flex;
       justify-content: space-between;
@@ -305,17 +290,20 @@
       line-height: .98;
       letter-spacing: -.05em;
     }
-    .section-head p {
-      max-width: 520px;
-      color: var(--ink-soft);
-    }
+    .section-head p { max-width: 560px; color: var(--ink-soft); }
 
-    .table-wrap { overflow: hidden; box-shadow: 0 12px 38px rgba(7, 26, 50, .08); }
-    table { width: 100%; border-collapse: collapse; background: #fff; }
+    .table-wrap {
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 1px solid var(--rule);
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+    table { width: 100%; border-collapse: collapse; }
     th, td {
       text-align: left;
       padding: 1rem;
-      border-bottom: 1px solid var(--rule-soft);
+      border-bottom: 1px solid rgba(6,20,39,.08);
       vertical-align: top;
     }
     th {
@@ -324,86 +312,95 @@
       letter-spacing: .1em;
       text-transform: uppercase;
       color: var(--muted);
-      background: #f8fafd;
+      background: #f8fbff;
     }
     td { color: var(--ink-soft); }
-    td:first-child { color: var(--ink); font-weight: 800; }
+    td:first-child { color: var(--ink); font-weight: 900; }
     tr:last-child td { border-bottom: none; }
-    .status {
+    .pill {
       display: inline-flex;
-      padding: .25rem .55rem;
+      align-items: center;
+      padding: .32rem .62rem;
       border-radius: 999px;
-      font-size: .72rem;
-      font-weight: 800;
+      font-size: .74rem;
+      font-weight: 900;
       white-space: nowrap;
+      border: 1px solid;
     }
-    .status-exposed { color: var(--danger); background: rgba(220, 38, 38, .08); }
-    .status-warning { color: var(--warn); background: rgba(217, 119, 6, .08); }
-    .status-secure { color: var(--ok); background: rgba(22, 163, 74, .08); }
+    .pill-red { color: var(--red-dark); background: var(--red-soft); border-color: rgba(255,23,68,.35); }
+    .pill-yellow { color: var(--yellow-dark); background: var(--yellow-soft); border-color: rgba(255,214,0,.75); }
+    .pill-green { color: var(--green-dark); background: var(--green-soft); border-color: rgba(0,200,83,.35); }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .panel {
+      border-radius: var(--radius);
+      border: 1px solid var(--rule);
+      background: var(--card);
+      padding: 1.25rem;
+      box-shadow: 0 16px 46px rgba(6,20,39,.1);
+    }
+    .panel h3 {
+      font-family: var(--display);
+      font-size: 1.45rem;
+      line-height: 1.05;
+      letter-spacing: -.04em;
+      margin: .6rem 0 .45rem;
+    }
+    .panel p { color: var(--ink-soft); }
+    .tag {
+      display: inline-flex;
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 900;
+      padding: .3rem .55rem;
+      background: #fff;
+      border: 1px solid var(--rule);
+    }
+    .tag-red { color: var(--red-dark); }
+    .tag-yellow { color: var(--yellow-dark); }
+    .tag-green { color: var(--green-dark); }
 
     .spotlight {
       display: grid;
       grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
       gap: 1rem;
-      margin-top: 1.4rem;
+      margin-top: 1.25rem;
     }
     .quote-card {
       border-radius: var(--radius);
+      border: 3px solid var(--green);
       padding: 1.35rem;
-      background:
-        linear-gradient(135deg, rgba(27, 139, 214, .10), transparent 44%),
-        #fff;
-      border: 1px solid var(--rule);
-      box-shadow: 0 12px 38px rgba(7, 26, 50, .08);
+      background: linear-gradient(135deg, var(--green-soft), #fff 58%);
+      box-shadow: var(--shadow);
     }
-    .quote-card blockquote {
+    blockquote {
       font-family: var(--display);
-      font-size: clamp(1.35rem, 2.7vw, 2rem);
-      line-height: 1.12;
-      letter-spacing: -.03em;
-      color: var(--ink);
+      font-size: clamp(1.45rem, 3vw, 2.25rem);
+      line-height: 1.08;
+      letter-spacing: -.04em;
+      font-weight: 800;
     }
-    .quote-card cite {
+    cite {
       display: block;
       margin-top: 1rem;
       color: var(--muted);
       font-style: normal;
-      font-weight: 700;
-      font-size: .92rem;
-    }
-
-    .steps {
-      display: grid;
-      gap: .8rem;
-      margin-top: .9rem;
-    }
-    .step {
-      display: grid;
-      grid-template-columns: 34px 1fr;
-      gap: .75rem;
-      align-items: start;
-    }
-    .step-num {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: var(--ink);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--mono);
-      font-size: .78rem;
       font-weight: 800;
     }
-    .step h4 { font-size: 1rem; margin-bottom: .12rem; }
-    .step p { color: var(--ink-soft); font-size: .94rem; }
 
     .footer-cta {
       margin-top: 1.4rem;
       border-radius: var(--radius);
       padding: clamp(1.5rem, 4vw, 2.4rem);
-      background: linear-gradient(135deg, #071a32, #102a4b);
+      background: linear-gradient(135deg, var(--ink), #102a4b);
       color: #fff;
       display: flex;
       justify-content: space-between;
@@ -418,29 +415,27 @@
       letter-spacing: -.04em;
       margin-bottom: .45rem;
     }
-    .footer-cta p { color: rgba(255, 255, 255, .78); max-width: 620px; }
+    .footer-cta p { color: rgba(255,255,255,.78); max-width: 640px; }
     .footer-cta .btn { background: #fff; color: var(--ink); flex: 0 0 auto; }
     .fine-print {
       margin-top: 1rem;
       color: var(--muted);
-      font-size: .83rem;
+      font-size: .84rem;
       text-align: center;
     }
 
-    @media (max-width: 880px) {
-      .hero, .spotlight { grid-template-columns: 1fr; }
-      .grid-3 { grid-template-columns: 1fr; }
+    @media (max-width: 950px) {
+      .scoreboard, .panel-grid, .spotlight { grid-template-columns: 1fr; }
+      .status-card { min-height: auto; }
       .section-head { display: block; }
       .section-head p { margin-top: .45rem; }
       .footer-cta { display: block; }
       .footer-cta .btn { margin-top: 1rem; }
     }
     @media (max-width: 620px) {
-      .site-nav-inner { align-items: flex-start; flex-direction: column; }
-      .mini-stats { grid-template-columns: 1fr; }
-      th:nth-child(3), td:nth-child(3) { display: none; }
-      .nav-actions { width: 100%; justify-content: space-between; }
       .hero-actions .btn { width: 100%; }
+      th:nth-child(4), td:nth-child(4) { display: none; }
+      .big-number { font-size: 4.2rem; }
     }
   </style>
 </head>
@@ -449,8 +444,8 @@
     <div class="site-nav-inner">
       <a class="brand" href="./">Next-Gen <span>IT</span> Pros</a>
       <div class="nav-actions">
-        <a href="./email-scan.html">Domain Scan</a>
         <a href="#results">Results</a>
+        <a href="#legend">Legend</a>
         <a class="scan-pill" href="./email-scan.html">Test your domain</a>
       </div>
     </div>
@@ -458,181 +453,185 @@
 
   <main class="page-shell">
     <section class="hero" aria-labelledby="page-title">
-      <div class="hero-card">
-        <div class="eyebrow">Williamson County email security snapshot</div>
-        <h1 id="page-title">Real estate wire-fraud risk starts with <em>trust.</em></h1>
-        <p class="hero-text">A batch scan of Williamson County real estate and title related company domains found that many organizations could still be exposed to email impersonation risk when SPF, DKIM, or DMARC are missing, weak, or set to monitoring-only mode.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="./email-scan.html">Run your free domain scan</a>
-          <a class="btn btn-secondary" href="#what-this-means">What this means</a>
-        </div>
+      <div class="eyebrow">Williamson County email security scan</div>
+      <h1 id="page-title">Color-coded spoofing risk results for real estate and title domains.</h1>
+      <p class="hero-text">A public DNS/email-authentication batch scan of 34 Williamson County real estate related company domains. The goal is simple: help teams spot SPF, DKIM, and DMARC gaps before scammers use trusted brands for wire-fraud style impersonation.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="./email-scan.html">Run your free domain scan</a>
+        <a class="btn btn-secondary" href="#results">View red / yellow / green results</a>
       </div>
-
-      <aside class="snapshot-card" aria-label="Batch scan summary">
-        <div class="stat-big">
-          <div class="number">65%</div>
-          <div class="label">openly exposed</div>
-          <div class="sub">to wire-fraud style email impersonation indicators in the public DNS scan.</div>
-        </div>
-        <div class="mini-stats">
-          <div class="mini-stat">
-            <div class="k">Domains scanned</div>
-            <div class="v">34</div>
-          </div>
-          <div class="mini-stat">
-            <div class="k">Community focus</div>
-            <div class="v">Wilco</div>
-          </div>
-        </div>
-      </aside>
     </section>
 
-    <div class="notice">
-      <div class="dot" aria-hidden="true"></div>
-      <p><strong>No hacked inbox required.</strong> Wire fraud can begin when a scammer sends an email that looks like it came from a trusted real estate, title, or closing domain. Strong SPF, DKIM, and DMARC settings help stop that kind of impersonation before it reaches a client.</p>
+    <section id="results" class="scoreboard" aria-label="Color-coded result summary">
+      <article class="status-card status-red">
+        <div class="status-label"><span class="icon"></span> Red / Failed</div>
+        <div class="big-number">65%</div>
+        <h2 class="status-title">Openly exposed to spoofing indicators</h2>
+        <p class="status-copy">About 22 of the 34 scanned company domains showed public DNS/email-authentication gaps that could support email impersonation risk.</p>
+        <ul class="status-list">
+          <li>Missing, weak, or non-enforcing DMARC</li>
+          <li>SPF/DKIM gaps or alignment concerns</li>
+          <li>Higher wire-fraud impersonation exposure</li>
+        </ul>
+      </article>
+
+      <article class="status-card status-yellow">
+        <div class="status-label"><span class="icon"></span> Yellow / Some Checks Fail</div>
+        <div class="big-number">Review</div>
+        <h2 class="status-title">Partial protection, but not fully hardened</h2>
+        <p class="status-copy">This status means some records exist, but one or more controls still need cleanup before the domain should be considered strongly protected.</p>
+        <ul class="status-list">
+          <li>DMARC may be set to monitoring only</li>
+          <li>SPF may exist but need cleanup</li>
+          <li>DKIM may be missing for some senders</li>
+        </ul>
+      </article>
+
+      <article class="status-card status-green">
+        <div class="status-label"><span class="icon"></span> Green / Good</div>
+        <div class="big-number">Top 5%</div>
+        <h2 class="status-title">Strong posture after remediation</h2>
+        <p class="status-copy">Green represents domains with aligned controls and stronger enforcement. Teleo Title is highlighted as a Williamson County example of quick remediation and leadership.</p>
+        <ul class="status-list">
+          <li>SPF authorized senders reviewed</li>
+          <li>DKIM signing/record posture improved</li>
+          <li>DMARC moved toward stronger enforcement</li>
+        </ul>
+      </article>
+    </section>
+
+    <div class="banner">
+      <div class="banner-inner"><strong>Not a callout list.</strong> This page is meant to turn the scan into a simple visual awareness tool: red means failed/exposed, yellow means some checks failed, and green means good or remediated posture.</div>
     </div>
 
-    <section id="results" class="section" aria-labelledby="results-title">
+    <section id="legend" aria-labelledby="legend-title">
       <div class="section-head">
-        <h2 id="results-title">Batch scan results</h2>
-        <p>An anonymized snapshot from publicly visible DNS/email-authentication records. This is not a callout list. It is a community awareness check.</p>
+        <h2 id="legend-title">Status legend</h2>
+        <p>Use this color code when reviewing individual company domains or sharing remediation status with leadership, IT vendors, title teams, or real estate offices.</p>
       </div>
 
-      <div class="grid-3">
-        <article class="panel">
-          <div class="badge badge-danger">Primary finding</div>
-          <h3>65% exposed</h3>
-          <p>Most exposed domains had weak or incomplete protection that could allow spoofed messages to appear more believable to clients, agents, lenders, or closing teams.</p>
-        </article>
-        <article class="panel">
-          <div class="badge badge-warn">Common gap</div>
-          <h3>DMARC not enforcing</h3>
-          <p>DMARC set to <code>p=none</code>, or missing entirely, usually means the domain is monitoring only and not actively telling receivers to quarantine or reject spoofed mail.</p>
-        </article>
-        <article class="panel">
-          <div class="badge badge-ok">Fast win</div>
-          <h3>Small DNS changes matter</h3>
-          <p>Many of these findings can be improved with targeted SPF cleanup, DKIM alignment, and a staged DMARC move toward quarantine or reject.</p>
-        </article>
-      </div>
-
-      <div class="table-wrap" role="region" aria-label="Summary table">
+      <div class="table-wrap" role="region" aria-label="Color coded status table">
         <table>
           <thead>
             <tr>
-              <th>Metric</th>
-              <th>Result</th>
-              <th>Why it matters</th>
+              <th>Status</th>
+              <th>Plain-English meaning</th>
+              <th>Typical finding</th>
+              <th>Recommended action</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Company domains scanned</td>
-              <td><span class="status status-warning">34 total</span></td>
-              <td>Focused on Williamson County real estate, title, escrow, mortgage, and closing-adjacent organizations.</td>
+              <td><span class="pill pill-red">Red / Failed</span></td>
+              <td>Domain is exposed to obvious impersonation risk indicators.</td>
+              <td>DMARC missing or not enforcing, SPF/DKIM issues, or alignment gaps.</td>
+              <td>Fix DNS records, validate legitimate senders, then move DMARC toward quarantine/reject.</td>
             </tr>
             <tr>
-              <td>Exposure rate</td>
-              <td><span class="status status-exposed">65% exposed</span></td>
-              <td>Indicates elevated spoofing risk based on missing, weak, or non-enforcing public email authentication records.</td>
+              <td><span class="pill pill-yellow">Yellow / Some Checks Fail</span></td>
+              <td>Some protection exists, but the domain is not fully hardened.</td>
+              <td>SPF exists but is messy, DKIM incomplete, or DMARC is monitor-only.</td>
+              <td>Clean up SPF, enable DKIM everywhere, review reports, then tighten DMARC policy.</td>
             </tr>
             <tr>
-              <td>Primary controls checked</td>
-              <td><span class="status status-warning">SPF / DKIM / DMARC</span></td>
-              <td>These records help receiving mail systems verify who is allowed to send email for a domain.</td>
-            </tr>
-            <tr>
-              <td>Best-practice target</td>
-              <td><span class="status status-secure">Aligned + enforcing</span></td>
-              <td>SPF should be accurate, DKIM should sign legitimate mail, and DMARC should progress toward quarantine or reject after validation.</td>
+              <td><span class="pill pill-green">Green / Good</span></td>
+              <td>Domain shows stronger email-authentication posture.</td>
+              <td>SPF/DKIM aligned and DMARC policy is meaningfully protective.</td>
+              <td>Keep monitoring reports and re-check after adding new CRM, marketing, or closing systems.</td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <section id="what-this-means" class="section" aria-labelledby="meaning-title">
+    <section aria-labelledby="snapshot-title">
       <div class="section-head">
-        <h2 id="meaning-title">What this means for real estate teams</h2>
-        <p>If your company handles closings, wire instructions, contracts, title communication, or earnest-money conversations, your domain reputation is part of the trust chain.</p>
+        <h2 id="snapshot-title">Williamson County snapshot</h2>
+        <p>Aggregate results from the current public awareness scan.</p>
       </div>
 
-      <div class="grid-3">
+      <div class="table-wrap" role="region" aria-label="Aggregate scan snapshot">
+        <table>
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Result</th>
+              <th>Color</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Total company domains scanned</td>
+              <td>34</td>
+              <td><span class="pill pill-yellow">Batch sample</span></td>
+              <td>Focused on Williamson County real estate, title, escrow, mortgage, and closing-adjacent domains.</td>
+            </tr>
+            <tr>
+              <td>Openly exposed domains</td>
+              <td>65% / approximately 22 of 34</td>
+              <td><span class="pill pill-red">Red / Failed</span></td>
+              <td>These domains showed public email-authentication gaps associated with spoofing or impersonation risk.</td>
+            </tr>
+            <tr>
+              <td>Partial-fail domains</td>
+              <td>Needs domain-level export</td>
+              <td><span class="pill pill-yellow">Yellow / Some checks fail</span></td>
+              <td>This bucket is for domains that pass some checks but still need SPF, DKIM, or DMARC cleanup.</td>
+            </tr>
+            <tr>
+              <td>Good / remediated example</td>
+              <td>Teleo Title</td>
+              <td><span class="pill pill-green">Green / Good</span></td>
+              <td>Promptly addressed audit findings and now sits in the top 5% of cyber-secured domains reviewed in the Williamson County scan.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="controls-title">
+      <div class="section-head">
+        <h2 id="controls-title">What each check means</h2>
+        <p>These are the core records that help stop email that only looks like it came from a trusted company domain.</p>
+      </div>
+
+      <div class="panel-grid">
         <article class="panel">
-          <div class="badge badge-danger">SPF</div>
+          <span class="tag tag-red">SPF</span>
           <h3>Who is allowed to send?</h3>
-          <p>SPF tells mail systems which servers are authorized to send for your domain. Weak or bloated SPF records can make verification less reliable.</p>
+          <p>SPF tells mail systems which servers are authorized to send for the domain. Bad SPF can allow confusion or cause legitimate systems to fail authentication.</p>
         </article>
         <article class="panel">
-          <div class="badge badge-warn">DKIM</div>
-          <h3>Was the message signed?</h3>
-          <p>DKIM adds a cryptographic signature to legitimate outbound mail. Missing or misaligned DKIM can make it harder to prove the message is authentic.</p>
+          <span class="tag tag-yellow">DKIM</span>
+          <h3>Was it signed?</h3>
+          <p>DKIM signs legitimate outbound mail. Missing DKIM can weaken proof that an email truly came from the company’s approved systems.</p>
         </article>
         <article class="panel">
-          <div class="badge badge-ok">DMARC</div>
+          <span class="tag tag-green">DMARC</span>
           <h3>What should receivers do?</h3>
-          <p>DMARC ties SPF and DKIM together and tells receivers whether to monitor, quarantine, or reject messages that fail authentication.</p>
+          <p>DMARC connects SPF and DKIM alignment and tells receiving systems whether to monitor, quarantine, or reject failed mail.</p>
         </article>
       </div>
     </section>
 
     <section class="spotlight" aria-label="Community leadership spotlight">
       <article class="quote-card">
-        <div class="badge badge-ok">Wilco leadership</div>
+        <span class="tag tag-green">Wilco leadership</span>
         <blockquote>Leading by example means fixing the gap before scammers find it.</blockquote>
         <cite>Community awareness note from Jeremiah Cargill</cite>
       </article>
       <article class="panel">
-        <h2>Tech-driven companies can move quickly.</h2>
-        <p>Teleo Title engaged with the project when contacted, reviewed the audit findings, and promptly addressed the domain vulnerabilities identified in the scan. After remediation, they now sit in the top 5% of cyber-secured domains reviewed in the Williamson County batch.</p>
-        <p style="margin-top:.75rem;">That is a strong example of a tech-driven title company leading by example in a high-trust, high-risk space.</p>
+        <span class="tag tag-green">Green / Good example</span>
+        <h3>Teleo Title moved quickly.</h3>
+        <p>Teleo Title engaged with the initiative, reviewed the audit findings, and promptly addressed domain vulnerabilities identified in the scan. That is a strong example of a tech-driven title company leading by example in a high-trust, high-risk space.</p>
       </article>
-    </section>
-
-    <section class="section" aria-labelledby="next-title">
-      <div class="section-head">
-        <h2 id="next-title">Suggested next steps</h2>
-        <p>Start with visibility, then move carefully toward enforcement so legitimate email keeps flowing while spoofed email gets blocked.</p>
-      </div>
-
-      <div class="panel">
-        <div class="steps">
-          <div class="step">
-            <div class="step-num">1</div>
-            <div>
-              <h4>Scan the domain you actually send from.</h4>
-              <p>Check your primary company domain plus any domains used by marketing, transaction systems, CRM tools, or closing platforms.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">2</div>
-            <div>
-              <h4>Verify SPF and DKIM alignment.</h4>
-              <p>Confirm that Microsoft 365, Google Workspace, website forms, CRMs, and email marketing tools are authorized and properly signing mail.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">3</div>
-            <div>
-              <h4>Move DMARC beyond monitoring.</h4>
-              <p>Use reporting first, fix legitimate senders, then stage DMARC from <code>p=none</code> toward <code>p=quarantine</code> or <code>p=reject</code>.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">4</div>
-            <div>
-              <h4>Train staff on wire-change verification.</h4>
-              <p>Email authentication reduces impersonation risk, but wire instructions should still be verified through known trusted phone numbers and internal procedures.</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <section class="footer-cta" aria-label="Run scan call to action">
       <div>
-        <h2>Can someone send email that looks like it came from you?</h2>
-        <p>Run the public DNS scan, review SPF, DKIM, and DMARC posture, and close the gap before a scammer uses your brand to start a wire-fraud conversation.</p>
+        <h2>Can someone send email that looks like it came from your domain?</h2>
+        <p>Run the public DNS scan, review SPF, DKIM, and DMARC posture, then close the gaps before a scammer uses your brand to start a wire-fraud conversation.</p>
       </div>
       <a class="btn" href="./email-scan.html">Test your domain</a>
     </section>

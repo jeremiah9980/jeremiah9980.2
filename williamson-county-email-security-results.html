@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Williamson County Email Security Results | Next-Gen IT Pros</title>
-  <meta name="description" content="Bright color-coded Williamson County real estate and title company email spoofing risk results for SPF, DKIM, and DMARC." />
+  <meta name="description" content="Bright color-coded Williamson County real estate and title company email spoofing risk results for SPF, DKIM, and DMARC, including how the domain seed list was collected." />
   <meta property="og:title" content="Williamson County Email Security Results" />
   <meta property="og:description" content="34 real estate/title related company domains scanned. 65% showed exposure to email impersonation risk from SPF, DKIM, or DMARC gaps." />
   <meta property="og:type" content="website" />
@@ -15,14 +15,14 @@
       --ink-soft: #28415f;
       --muted: #66798d;
       --paper: #f7fbff;
-      --card: rgba(255,255,255,.92);
+      --card: rgba(255,255,255,.93);
       --rule: rgba(6,20,39,.12);
       --red: #ff1744;
       --red-dark: #b00020;
       --red-soft: rgba(255,23,68,.14);
       --yellow: #ffd600;
       --yellow-dark: #9a6b00;
-      --yellow-soft: rgba(255,214,0,.22);
+      --yellow-soft: rgba(255,214,0,.23);
       --green: #00c853;
       --green-dark: #006b2d;
       --green-soft: rgba(0,200,83,.16);
@@ -55,6 +55,7 @@
 
     a { color: var(--blue); text-decoration: none; }
     a:hover { color: var(--purple); }
+    code { font-family: var(--mono); background: rgba(6,20,39,.06); border-radius: .35rem; padding: .08rem .3rem; }
 
     .site-nav {
       position: sticky;
@@ -141,14 +142,14 @@
       font-size: clamp(2.8rem, 6.7vw, 6rem);
       line-height: .9;
       letter-spacing: -.06em;
-      max-width: 900px;
+      max-width: 930px;
       margin-bottom: 1rem;
     }
     h1 em { color: var(--red); font-style: italic; font-weight: 500; }
     .hero-text {
       color: var(--ink-soft);
       font-size: clamp(1.05rem, 2vw, 1.25rem);
-      max-width: 760px;
+      max-width: 790px;
     }
     .hero-actions { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 1.6rem; }
     .btn {
@@ -290,7 +291,7 @@
       line-height: .98;
       letter-spacing: -.05em;
     }
-    .section-head p { max-width: 560px; color: var(--ink-soft); }
+    .section-head p { max-width: 580px; color: var(--ink-soft); }
 
     .table-wrap {
       overflow: hidden;
@@ -298,6 +299,7 @@
       border: 1px solid var(--rule);
       background: #fff;
       box-shadow: var(--shadow);
+      margin-bottom: 1.25rem;
     }
     table { width: 100%; border-collapse: collapse; }
     th, td {
@@ -330,6 +332,7 @@
     .pill-red { color: var(--red-dark); background: var(--red-soft); border-color: rgba(255,23,68,.35); }
     .pill-yellow { color: var(--yellow-dark); background: var(--yellow-soft); border-color: rgba(255,214,0,.75); }
     .pill-green { color: var(--green-dark); background: var(--green-soft); border-color: rgba(0,200,83,.35); }
+    .pill-blue { color: #0b4db8; background: rgba(17,120,255,.11); border-color: rgba(17,120,255,.24); }
 
     .panel-grid {
       display: grid;
@@ -367,6 +370,116 @@
     .tag-red { color: var(--red-dark); }
     .tag-yellow { color: var(--yellow-dark); }
     .tag-green { color: var(--green-dark); }
+    .tag-blue { color: #0b4db8; }
+
+    .method-card {
+      border-radius: var(--radius);
+      border: 2px solid rgba(17,120,255,.25);
+      background:
+        linear-gradient(135deg, rgba(17,120,255,.10), transparent 34%),
+        linear-gradient(145deg, rgba(255,214,0,.14), transparent 58%),
+        rgba(255,255,255,.95);
+      box-shadow: var(--shadow);
+      padding: clamp(1.2rem, 3vw, 2rem);
+      margin-bottom: 1.25rem;
+    }
+    .chat-grid {
+      display: grid;
+      grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .chat-box {
+      border-radius: 22px;
+      border: 1px solid rgba(6,20,39,.1);
+      background: #fff;
+      padding: 1rem;
+    }
+    .chat-box .role {
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-weight: 900;
+      color: var(--muted);
+      margin-bottom: .5rem;
+    }
+    .chat-box .prompt {
+      font-size: 1.1rem;
+      color: var(--ink);
+      font-weight: 800;
+    }
+    .chat-box p { color: var(--ink-soft); margin-top: .55rem; }
+    .thinking {
+      display: inline-flex;
+      margin-top: .75rem;
+      font-family: var(--mono);
+      font-size: .72rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--purple);
+      background: rgba(109,40,217,.09);
+      border: 1px solid rgba(109,40,217,.18);
+      padding: .35rem .6rem;
+      border-radius: 999px;
+    }
+    .chips-section {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .chip-group {
+      border-radius: 22px;
+      background: rgba(255,255,255,.9);
+      border: 1px solid rgba(6,20,39,.1);
+      padding: 1rem;
+    }
+    .chip-group h3 {
+      font-size: 1rem;
+      margin-bottom: .75rem;
+      color: var(--ink);
+    }
+    .chip-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: .38rem .6rem;
+      font-family: var(--mono);
+      font-size: .73rem;
+      font-weight: 800;
+      background: #fff;
+      border: 1px solid rgba(6,20,39,.12);
+      color: var(--ink-soft);
+      box-shadow: 0 6px 16px rgba(6,20,39,.04);
+    }
+
+    details {
+      margin-top: 1rem;
+      border-radius: 22px;
+      border: 1px solid rgba(6,20,39,.1);
+      background: rgba(255,255,255,.9);
+      overflow: hidden;
+    }
+    summary {
+      cursor: pointer;
+      padding: 1rem;
+      font-weight: 900;
+      color: var(--ink);
+    }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      padding: 0 1rem 1rem;
+      font-family: var(--mono);
+      font-size: .78rem;
+      color: var(--ink-soft);
+    }
 
     .spotlight {
       display: grid;
@@ -425,7 +538,7 @@
     }
 
     @media (max-width: 950px) {
-      .scoreboard, .panel-grid, .spotlight { grid-template-columns: 1fr; }
+      .scoreboard, .panel-grid, .spotlight, .chat-grid { grid-template-columns: 1fr; }
       .status-card { min-height: auto; }
       .section-head { display: block; }
       .section-head p { margin-top: .45rem; }
@@ -445,6 +558,7 @@
       <a class="brand" href="./">Next-Gen <span>IT</span> Pros</a>
       <div class="nav-actions">
         <a href="#results">Results</a>
+        <a href="#collection-method">Collection Method</a>
         <a href="#legend">Legend</a>
         <a class="scan-pill" href="./email-scan.html">Test your domain</a>
       </div>
@@ -458,7 +572,7 @@
       <p class="hero-text">A public DNS/email-authentication batch scan of 34 Williamson County real estate related company domains. The goal is simple: help teams spot SPF, DKIM, and DMARC gaps before scammers use trusted brands for wire-fraud style impersonation.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="./email-scan.html">Run your free domain scan</a>
-        <a class="btn btn-secondary" href="#results">View red / yellow / green results</a>
+        <a class="btn btn-secondary" href="#collection-method">See how the list was collected</a>
       </div>
     </section>
 
@@ -503,6 +617,157 @@
     <div class="banner">
       <div class="banner-inner"><strong>Not a callout list.</strong> This page is meant to turn the scan into a simple visual awareness tool: red means failed/exposed, yellow means some checks failed, and green means good or remediated posture.</div>
     </div>
+
+    <section id="collection-method" aria-labelledby="collection-title">
+      <div class="section-head">
+        <h2 id="collection-title">How the test list was collected</h2>
+        <p>This section documents the ChatGPT-assisted seed-list process used to identify real-estate-related domains that appeared useful for outreach, awareness, and public DNS security checks.</p>
+      </div>
+
+      <div class="method-card">
+        <span class="tag tag-blue">ChatGPT-assisted collection</span>
+        <div class="chat-grid">
+          <div class="chat-box">
+            <div class="role">Prompt entered</div>
+            <div class="prompt">Create me a list of realestate related domains primarily operating in williamson county</div>
+          </div>
+          <div class="chat-box">
+            <div class="role">Collection approach</div>
+            <p>I treated this as Williamson County, Texas and built a practical seed list across real estate brokerages/agents, title/escrow, property management, mortgage, builders, developers, apartment/community operators, and related local services with public-facing domains.</p>
+            <p>The strongest public sources were local chamber/member directories, REALTOR-related directories, and title-company office/location pages. The list was biased toward domains useful for outreach or SPF, DKIM, and DMARC scans rather than generic listing portals.</p>
+            <span class="thinking">Thought for 1m 23s</span>
+          </div>
+        </div>
+
+        <div class="panel-grid" style="margin-top:1rem;">
+          <article class="panel">
+            <span class="tag tag-blue">Seed categories</span>
+            <h3>Who was included?</h3>
+            <p>Brokerages, agents, title/escrow offices, lenders, commercial real estate, property management, builders/developers, and local apartment/community operators.</p>
+          </article>
+          <article class="panel">
+            <span class="tag tag-yellow">Local filter</span>
+            <h3>Why Williamson County?</h3>
+            <p>Domains were prioritized when they had ties to Georgetown, Round Rock, Cedar Park, Leander, Hutto, Taylor, or Central Texas offices/service areas.</p>
+          </article>
+          <article class="panel">
+            <span class="tag tag-green">Security purpose</span>
+            <h3>Why collect domains?</h3>
+            <p>The seed list helped identify public-facing domains for awareness scanning of SPF, DKIM, and DMARC posture related to spoofing and wire-fraud risk.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="table-wrap" role="region" aria-label="Higher-confidence local targets">
+        <table>
+          <thead>
+            <tr>
+              <th>Seed-list group</th>
+              <th>Domains</th>
+              <th>Why included</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Higher-confidence local-heavy targets</td>
+              <td>fivepointsrealtors.com, kwlonestar.com, billykurtz.com, thestacygroup.com, joegonzalezrealtor.com, robertjfischer.com, donquick.com, starskyowen.com, jorgensonrealestate.com, burkegroup.net, summit-commercial.com, leadstrongproperties.com, crossleycommercial.com, myaustinhouse.com, mallachandcompany.com, brasfieldrealestate.com, mcdonaldrealtygrouptx.com, associatesreg.com, therealestatesocial.net, tierragranderealestate.com, realinternational.com, kortehomes.com, windsorgrouptx.com</td>
+              <td>Williamson County or Central Texas real estate, commercial, property, or development presence.</td>
+            </tr>
+            <tr>
+              <td>Title / escrow / closing-related</td>
+              <td>georgetowntitle.net, longhorntitle.com, corridortitle.com, austintitle.com, independencetitle.com, texastitle.com, stewart.com, pattentitle.com, ctot.com, keytitlegroup.com, thetitlecotx.com, bnttexas.com, essent.us</td>
+              <td>Closing and title-related domains connected to Georgetown, Round Rock, Cedar Park, Leander, Taylor, or broader Central Texas offices/services.</td>
+            </tr>
+            <tr>
+              <td>Mortgage / lending / real-estate finance</td>
+              <td>rwmloans.com, edgehomefinance.com, southstarbank.com, capitalfarmcredit.com, lonestaragcredit.com, summitlending.com, lendfriendmtg.com, atxmortgagelending.com</td>
+              <td>Mortgage, lending, banking, agricultural credit, or finance domains tied to local real-estate activity.</td>
+            </tr>
+            <tr>
+              <td>Property / community / operator domains</td>
+              <td>northcreekhutto.com, parkwestcc.com, skyridgeplaza.com, ridgehillinvestments.com, imccapitaltx.com, preservemustangcreek.com, heritageofficesuites.com, oldtaylorhigh.com, mccrorytimmerman.com, taylorexecutiveoffices.com, apartmentsintaylortx.com, thearborsoftaylor.com</td>
+              <td>Local property, office, development, investment, apartment, or community operator domains.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="chips-section">
+        <div class="chip-group">
+          <h3>Raw domain seed list</h3>
+          <div class="chip-wrap" aria-label="Raw Williamson County real estate related domain seed list">
+            <span class="chip">fivepointsrealtors.com</span><span class="chip">kwlonestar.com</span><span class="chip">kw.com</span><span class="chip">billykurtz.com</span><span class="chip">thestacygroup.com</span><span class="chip">joegonzalezrealtor.com</span><span class="chip">tswets.bhhstx.com</span><span class="chip">richardfowlerrealtor.com</span><span class="chip">robertjfischer.com</span><span class="chip">donquick.com</span><span class="chip">starskyowen.com</span><span class="chip">jorgensonrealestate.com</span><span class="chip">burkegroup.net</span><span class="chip">summit-commercial.com</span><span class="chip">leadstrongproperties.com</span><span class="chip">lewis-investments.com</span><span class="chip">crossleycommercial.com</span><span class="chip">myaustinhouse.com</span><span class="chip">mallachandcompany.com</span><span class="chip">pamelapfeil.exprealty.com</span><span class="chip">haixiayuan.kw.com</span><span class="chip">brasfieldrealestate.com</span><span class="chip">mcdonaldrealtygrouptx.com</span><span class="chip">associatesreg.com</span><span class="chip">therealestatesocial.net</span><span class="chip">tierragranderealestate.com</span><span class="chip">realinternational.com</span><span class="chip">imamro.com</span><span class="chip">kortehomes.com</span><span class="chip">windsorgrouptx.com</span><span class="chip">northcreekhutto.com</span><span class="chip">parkwestcc.com</span><span class="chip">skyridgeplaza.com</span><span class="chip">ridgehillinvestments.com</span><span class="chip">imccapitaltx.com</span><span class="chip">preservemustangcreek.com</span><span class="chip">heritageofficesuites.com</span><span class="chip">oldtaylorhigh.com</span><span class="chip">mccrorytimmerman.com</span><span class="chip">taylorexecutiveoffices.com</span><span class="chip">apartmentsintaylortx.com</span><span class="chip">thearborsoftaylor.com</span><span class="chip">georgetowntitle.net</span><span class="chip">longhorntitle.com</span><span class="chip">corridortitle.com</span><span class="chip">austintitle.com</span><span class="chip">independencetitle.com</span><span class="chip">texastitle.com</span><span class="chip">stewart.com</span><span class="chip">pattentitle.com</span><span class="chip">ctot.com</span><span class="chip">keytitlegroup.com</span><span class="chip">thetitlecotx.com</span><span class="chip">bnttexas.com</span><span class="chip">essent.us</span><span class="chip">rwmloans.com</span><span class="chip">edgehomefinance.com</span><span class="chip">southstarbank.com</span><span class="chip">capitalfarmcredit.com</span><span class="chip">lonestaragcredit.com</span><span class="chip">summitlending.com</span><span class="chip">lendfriendmtg.com</span><span class="chip">atxmortgagelending.com</span>
+          </div>
+        </div>
+      </div>
+
+      <details>
+        <summary>View the original raw list as plain text</summary>
+        <pre>fivepointsrealtors.com
+kwlonestar.com
+kw.com
+billykurtz.com
+thestacygroup.com
+joegonzalezrealtor.com
+tswets.bhhstx.com
+richardfowlerrealtor.com
+robertjfischer.com
+donquick.com
+starskyowen.com
+jorgensonrealestate.com
+burkegroup.net
+summit-commercial.com
+leadstrongproperties.com
+lewis-investments.com
+crossleycommercial.com
+myaustinhouse.com
+mallachandcompany.com
+pamelapfeil.exprealty.com
+haixiayuan.kw.com
+brasfieldrealestate.com
+mcdonaldrealtygrouptx.com
+associatesreg.com
+therealestatesocial.net
+tierragranderealestate.com
+realinternational.com
+imamro.com
+kortehomes.com
+windsorgrouptx.com
+northcreekhutto.com
+parkwestcc.com
+skyridgeplaza.com
+ridgehillinvestments.com
+imccapitaltx.com
+preservemustangcreek.com
+heritageofficesuites.com
+oldtaylorhigh.com
+mccrorytimmerman.com
+taylorexecutiveoffices.com
+apartmentsintaylortx.com
+thearborsoftaylor.com
+georgetowntitle.net
+longhorntitle.com
+corridortitle.com
+austintitle.com
+independencetitle.com
+texastitle.com
+stewart.com
+pattentitle.com
+ctot.com
+keytitlegroup.com
+thetitlecotx.com
+bnttexas.com
+essent.us
+rwmloans.com
+edgehomefinance.com
+southstarbank.com
+capitalfarmcredit.com
+lonestaragcredit.com
+summitlending.com
+lendfriendmtg.com
+atxmortgagelending.com</pre>
+      </details>
+    </section>
 
     <section id="legend" aria-labelledby="legend-title">
       <div class="section-head">
@@ -636,7 +901,7 @@
       <a class="btn" href="./email-scan.html">Test your domain</a>
     </section>
 
-    <p class="fine-print">Public awareness snapshot prepared by Jeremiah Cargill / Next-Gen IT Pros. Results are based on public DNS/email authentication indicators and should not be treated as a complete security assessment.</p>
+    <p class="fine-print">Public awareness snapshot prepared by Jeremiah Cargill / Next-Gen IT Pros. Domain seed list was ChatGPT-assisted and then used for public DNS/email authentication awareness checks. Results are based on public DNS indicators and should not be treated as a complete security assessment.</p>
   </main>
 </body>
 </html>

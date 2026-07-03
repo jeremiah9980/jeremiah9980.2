@@ -1,14 +1,14 @@
 /**
  * Google Analytics / Google tag bootstrap for this static GitHub Pages site.
  *
- * Measurement ID: G-0H9QRFPRQF
+ * Measurement ID: G-XFQPFW29HF
  *
  * Each HTML page references this file with a relative path. Keeping the
  * measurement ID here avoids duplicating the full gtag snippet across every
  * page and makes future analytics changes a one-file edit.
  */
 (function () {
-  var measurementId = "G-0H9QRFPRQF";
+  var measurementId = "G-XFQPFW29HF";
 
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function () {

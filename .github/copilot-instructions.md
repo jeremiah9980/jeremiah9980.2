@@ -34,6 +34,7 @@ This is a static HTML portfolio and practice site for Jeremiah Cargill, served v
 The `next-gen-it/` section of this site showcases the **Next-Gen-IT** product — a domain health audit platform for small businesses and realty teams. The live portal lives in the separate repository `jeremiah9980/Next-Gen-IT`, under `portal/`.
 
 Key portal files (`jeremiah9980/Next-Gen-IT/portal/`):
+
 - `index.html` — authenticated portal dashboard
 - `login.html` — SHA-256 password gate (client-side, sessionStorage)
 - `auth.js` — auth guard; auto-redirects unauthenticated visitors to login
